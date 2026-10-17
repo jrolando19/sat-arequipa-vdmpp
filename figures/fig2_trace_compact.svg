@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="3.5in" height="3.8in" viewBox="0 0 1050 1140">
+<rect width="100%" height="100%" fill="white"/>
+<text x="303.0" y="36.6" font-size="34" font-family="Times New Roman,serif" font-weight="400">Traza observada en VDMJ 4.7.0</text>
+<rect x="30" y="55" width="990" height="150" rx="9" fill="white" stroke="#222222" stroke-width="3"/>
+<text x="58.0" y="95.2" font-size="36" font-family="Times New Roman,serif" font-weight="700">1. Inicio: sin observaciones</text>
+<text x="58.0" y="139.4" font-size="35" font-family="Times New Roman,serif" font-weight="400">Publicado: Verde · Calidad: SinDatos</text>
+<text x="58.0" y="180.4" font-size="35" font-family="Times New Roman,serif" font-weight="400">Candidato: nil · Versión: 4</text>
+<path d="M525 209 L525 226" stroke="#222222" stroke-width="4"/>
+<path d="M525 236 L515 222 L535 222 Z" fill="#222222"/>
+<rect x="30" y="241" width="990" height="150" rx="9" fill="white" stroke="#222222" stroke-width="3"/>
+<text x="58.0" y="281.2" font-size="36" font-family="Times New Roman,serif" font-weight="700">2. Lectura crítica: 80%, 4° (t = 99)</text>
+<text x="58.0" y="325.4" font-size="35" font-family="Times New Roman,serif" font-weight="700">Publicado: Rojo · Calidad: Vigente</text>
+<text x="58.0" y="366.4" font-size="35" font-family="Times New Roman,serif" font-weight="400">Candidato: Rojo · Versión: 5</text>
+<path d="M525 395 L525 412" stroke="#222222" stroke-width="4"/>
+<path d="M525 422 L515 408 L535 408 Z" fill="#222222"/>
+<rect x="30" y="427" width="990" height="150" rx="9" fill="white" stroke="#222222" stroke-width="3"/>
+<text x="58.0" y="467.2" font-size="36" font-family="Times New Roman,serif" font-weight="700">3. Lectura baja: 40%, 3° (t = 100)</text>
+<text x="58.0" y="511.4" font-size="35" font-family="Times New Roman,serif" font-weight="700">Publicado: Rojo · Calidad: Vigente</text>
+<text x="58.0" y="552.4" font-size="35" font-family="Times New Roman,serif" font-weight="400">Candidato: Verde · Versión: 6</text>
+<path d="M525 581 L525 598" stroke="#222222" stroke-width="4"/>
+<path d="M525 608 L515 594 L535 594 Z" fill="#222222"/>
+<rect x="30" y="613" width="990" height="185" rx="9" fill="#eeeeee" stroke="#222222" stroke-width="3"/>
+<text x="58.0" y="653.2" font-size="36" font-family="Times New Roman,serif" font-weight="700">4. Confirmación manual de lectura 2</text>
+<text x="58.0" y="697.4" font-size="35" font-family="Times New Roman,serif" font-weight="400">Publicado: Rojo · Calidad: Vigente</text>
+<text x="58.0" y="738.4" font-size="35" font-family="Times New Roman,serif" font-weight="400">Candidato: Verde · Versión: 6</text>
+<text x="58.0" y="777.7" font-size="33" font-family="Times New Roman,serif" font-weight="400">Autoriza objetivo Verde sobre la versión 6</text>
+<path d="M525 802 L525 819" stroke="#222222" stroke-width="4"/>
+<path d="M525 829 L515 815 L535 815 Z" fill="#222222"/>
+<rect x="30" y="834" width="990" height="185" rx="9" fill="white" stroke="#222222" stroke-width="3"/>
+<text x="58.0" y="874.2" font-size="36" font-family="Times New Roman,serif" font-weight="700">5. AplicarDescenso</text>
+<text x="58.0" y="918.4" font-size="35" font-family="Times New Roman,serif" font-weight="700">Publicado: Verde · Calidad: Vigente</text>
+<text x="58.0" y="959.4" font-size="35" font-family="Times New Roman,serif" font-weight="400">Candidato: Verde · Versión: 7</text>
+<text x="58.0" y="998.7" font-size="33" font-family="Times New Roman,serif" font-weight="400">Confirmación consumida; episodio cerrado</text>
+<text x="271.0" y="1069.7" font-size="33" font-family="Times New Roman,serif" font-weight="400">Los 2 avisos pendientes se conservan.</text>
+<text x="316.5" y="1111.7" font-size="33" font-family="Times New Roman,serif" font-weight="400">Datos sintéticos; sin envío real.</text>
+</svg>

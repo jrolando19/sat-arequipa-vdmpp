@@ -1,0 +1,47 @@
+{
+  "artifact": "Compact five-stage observed execution trace; not UI screenshot",
+  "model_version": "2.0.0",
+  "width_inches": 3.5,
+  "height_inches": 3.8,
+  "dpi": 300,
+  "body_font_points_at_nominal_size": 8.4,
+  "source_file": "evidence/demo.log",
+  "source_sha256": "c3878b5ec93ca42dbadd7b46ea7b790ce5832c3734f34d69e0c9056aeea6bb66",
+  "source_url": "https://github.com/jrolando19/sat-arequipa-vdmpp/blob/c11208c6240c4faaefe68fd1dcab21d199af98d8/evidence/demo.log",
+  "source_verification": "The local log was parsed and all five displayed snapshots plus confirmation and preserved outbox were checked. Public commit identifier supplied by the coordinating task; this renderer performs no network, Git or cloud operation.",
+  "caption_proposed_es": "Traza ejecutada de retención y descenso autorizado del modelo VDM++ 2.0.0. «Publicado» representa el campo nivel de la consulta de estado, no un envío de mensajes. La lectura baja no reduce Rojo; el operador registra la confirmación y AplicarDescenso consume la autorización. Elaboración a partir de evidence/demo.log; datos sintéticos.",
+  "semantic_note": "Publicado is the conserved alert level returned by Sistema.Ver(q). It is not a claim of network delivery or real-world risk classification.",
+  "observed_snapshots": [
+    {
+      "nivel": "<Verde>",
+      "calidad": "<SinDatos>",
+      "candidato": "nil",
+      "version": 4
+    },
+    {
+      "nivel": "<Rojo>",
+      "calidad": "<Vigente>",
+      "candidato": "<Rojo>",
+      "version": 5
+    },
+    {
+      "nivel": "<Rojo>",
+      "calidad": "<Vigente>",
+      "candidato": "<Verde>",
+      "version": 6
+    },
+    {
+      "nivel": "<Rojo>",
+      "calidad": "<Vigente>",
+      "candidato": "<Verde>",
+      "version": 6
+    },
+    {
+      "nivel": "<Verde>",
+      "calidad": "<Vigente>",
+      "candidato": "<Verde>",
+      "version": 7
+    }
+  ],
+  "original_model_and_publication_modified": false
+}

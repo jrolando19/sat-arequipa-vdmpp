@@ -1,0 +1,81 @@
+@startuml class_model
+skinparam backgroundColor white
+skinparam shadowing false
+skinparam roundcorner 0
+skinparam linetype ortho
+skinparam classAttributeIconSize 0
+hide circle
+skinparam defaultFontName Arial
+skinparam defaultFontSize 24
+skinparam classFontSize 26
+skinparam classAttributeFontSize 24
+skinparam classBackgroundColor white
+skinparam classHeaderBackgroundColor #F2F2F2
+skinparam classBorderColor black
+skinparam classFontColor black
+skinparam ArrowColor black
+skinparam ArrowFontColor black
+skinparam ArrowFontSize 24
+skinparam noteBackgroundColor white
+skinparam noteBorderColor black
+skinparam noteFontSize 16
+skinparam nodesep 60
+skinparam ranksep 90
+hide empty members
+
+class Sistema {
+  - sensores : Map<IdSensor, Sensor>
+  - quebradas : Map<IdQuebrada, Quebrada>
+  - alarma : Alarma
+  --
+  + RecibirLectura(e) : Resultado
+  + RegistrarConfirmacion(actor, q, lid)
+  + AplicarDescenso(actor, q)
+  + Ver(q) : Evaluacion
+}
+
+class Sensor {
+  - id : IdSensor
+  - ultima : Lectura [0..1]
+  - degradado : Boolean
+  --
+  + Aceptar(l)
+  + Degradar()
+}
+
+class Quebrada {
+  - id : IdQuebrada
+  - estado : Evaluacion
+  --
+  + Actualizar(cal, cand)
+  + Configurar(c)
+  + Confirmar(lid : IdLectura)
+  + Descender()
+}
+
+class Alarma {
+  - episodios : Map<IdAlerta, Episodio>
+  - avisos : Map<ClaveAviso, Aviso>
+  --
+  + Abrir(q, ds)
+  + Cerrar(q)
+  + Intentar(e, a, emitida)
+  + Acusar(e, a)
+}
+
+class TiposSAT {
+  {static} + Clasificar(l, c)
+  {static} + Vigente(l, t, ttl)
+  {static} + Prioridad(n)
+}
+
+Sistema "1" -down-> "0..*" Sensor
+Sistema "1" -down-> "0..*" Quebrada
+Sistema "1" -down-> "1" Alarma
+Sensor "0..*" -right- "1" Quebrada
+Sistema ..> TiposSAT
+Sensor -[hidden]down- Alarma
+Quebrada -[hidden]down- TiposSAT
+Alarma -[hidden]down- TiposSAT
+
+@enduml

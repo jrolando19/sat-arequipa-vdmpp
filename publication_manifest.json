@@ -1,6 +1,6 @@
 {
-  "status": "DRAFT — staged locally; not published",
-  "published": false,
+  "status": "PUBLISHED — initial public source commit verified; documentation update",
+  "published": true,
   "author": "Jordy Rolando Tejada Lazo",
   "model_version": "2.0.0",
   "publication_version": "article-v3-support",
@@ -8,9 +8,23 @@
   "original_files_retained": true,
   "files": [
     {
+      "file": ".gitattributes",
+      "original_sha256": null,
+      "public_sha256": "6e05c973d87976db101609117db0957b4d5118d61de2d36b755f38a8542036fa",
+      "bytes_identical": null,
+      "difference": "New public documentation, verification utility or data-derived figure"
+    },
+    {
       "file": ".gitignore",
       "original_sha256": null,
       "public_sha256": "cde3f8961f9a3ad89a4557c2ed1010dafce3a359cc75b29604418dd0f0b59402",
+      "bytes_identical": null,
+      "difference": "New public documentation, verification utility or data-derived figure"
+    },
+    {
+      "file": "docs/bibliography_notes.md",
+      "original_sha256": null,
+      "public_sha256": "dd663eef0231fc37331ebc2ca12abbaff10cd5a89d8bac98a850329820f1bc36",
       "bytes_identical": null,
       "difference": "New public documentation, verification utility or data-derived figure"
     },
@@ -463,9 +477,51 @@
       "difference": "Public path redaction / UTF-8 normalization / portable runner or documentation adjustment"
     },
     {
+      "file": "figures/class_model.png",
+      "original_sha256": null,
+      "public_sha256": "309ea5bcff20d389eadd97bcbf5e5ea9cb524cf6b01d0441f4a1960943846e15",
+      "bytes_identical": null,
+      "difference": "New public documentation, verification utility or data-derived figure"
+    },
+    {
+      "file": "figures/class_model.puml",
+      "original_sha256": null,
+      "public_sha256": "30588072eca51c6f4f93bc498e426566fc449a398c9a7e4ec89884c203210bed",
+      "bytes_identical": null,
+      "difference": "New public documentation, verification utility or data-derived figure"
+    },
+    {
+      "file": "figures/class_model.svg",
+      "original_sha256": null,
+      "public_sha256": "29b6b2404d7ff7be43f469956c9717b51d9a99beb3b5f81c57aeaade57c55aea",
+      "bytes_identical": null,
+      "difference": "New public documentation, verification utility or data-derived figure"
+    },
+    {
       "file": "figures/evidence_figure_metadata.json",
       "original_sha256": null,
       "public_sha256": "ec6586c987a4154f779f278f90cfba4bca5a44a99a20c1520575bffd7c3a1ecb",
+      "bytes_identical": null,
+      "difference": "New public documentation, verification utility or data-derived figure"
+    },
+    {
+      "file": "figures/fig2_trace_compact.png",
+      "original_sha256": null,
+      "public_sha256": "a0ddac0bffcfeaf42dc2ae1fa526211503efe79690d3fcac5f36a3c62cd6e916",
+      "bytes_identical": null,
+      "difference": "New public documentation, verification utility or data-derived figure"
+    },
+    {
+      "file": "figures/fig2_trace_compact.svg",
+      "original_sha256": null,
+      "public_sha256": "176cc62d46a333923ebe33990712177f0e16f8fc3b04366ad19c64daf13f7dba",
+      "bytes_identical": null,
+      "difference": "New public documentation, verification utility or data-derived figure"
+    },
+    {
+      "file": "figures/fig2_trace_compact_metadata.json",
+      "original_sha256": null,
+      "public_sha256": "4f63a957a99cb5471563559fdb979351b41649658c590a4127314ca3ecde6b7b",
       "bytes_identical": null,
       "difference": "New public documentation, verification utility or data-derived figure"
     },
@@ -577,7 +633,7 @@
     {
       "file": "README.md",
       "original_sha256": null,
-      "public_sha256": "b1b9f4a6ad1380d297db224536b899e4c7c947d3206c8a4d8c02fe31825fb00b",
+      "public_sha256": "3c47ad711fcff7f15fa52875a4a5aac4f54ff185e3611b3ab95a609333b6667f",
       "bytes_identical": null,
       "difference": "New public documentation, verification utility or data-derived figure"
     },
@@ -679,6 +735,14 @@
     "source_model_version_unchanged": "2.0.0",
     "private_original_files_modified": false,
     "runtime_or_credentials_included": false,
-    "git_or_cloud_publication_performed": false
+    "git_or_cloud_publication_performed": true
+  },
+  "repository_url": "https://github.com/jrolando19/sat-arequipa-vdmpp",
+  "initial_public_source_commit": "c11208c6240c4faaefe68fd1dcab21d199af98d8",
+  "publication_identity": {
+    "github_login": "jrolando19",
+    "git_name": "Jordy Tejada",
+    "git_email": "jtejadala@unsa.edu.pe",
+    "author_and_committer_verified_on_initial_commit": true
   }
 }

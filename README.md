@@ -2,7 +2,7 @@
 
 **Autor:** Jordy Rolando Tejada Lazo · Ingeniería de Sistemas · Universidad Nacional de San Agustín de Arequipa.
 
-Sistema de Alerta Temprana de Huaicos y Deslizamientos en Quebradas de Arequipa. Modelo académico **2.0.0**, sin cambios respecto de las fuentes congeladas que sustentan el artículo. Esta copia se preparó para publicación; este archivo no acredita que un repositorio ya haya sido publicado.
+Sistema de Alerta Temprana de Huaicos y Deslizamientos en Quebradas de Arequipa. Modelo académico **2.0.0**, sin cambios respecto de las fuentes congeladas que sustentan el artículo. Repositorio público universitario de **jrolando19**: <https://github.com/jrolando19/sat-arequipa-vdmpp>. El commit inicial del código y la atribución de autor y committer fueron verificados antes de actualizar este estado.
 
 ## Alcance y resultados
 
@@ -22,8 +22,9 @@ Las 24 verificaciones adicionales no son 24 escenarios del dominio disjuntos de 
 - `model/`: cinco clases de producción, `TestSAT.vdmpp` y scripts reproducibles.
 - `evidence/`: copia pública redactada de resultados, logs, cobertura nativa, obligaciones y demostración.
 - `review/`: `AuditSAT.vdmpp`, runner independiente y evidencia final; diagnóstico de identidad mutable separado.
-- `figures/`: síntesis gráfica de evidencia para el artículo; no es una captura de una interfaz.
-- `publication_manifest.json`: hashes originales/públicos, estado de preparación y diferencias declaradas.
+- `figures/`: UML editable en PlantUML y SVG/PNG; traza gráfica derivada de ejecuciones reales, no una captura de una interfaz.
+- `docs/bibliography_notes.md`: selección bibliográfica y reservas de verificación de cuartiles por índice, categoría y año.
+- `publication_manifest.json`: hashes originales/públicos, estado de publicación y diferencias declaradas.
 
 ## Reproducir
 
@@ -58,3 +59,9 @@ Los documentos originales y la evidencia privada no se han modificado. No se inc
 Inventario aditivo; reloj lógico; operaciones externas secuenciales; reintentos manuales con incidencia ilustrativa al tercer intento; umbrales sintéticos no geotécnicos; canales de acuse abstractos de confianza. Sin hardware, SMS/correo real, autenticación criptográfica, calibración local, persistencia ante reinicios ni estudio de rendimiento. Los IDs de entrada deben ser estables e inmutables; el diagnóstico separado documenta el uso incorrecto de payload mutable en VDMJ.
 
 La cobertura nativa es por **líneas ejecutables**, no por ramas ni estados. Sistema cubre 127/128 líneas (99,2%); las demás clases de producción cubren todas sus líneas ejecutables en esos escenarios. Esta métrica no reemplaza requisitos, revisión ni obligaciones de prueba.
+
+## Representación del modelo y literatura
+
+`figures/class_model.puml` es la fuente editable del diagrama UML: clases reales, selección de miembros, visibilidad, multiplicidades y dependencias; no introduce herencia entre TiposSAT y las demás clases. Las asociaciones de administración no afirman borrado en cascada ni una política de retiro no implementada. La relación Sensor–Quebrada se realiza por los identificadores de `Sistema.asignacion`.
+
+`figures/fig2_trace_compact.svg` representa cinco snapshots de `evidence/demo/demo.log`. «Publicado» significa el campo lógico `nivel` expuesto por la consulta, no un envío a la población. Las notas bibliográficas distinguen los artículos de las categorías y cuartiles de sus revistas; no se trasladan parámetros físicos ni métricas ajenas al modelo de Arequipa.

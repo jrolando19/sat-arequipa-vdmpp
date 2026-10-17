@@ -1,0 +1,2 @@
+# Keep frozen model and evidence bytes identical on Windows and other systems.
+* -text
