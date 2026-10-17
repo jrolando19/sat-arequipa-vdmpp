@@ -1,0 +1,30 @@
+class Sensor
+instance variables
+  private id : TiposSAT`IdSensor;
+  private quebrada : TiposSAT`IdQuebrada;
+  private ultima : [TiposSAT`Lectura] := nil;
+  private degradado : bool := false;
+  inv ultima <> nil => ultima.sensor = id and ultima.quebrada = quebrada;
+operations
+  public Sensor : TiposSAT`IdSensor * TiposSAT`IdQuebrada ==> Sensor
+  Sensor(s, q) == (id := s; quebrada := q);
+
+  public pure GetId : () ==> TiposSAT`IdSensor
+  GetId() == return id;
+  public pure GetQuebrada : () ==> TiposSAT`IdQuebrada
+  GetQuebrada() == return quebrada;
+  public pure GetUltima : () ==> [TiposSAT`Lectura]
+  GetUltima() == return ultima;
+  public pure Degradado : () ==> bool
+  Degradado() == return degradado;
+
+  public Aceptar : TiposSAT`Lectura ==> ()
+  Aceptar(l) == (ultima := l; degradado := false)
+  pre l.sensor = id and l.quebrada = quebrada and
+    (ultima = nil or (l.numero > ultima.numero and l.instante > ultima.instante))
+  post ultima = l and not degradado;
+
+  public Degradar : () ==> ()
+  Degradar() == degradado := true
+  post degradado and ultima = ultima~;
+end Sensor

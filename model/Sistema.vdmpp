@@ -1,0 +1,191 @@
+class Sistema
+instance variables
+  private operador : token;
+  private ahora : nat := 0;
+  private sensores : map TiposSAT`IdSensor to Sensor := {|->};
+  private quebradas : map TiposSAT`IdQuebrada to Quebrada := {|->};
+  private asignacion : map TiposSAT`IdSensor to TiposSAT`IdQuebrada := {|->};
+  private autoridades : map TiposSAT`IdQuebrada to set1 of TiposSAT`IdAutoridad := {|->};
+  private historial : seq of TiposSAT`Lectura := [];
+  private intentos : seq of TiposSAT`Intento := [];
+  private eventos : seq of TiposSAT`Evento := [];
+  private alarma : Alarma := new Alarma();
+  inv dom asignacion = dom sensores and rng asignacion subset dom quebradas and
+      dom autoridades = dom quebradas and
+      (forall s in set dom sensores & sensores(s).GetId() = s and
+        sensores(s).GetQuebrada() = asignacion(s) and
+        s in set quebradas(asignacion(s)).Ver().activos) and
+      (forall q in set dom quebradas & quebradas(q).GetId() = q and
+        quebradas(q).Ver().activos = {s | s in set dom asignacion & asignacion(s)=q}) and
+      (forall i,j in set inds historial & i <> j => historial(i).id <> historial(j).id) and
+      (forall i,j in set inds historial & i < j and historial(i).sensor=historial(j).sensor =>
+        historial(i).numero < historial(j).numero and
+        historial(i).instante < historial(j).instante) and
+      (forall l in seq historial & l.sensor in set dom sensores and
+        l.quebrada = asignacion(l.sensor));
+operations
+  public Sistema : token ==> Sistema
+  Sistema(admin) == operador := admin;
+
+  public RegistrarQuebrada : token * TiposSAT`IdQuebrada * TiposSAT`Configuracion *
+    set1 of TiposSAT`IdAutoridad ==> ()
+  RegistrarQuebrada(actor,q,c,ds) == (
+    atomic (quebradas := quebradas munion {q |-> new Quebrada(q,c)};
+            autoridades := autoridades munion {q |-> ds});
+    RegistrarEvento(q,mk_token(<AltaQuebrada>))
+  )
+  pre actor = operador and q not in set dom quebradas;
+
+  public RegistrarSensor : token * TiposSAT`IdSensor * TiposSAT`IdQuebrada ==> ()
+  RegistrarSensor(actor,s,q) == (
+    dcl previo : TiposSAT`Evaluacion := quebradas(q).Ver();
+    dcl copia : Quebrada := new Quebrada(q,mu(previo,
+      activos |-> previo.activos union {s}, confirmacion |-> nil,
+      version |-> previo.version+1));
+    atomic (sensores := sensores munion {s |-> new Sensor(s,q)};
+            asignacion := asignacion munion {s |-> q};
+            quebradas := quebradas ++ {q |-> copia});
+    EvaluarQuebrada(q); RegistrarEvento(q,mk_token(<AltaSensor>))
+  )
+  pre actor = operador and s not in set dom sensores and q in set dom quebradas;
+
+  public RecibirLectura : TiposSAT`EntradaLectura ==> TiposSAT`Resultado
+  RecibirLectura(e) == (
+    dcl r : TiposSAT`Resultado := Validar(e);
+    intentos := intentos ^ [mk_TiposSAT`Intento(e,r,ahora)];
+    if r = <Aceptada> then (
+      dcl l : TiposSAT`Lectura := mk_TiposSAT`Lectura(e.id,e.sensor,e.quebrada,
+        e.numero,e.instante,e.humedad,e.inclinacion);
+      sensores(e.sensor).Aceptar(l);
+      historial := historial ^ [l];
+      EvaluarQuebrada(e.quebrada)
+    ) elseif e.sensor in set dom sensores and
+      e.quebrada = asignacion(e.sensor) and
+      r in set {<Rango>,<Incompleta>} and Nuevo(e) then (
+        sensores(e.sensor).Degradar(); EvaluarQuebrada(e.quebrada)
+    );
+    if e.quebrada in set dom quebradas then
+      RegistrarEvento(e.quebrada,mk_token(r));
+    return r
+  )
+  post (RESULT = <Aceptada> => len historial = len historial~+1) and
+       (RESULT <> <Aceptada> => historial = historial~);
+
+  private pure Nuevo : TiposSAT`EntradaLectura ==> bool
+  Nuevo(e) == (dcl l : [TiposSAT`Lectura] := sensores(e.sensor).GetUltima();
+    return e.numero > 0 and e.instante >= 0 and e.instante <= ahora and
+      (l = nil or (e.numero > l.numero and e.instante > l.instante)))
+  pre e.sensor in set dom sensores;
+
+  private pure Validar : TiposSAT`EntradaLectura ==> TiposSAT`Resultado
+  Validar(e) == (
+    if e.sensor not in set dom sensores then return <Desconocido>;
+    if e.quebrada <> asignacion(e.sensor) then return <Origen>;
+    if exists l in seq historial & l.id = e.id then return <Duplicada>;
+    if e.numero < 1 then return <Orden>;
+    if e.instante < 0 or e.instante > ahora then return <Tiempo>;
+    if not Nuevo(e) then return <Orden>;
+    if ahora-e.instante > quebradas(e.quebrada).Ver().configuracion.vigencia
+      then return <Tiempo>;
+    if e.humedad = nil or e.inclinacion = nil then return <Incompleta>;
+    if e.humedad < 0 or e.humedad > 100 or
+       e.inclinacion < 0 or e.inclinacion > 180 then return <Rango>;
+    return <Aceptada>
+  );
+
+  public EvaluarQuebrada : TiposSAT`IdQuebrada ==> ()
+  EvaluarQuebrada(q) == (
+    dcl c : TiposSAT`Configuracion := quebradas(q).Ver().configuracion;
+    dcl activos : set of token := quebradas(q).Ver().activos;
+    dcl utilizables : set of TiposSAT`Lectura := {};
+    dcl anterior : TiposSAT`NivelAlerta := quebradas(q).Ver().nivel;
+    for all s in set activos do (
+      dcl l : [TiposSAT`Lectura] := sensores(s).GetUltima();
+      if l <> nil and not sensores(s).Degradado() and
+         TiposSAT`Vigente(l,ahora,c.vigencia) then utilizables := utilizables union {l}
+    );
+    quebradas(q).Actualizar(
+      if utilizables = {} then <SinDatos>
+      elseif card utilizables = card activos then <Vigente> else <Degradada>,
+      TiposSAT`Agregar({TiposSAT`Clasificar(l,c) | l in set utilizables}));
+    if anterior <> <Rojo> and quebradas(q).Ver().nivel = <Rojo> then
+      alarma.Abrir(q,autoridades(q))
+  )
+  pre q in set dom quebradas;
+
+  public RegistrarConfirmacion : token * TiposSAT`IdQuebrada * TiposSAT`IdLectura ==> ()
+  RegistrarConfirmacion(actor,q,lid) == (
+    quebradas(q).Confirmar(lid); RegistrarEvento(q,mk_token(<Confirmacion>)))
+  pre actor = operador and q in set dom quebradas and
+    quebradas(q).Ver().calidad = <Vigente> and
+    quebradas(q).Ver().candidato <> nil and
+    TiposSAT`Prioridad(quebradas(q).Ver().candidato) <
+      TiposSAT`Prioridad(quebradas(q).Ver().nivel) and
+    (exists s in set quebradas(q).Ver().activos &
+      sensores(s).GetUltima() <> nil and sensores(s).GetUltima().id = lid);
+
+  public AplicarDescenso : token * TiposSAT`IdQuebrada ==> ()
+  AplicarDescenso(actor,q) == (
+    dcl anterior : TiposSAT`NivelAlerta := quebradas(q).Ver().nivel;
+    dcl episodio : [token] := alarma.Activa(q);
+    quebradas(q).Descender();
+    if anterior = <Rojo> then alarma.Cerrar(q);
+    RegistrarContexto(q,mk_token(<Descenso>),episodio,nil,nil)
+  )
+  pre actor = operador and q in set dom quebradas and
+      quebradas(q).Ver().confirmacion <> nil;
+
+  public CambiarConfiguracion : token * TiposSAT`IdQuebrada * TiposSAT`Configuracion ==> ()
+  CambiarConfiguracion(actor,q,c) == (
+    quebradas(q).Configurar(c); EvaluarQuebrada(q);
+    RegistrarEvento(q,mk_token(<Configuracion>))
+  )
+  pre actor = operador and q in set dom quebradas and
+      c.version = quebradas(q).Ver().configuracion.version+1;
+
+  public AvanzarTiempo : nat ==> ()
+  AvanzarTiempo(nuevo) == (
+    ahora := nuevo;
+    for all q in set dom quebradas do (
+      EvaluarQuebrada(q); RegistrarEvento(q,mk_token(<Tiempo>)))
+  )
+  pre nuevo >= ahora
+  post ahora = nuevo;
+
+  private RegistrarEvento : TiposSAT`IdQuebrada * token ==> ()
+  RegistrarEvento(q,causa) == RegistrarContexto(q,causa,alarma.Activa(q),nil,nil);
+
+  private RegistrarContexto : TiposSAT`IdQuebrada * token * [TiposSAT`IdAlerta] *
+    [TiposSAT`IdAutoridad] * [TiposSAT`Aviso] ==> ()
+  RegistrarContexto(q,causa,e,a,av) == eventos := eventos ^ [mk_TiposSAT`Evento(
+    len eventos+1,ahora,q,causa,quebradas(q).Ver().version,quebradas(q).Ver(),e,a,av)];
+
+  public EmitirAviso : TiposSAT`IdAlerta * TiposSAT`IdAutoridad * bool ==> ()
+  EmitirAviso(e,a,ok) == (alarma.Intentar(e,a,ok);
+    RegistrarContexto(alarma.VerEpisodios()(e).quebrada,mk_token(<IntentoAviso>),
+      e,a,alarma.VerAvisos()(mk_(e,a))))
+  pre mk_(e,a) in set dom alarma.VerAvisos();
+  public RegistrarAcuse : TiposSAT`IdAlerta * TiposSAT`IdAutoridad ==> ()
+  RegistrarAcuse(e,a) == (alarma.Acusar(e,a);
+    RegistrarContexto(alarma.VerEpisodios()(e).quebrada,mk_token(<Acuse>),
+      e,a,alarma.VerAvisos()(mk_(e,a))))
+  pre mk_(e,a) in set dom alarma.VerAvisos();
+
+  public pure Ver : TiposSAT`IdQuebrada ==> TiposSAT`Evaluacion
+  Ver(q) == return quebradas(q).Ver()
+  pre q in set dom quebradas;
+  public pure VerAvisos : () ==> map (TiposSAT`IdAlerta * TiposSAT`IdAutoridad) to TiposSAT`Aviso
+  VerAvisos() == return alarma.VerAvisos();
+  public pure VerEpisodios : () ==> map TiposSAT`IdAlerta to TiposSAT`Episodio
+  VerEpisodios() == return alarma.VerEpisodios();
+  public pure AlertaActiva : TiposSAT`IdQuebrada ==> [TiposSAT`IdAlerta]
+  AlertaActiva(q) == return alarma.Activa(q);
+  public pure VerHistorial : () ==> seq of TiposSAT`Lectura
+  VerHistorial() == return historial;
+  public pure VerIntentos : () ==> seq of TiposSAT`Intento
+  VerIntentos() == return intentos;
+  public pure VerEventos : () ==> seq of TiposSAT`Evento
+  VerEventos() == return eventos;
+  public pure Ahora : () ==> nat
+  Ahora() == return ahora;
+end Sistema

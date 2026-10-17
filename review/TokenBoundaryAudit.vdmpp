@@ -1,0 +1,14 @@
+class TokenBoundaryAudit
+operations
+  public static Ejecutar : () ==> bool
+  Ejecutar() == (
+    dcl contador : nat := 1;
+    dcl q : token := mk_token(mk_(<IdExterno>,contador));
+    dcl admin : token := mk_token("boundary-admin");
+    dcl x : Sistema := new Sistema(admin);
+    x.RegistrarQuebrada(admin,q,mk_TiposSAT`Configuracion(60,80,5,10,30,1),
+      {mk_token("authority")});
+    contador := 2;
+    return x.Ver(q).calidad = <SinDatos>
+  );
+end TokenBoundaryAudit

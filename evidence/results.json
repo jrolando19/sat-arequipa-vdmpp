@@ -1,0 +1,615 @@
+{
+  "model_version": "2.0.0",
+  "client_date": "2026-10-17",
+  "execution_utc": "2026-10-17T14:42:06.1234846Z",
+  "language": "VDM++ / VDM-10",
+  "vdmj": "VDMJ version = 4.7.0 build 260414",
+  "java": "java version \"18.0.1\" 2022-04-19\nJava(TM) SE Runtime Environment (build 18.0.1+10-24)\nJava HotSpot(TM) 64-Bit Server VM (build 18.0.1+10-24, mixed mode, sharing)",
+  "source_url": "https://github.com/nickbattle/vdmj/releases/tag/4.7.0-release-fix",
+  "jar_sha256": "F57EB06F0116E76916B789F683345398B0C95A1BD860FDC176CD119F2B89B19D",
+  "checks": {
+    "preconditions": true,
+    "postconditions": true,
+    "invariants": true,
+    "dynamic_types": true
+  },
+  "command_prefix": [
+    "C:/Program Files/Java/jdk-18.0.1/bin/java.exe",
+    "-jar",
+    "<PROJECT_ROOT>/model/tools/vdmj-suite-4.7.0/vdmj-4.7.0.jar",
+    "-vdmpp",
+    "-r",
+    "vdm10",
+    "-strict",
+    "-c",
+    "UTF-8"
+  ],
+  "sources": [
+    "<PROJECT_ROOT>/model/Alarma.vdmpp",
+    "<PROJECT_ROOT>/model/Quebrada.vdmpp",
+    "<PROJECT_ROOT>/model/Sensor.vdmpp",
+    "<PROJECT_ROOT>/model/Sistema.vdmpp",
+    "<PROJECT_ROOT>/model/TestSAT.vdmpp",
+    "<PROJECT_ROOT>/model/TiposSAT.vdmpp"
+  ],
+  "source_hashes": [
+    {
+      "file": "Alarma.vdmpp",
+      "Hash": "F02A256D8A4F7A3B52F28BF59C20FC9852ADECE05F20F5B65F6311C0F04FFBD3"
+    },
+    {
+      "file": "Quebrada.vdmpp",
+      "Hash": "315DB85330E67AB66F4EDEDE60D91DFDEE3DCD78F07178446F15FFC37ABAA28A"
+    },
+    {
+      "file": "Sensor.vdmpp",
+      "Hash": "239701E343AEC3E40637D8551DEEE8767AC8B2A18E1094416EF79784DBD9311E"
+    },
+    {
+      "file": "Sistema.vdmpp",
+      "Hash": "741966836F75989DC203403B21636FAC5C7F703E9AF33EDA0973A7BDDC7D63F5"
+    },
+    {
+      "file": "TestSAT.vdmpp",
+      "Hash": "428DE36230ACA17D7BA810B38096A9B338F6E886BBEA6340BB3ABF1B9248DC9F"
+    },
+    {
+      "file": "TiposSAT.vdmpp",
+      "Hash": "DFFC16CE4D89B5077793B048FBC80C52D3A694A36121AA92164B91F3434F3E55"
+    }
+  ],
+  "behavioural_cases": 40,
+  "expected_negative_cases": 9,
+  "total": 49,
+  "passed": 49,
+  "failed": 0,
+  "results": [
+    {
+      "id": "T01",
+      "purpose": "Sensor desconocido: rechazo sin modificación",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T01()",
+      "log": "T01.log"
+    },
+    {
+      "id": "T02",
+      "purpose": "Humedad negativa: última válida preservada y sensor degradado",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T02()",
+      "log": "T02.log"
+    },
+    {
+      "id": "T03",
+      "purpose": "Inclinación 181: rechazo por rango",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T03()",
+      "log": "T03.log"
+    },
+    {
+      "id": "T04",
+      "purpose": "Identidad duplicada: sin duplicar historial ni avisos",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T04()",
+      "log": "T04.log"
+    },
+    {
+      "id": "T05",
+      "purpose": "Lectura atrasada/futura: rechazo y muestra anterior conservada",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T05()",
+      "log": "T05.log"
+    },
+    {
+      "id": "T06",
+      "purpose": "Vigencia inclusiva edad30 y expiración31, conserva Rojo",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T06()",
+      "log": "T06.log"
+    },
+    {
+      "id": "T07",
+      "purpose": "Clasificación Verde con cobertura completa",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T07()",
+      "log": "T07.log"
+    },
+    {
+      "id": "T08",
+      "purpose": "Límites Amarillo: humedad60 e inclinación5",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T08()",
+      "log": "T08.log"
+    },
+    {
+      "id": "T09",
+      "purpose": "Límites Rojo: humedad80 e inclinación10",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T09()",
+      "log": "T09.log"
+    },
+    {
+      "id": "T10",
+      "purpose": "Verde a Rojo directo: episodio y dos obligaciones pendientes",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T10()",
+      "log": "T10.log"
+    },
+    {
+      "id": "T11",
+      "purpose": "Predicado rechaza umbrales iguales o invertidos",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T11()",
+      "log": "T11.log"
+    },
+    {
+      "id": "T12",
+      "purpose": "Inicio: SinDatos y candidato nil",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T12()",
+      "log": "T12.log"
+    },
+    {
+      "id": "T13",
+      "purpose": "Lectura baja no reduce Rojo sin confirmación",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T13()",
+      "log": "T13.log"
+    },
+    {
+      "id": "T14",
+      "purpose": "Lecturas contradictorias: máximo Rojo",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T14()",
+      "log": "T14.log"
+    },
+    {
+      "id": "T15",
+      "purpose": "Nueva lectura invalida confirmación",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T15()",
+      "log": "T15.log"
+    },
+    {
+      "id": "T16",
+      "purpose": "Caducidad invalida confirmación y conserva Rojo",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T16()",
+      "log": "T16.log"
+    },
+    {
+      "id": "T17",
+      "purpose": "Descenso autorizado consume confirmación y conserva avisos",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T17()",
+      "log": "T17.log"
+    },
+    {
+      "id": "T18",
+      "purpose": "Confirmación consumida queda ausente",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T18()",
+      "log": "T18.log"
+    },
+    {
+      "id": "T19",
+      "purpose": "Configuración versionada invalida confirmación sin descenso",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T19()",
+      "log": "T19.log"
+    },
+    {
+      "id": "T20",
+      "purpose": "Acuses independientes por autoridad",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T20()",
+      "log": "T20.log"
+    },
+    {
+      "id": "T21",
+      "purpose": "Tres reintentos mantienen clave y generan incidencia",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T21()",
+      "log": "T21.log"
+    },
+    {
+      "id": "T22",
+      "purpose": "Nuevo episodio tras descenso y retorno a Rojo",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T22()",
+      "log": "T22.log"
+    },
+    {
+      "id": "T23",
+      "purpose": "Aislamiento de dos quebradas",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T23()",
+      "log": "T23.log"
+    },
+    {
+      "id": "T24",
+      "purpose": "Alta aditiva de sensor: inventario consistente y confirmación invalidada",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T24()",
+      "log": "T24.log"
+    },
+    {
+      "id": "T25",
+      "purpose": "Observación incompleta: rechazo sin lectura aceptada",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T25()",
+      "log": "T25.log"
+    },
+    {
+      "id": "T26",
+      "purpose": "Extremos válidos (0,0) y (100,180)",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T26()",
+      "log": "T26.log"
+    },
+    {
+      "id": "T27",
+      "purpose": "Origen de lectura incompatible: rechazo",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T27()",
+      "log": "T27.log"
+    },
+    {
+      "id": "T28",
+      "purpose": "Cobertura parcial puede escalar pero informa Degradada",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T28()",
+      "log": "T28.log"
+    },
+    {
+      "id": "T29",
+      "purpose": "Nueva lectura válida recupera calidad tras intento inválido",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T29()",
+      "log": "T29.log"
+    },
+    {
+      "id": "T30",
+      "purpose": "Nueva lectura de q2 no invalida confirmación q1",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T30()",
+      "log": "T30.log"
+    },
+    {
+      "id": "T31",
+      "purpose": "Acuse idempotente y aviso confirmado no se reintenta",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T31()",
+      "log": "T31.log"
+    },
+    {
+      "id": "T32",
+      "purpose": "Nueva configuración más estricta escala y genera obligaciones",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T32()",
+      "log": "T32.log"
+    },
+    {
+      "id": "T33",
+      "purpose": "Entrada ya caducada rechazada",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T33()",
+      "log": "T33.log"
+    },
+    {
+      "id": "T34",
+      "purpose": "Número cero e instante negativo rechazados",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T34()",
+      "log": "T34.log"
+    },
+    {
+      "id": "T35",
+      "purpose": "Igual instante con número mayor rechazado",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T35()",
+      "log": "T35.log"
+    },
+    {
+      "id": "T36",
+      "purpose": "Secuencia de eventos con orden consecutivo",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T36()",
+      "log": "T36.log"
+    },
+    {
+      "id": "T37",
+      "purpose": "Contexto explícito e inmutable de envío y acuse en eventos",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T37()",
+      "log": "T37.log"
+    },
+    {
+      "id": "T38",
+      "purpose": "Descenso autorizado Rojo a Amarillo y Amarillo a Verde",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T38()",
+      "log": "T38.log"
+    },
+    {
+      "id": "T39",
+      "purpose": "Configuración y candidato históricos preservados tras reconfigurar",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T39()",
+      "log": "T39.log"
+    },
+    {
+      "id": "T40",
+      "purpose": "Reevaluación temporal conservadora invalida confirmación incluso en igual tick",
+      "kind": "behaviour",
+      "expected": "true",
+      "observed": "true",
+      "exit_code": 0,
+      "verdict": "PASS",
+      "expression": "new TestSAT().T40()",
+      "log": "T40.log"
+    },
+    {
+      "id": "N01",
+      "purpose": "Alta duplicada de sensor",
+      "kind": "expected-contract-rejection",
+      "expected": "precondition violation",
+      "observed": "Execution: Error 4071: Precondition failure: pre_RegistrarSensor in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 50:24",
+      "exit_code": 1,
+      "verdict": "PASS",
+      "expression": "new TestSAT().N01()",
+      "log": "N01.log"
+    },
+    {
+      "id": "N02",
+      "purpose": "Actor no autorizado",
+      "kind": "expected-contract-rejection",
+      "expected": "precondition violation",
+      "observed": "Execution: Error 4071: Precondition failure: pre_RegistrarSensor in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 50:24",
+      "exit_code": 1,
+      "verdict": "PASS",
+      "expression": "new TestSAT().N02()",
+      "log": "N02.log"
+    },
+    {
+      "id": "N03",
+      "purpose": "Retroceso del reloj",
+      "kind": "expected-contract-rejection",
+      "expected": "precondition violation",
+      "observed": "Execution: Error 4071: Precondition failure: pre_AvanzarTiempo in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 152:13",
+      "exit_code": 1,
+      "verdict": "PASS",
+      "expression": "new TestSAT().N03()",
+      "log": "N03.log"
+    },
+    {
+      "id": "N04",
+      "purpose": "Descenso sin confirmación",
+      "kind": "expected-contract-rejection",
+      "expected": "precondition violation",
+      "observed": "Execution: Error 4071: Precondition failure: pre_AplicarDescenso in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 135:24",
+      "exit_code": 1,
+      "verdict": "PASS",
+      "expression": "new TestSAT().N04()",
+      "log": "N04.log"
+    },
+    {
+      "id": "N05",
+      "purpose": "Reutilización de confirmación consumida",
+      "kind": "expected-contract-rejection",
+      "expected": "precondition violation",
+      "observed": "Execution: Error 4071: Precondition failure: pre_AplicarDescenso in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 135:24",
+      "exit_code": 1,
+      "verdict": "PASS",
+      "expression": "new TestSAT().N05()",
+      "log": "N05.log"
+    },
+    {
+      "id": "N06",
+      "purpose": "Acuse sin obligación existente",
+      "kind": "expected-contract-rejection",
+      "expected": "precondition violation",
+      "observed": "Execution: Error 4071: Precondition failure: pre_RegistrarAcuse in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 172:16",
+      "exit_code": 1,
+      "verdict": "PASS",
+      "expression": "new TestSAT().N06()",
+      "log": "N06.log"
+    },
+    {
+      "id": "N07",
+      "purpose": "Confirmación con candidato Rojo",
+      "kind": "expected-contract-rejection",
+      "expected": "precondition violation",
+      "observed": "Execution: Error 4071: Precondition failure: pre_RegistrarConfirmacion in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 119:24",
+      "exit_code": 1,
+      "verdict": "PASS",
+      "expression": "new TestSAT().N07()",
+      "log": "N07.log"
+    },
+    {
+      "id": "N08",
+      "purpose": "Configuración sin incremento de versión",
+      "kind": "expected-contract-rejection",
+      "expected": "precondition violation",
+      "observed": "Execution: Error 4071: Precondition failure: pre_CambiarConfiguracion in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 143:24",
+      "exit_code": 1,
+      "verdict": "PASS",
+      "expression": "new TestSAT().N08()",
+      "log": "N08.log"
+    },
+    {
+      "id": "N09",
+      "purpose": "Construcción de configuración inválida",
+      "kind": "expected-contract-rejection",
+      "expected": "invariant violation",
+      "observed": "Execution: Error 4079: Type invariant violated by mk_Configuracion arguments in 'TestSAT' (<PROJECT_ROOT>/model/TestSAT.vdmpp) at line 333:19",
+      "exit_code": 1,
+      "verdict": "PASS",
+      "expression": "new TestSAT().N09()",
+      "log": "N09.log"
+    }
+  ],
+  "limitations": [
+    "Synthetic data; not geotechnical validation",
+    "No real SMS/email delivery",
+    "Sequential atomic external operations; no distributed concurrency",
+    "Additive inventory only; removal and relocation out of scope",
+    "Manual logical retries; incidence threshold3 is illustrative, not a scheduler",
+    "No theorem discharge or exhaustive model checking claimed"
+  ]
+}

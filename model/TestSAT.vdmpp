@@ -1,0 +1,334 @@
+class TestSAT
+values
+  public admin : token = mk_token("operador");
+  public q : token = mk_token("q1");
+  public q2 : token = mk_token("q2");
+  public s : token = mk_token("s1");
+  public s2 : token = mk_token("s2");
+  public a : token = mk_token("a1");
+  public a2 : token = mk_token("a2");
+  public cfg : TiposSAT`Configuracion = mk_TiposSAT`Configuracion(60,80,5,10,30,1);
+functions
+  public static E : nat1 * token * token * int * int * [real] * [real] -> TiposSAT`EntradaLectura
+  E(n,si,qu,seqn,t,h,i) == mk_TiposSAT`EntradaLectura(mk_token(mk_(<Lectura>,n)),si,qu,seqn,t,h,i);
+operations
+  public Base : () ==> Sistema
+  Base() == (dcl x : Sistema := new Sistema(admin);
+    x.RegistrarQuebrada(admin,q,cfg,{a,a2});
+    x.RegistrarSensor(admin,s,q); x.AvanzarTiempo(100); return x);
+
+  public Rojo : () ==> Sistema
+  Rojo() == (dcl x : Sistema := Base();
+    dcl r : TiposSAT`Resultado := x.RecibirLectura(E(1,s,q,1,99,80,4));
+    if r <> <Aceptada> then exit <SetupError>; return x)
+  post RESULT.Ver(q).nivel = <Rojo>;
+
+  public Bajo : () ==> Sistema
+  Bajo() == (dcl x : Sistema := Rojo();
+    dcl r : TiposSAT`Resultado := x.RecibirLectura(E(2,s,q,2,100,40,3));
+    if r <> <Aceptada> then exit <SetupError>; return x)
+  post RESULT.Ver(q).nivel = <Rojo> and RESULT.Ver(q).candidato = <Verde>;
+
+  public T01 : () ==> bool
+  T01() == (dcl x : Sistema := Base();
+    return x.RecibirLectura(E(1,mk_token("desconocido"),q,1,100,40,3)) = <Desconocido>
+      and x.VerHistorial() = [] and x.Ver(q).nivel = <Verde>);
+
+  public T02 : () ==> bool
+  T02() == (dcl x : Sistema := Base();
+    dcl r : TiposSAT`Resultado := x.RecibirLectura(E(1,s,q,1,98,40,3));
+    r := x.RecibirLectura(E(2,s,q,2,99,-1,3));
+    return r = <Rango> and len x.VerHistorial() = 1 and
+      x.Ver(q).calidad = <SinDatos> and x.Ver(q).candidato = nil);
+
+  public T03 : () ==> bool
+  T03() == (dcl x : Sistema := Base();
+    return x.RecibirLectura(E(1,s,q,1,100,40,181)) = <Rango>
+      and x.VerHistorial() = []);
+
+  public T04 : () ==> bool
+  T04() == (dcl x : Sistema := Rojo();
+    dcl n : nat := card dom x.VerAvisos();
+    return x.RecibirLectura(E(1,s,q,1,99,80,4)) = <Duplicada> and
+      len x.VerHistorial() = 1 and card dom x.VerAvisos() = n);
+
+  public T05 : () ==> bool
+  T05() == (dcl x : Sistema := Base();
+    dcl r1 : TiposSAT`Resultado := x.RecibirLectura(E(1,s,q,1,99,40,3));
+    dcl r2 : TiposSAT`Resultado := x.RecibirLectura(E(2,s,q,2,98,40,3));
+    dcl r3 : TiposSAT`Resultado := x.RecibirLectura(E(3,s,q,2,101,40,3));
+    return r1 = <Aceptada> and r2 = <Orden> and r3 = <Tiempo> and
+      len x.VerHistorial() = 1 and x.Ver(q).calidad = <Vigente>);
+
+  public T06 : () ==> bool
+  T06() == (dcl x : Sistema := Base();
+    dcl r : TiposSAT`Resultado := x.RecibirLectura(E(1,s,q,1,70,80,4));
+    dcl frontera : bool := x.Ver(q).calidad = <Vigente>;
+    x.AvanzarTiempo(101);
+    return r = <Aceptada> and frontera and x.Ver(q).calidad = <SinDatos> and
+      x.Ver(q).nivel = <Rojo> and x.Ver(q).candidato = nil);
+
+  public T07 : () ==> bool
+  T07() == (dcl x : Sistema := Base();
+    dcl r : TiposSAT`Resultado := x.RecibirLectura(E(1,s,q,1,100,59,4));
+    return r = <Aceptada> and x.Ver(q).nivel = <Verde> and
+      x.Ver(q).calidad = <Vigente>);
+
+  public T08 : () ==> bool
+  T08() == (dcl x : Sistema := Base();
+    dcl r : TiposSAT`Resultado := x.RecibirLectura(E(1,s,q,1,99,60,4));
+    dcl primero : bool := x.Ver(q).candidato = <Amarillo>;
+    r := x.RecibirLectura(E(2,s,q,2,100,40,5));
+    return r = <Aceptada> and primero and x.Ver(q).candidato = <Amarillo>);
+
+  public T09 : () ==> bool
+  T09() == (dcl x : Sistema := Base();
+    dcl r : TiposSAT`Resultado := x.RecibirLectura(E(1,s,q,1,99,80,4));
+    dcl primero : bool := x.Ver(q).candidato = <Rojo>;
+    r := x.RecibirLectura(E(2,s,q,2,100,40,10));
+    return r = <Aceptada> and primero and x.Ver(q).candidato = <Rojo>);
+
+  public T10 : () ==> bool
+  T10() == (dcl x : Sistema := Rojo();
+    return x.Ver(q).nivel = <Rojo> and card dom x.VerEpisodios() = 1 and
+      card dom x.VerAvisos() = 2 and
+      forall k in set dom x.VerAvisos() & x.VerAvisos()(k).estado = <Pendiente>);
+
+  public T11 : () ==> bool
+  T11() == return not TiposSAT`ConfiguracionValida(80,80,5,10) and
+    not TiposSAT`ConfiguracionValida(90,80,5,10) and
+    not TiposSAT`ConfiguracionValida(60,80,10,5);
+
+  public T12 : () ==> bool
+  T12() == (dcl x : Sistema := Base();
+    return x.Ver(q).candidato = nil and x.Ver(q).calidad = <SinDatos>);
+
+  public T13 : () ==> bool
+  T13() == (dcl x : Sistema := Bajo();
+    return x.Ver(q).nivel = <Rojo> and x.Ver(q).candidato = <Verde> and
+      x.Ver(q).confirmacion = nil and card dom x.VerAvisos() = 2);
+
+  public T14 : () ==> bool
+  T14() == (dcl x : Sistema := Rojo();
+    x.RegistrarSensor(admin,s2,q);
+    return x.RecibirLectura(E(2,s2,q,1,100,40,3)) = <Aceptada> and
+      x.Ver(q).candidato = <Rojo> and x.Ver(q).calidad = <Vigente>);
+
+  public T15 : () ==> bool
+  T15() == (dcl x : Sistema := Base();
+    dcl r : TiposSAT`Resultado := x.RecibirLectura(E(1,s,q,1,98,80,4));
+    r := x.RecibirLectura(E(2,s,q,2,99,40,3));
+    x.RegistrarConfirmacion(admin,q,E(2,s,q,2,99,40,3).id);
+    return r = <Aceptada> and x.RecibirLectura(E(3,s,q,3,100,40,3)) = <Aceptada> and
+      x.Ver(q).confirmacion = nil and x.Ver(q).nivel = <Rojo>);
+
+  public T16 : () ==> bool
+  T16() == (dcl x : Sistema := Bajo();
+    x.RegistrarConfirmacion(admin,q,E(2,s,q,2,100,40,3).id);
+    x.AvanzarTiempo(131);
+    return x.Ver(q).confirmacion = nil and x.Ver(q).calidad = <SinDatos> and
+      x.Ver(q).nivel = <Rojo>);
+
+  public T17 : () ==> bool
+  T17() == (dcl x : Sistema := Bajo();
+    x.RegistrarConfirmacion(admin,q,E(2,s,q,2,100,40,3).id);
+    x.AplicarDescenso(admin,q);
+    return x.Ver(q).nivel = <Verde> and x.Ver(q).confirmacion = nil and
+      x.AlertaActiva(q) = nil and card dom x.VerAvisos() = 2);
+
+  public T18 : () ==> bool
+  T18() == (dcl x : Sistema := Bajo();
+    x.RegistrarConfirmacion(admin,q,E(2,s,q,2,100,40,3).id);
+    x.AplicarDescenso(admin,q);
+    return x.Ver(q).confirmacion = nil);
+
+  public T19 : () ==> bool
+  T19() == (dcl x : Sistema := Bajo();
+    x.RegistrarConfirmacion(admin,q,E(2,s,q,2,100,40,3).id);
+    x.CambiarConfiguracion(admin,q,mk_TiposSAT`Configuracion(70,90,7,15,30,2));
+    return x.Ver(q).nivel = <Rojo> and x.Ver(q).confirmacion = nil and
+      x.Ver(q).configuracion.version = 2);
+
+  public T20 : () ==> bool
+  T20() == (dcl x : Sistema := Rojo();
+    dcl e : token := x.AlertaActiva(q);
+    x.EmitirAviso(e,a,true); x.RegistrarAcuse(e,a);
+    return x.VerAvisos()(mk_(e,a)).estado = <Confirmada> and
+      x.VerAvisos()(mk_(e,a2)).estado = <Pendiente>);
+
+  public T21 : () ==> bool
+  T21() == (dcl x : Sistema := Rojo();
+    dcl e : token := x.AlertaActiva(q);
+    x.EmitirAviso(e,a,false); x.EmitirAviso(e,a,false); x.EmitirAviso(e,a,false);
+    return x.AlertaActiva(q) = e and card dom x.VerAvisos() = 2 and
+      x.VerAvisos()(mk_(e,a)).intentos = 3 and
+      x.VerAvisos()(mk_(e,a)).incidencia and
+      x.VerAvisos()(mk_(e,a)).estado = <Pendiente>);
+
+  public T22 : () ==> bool
+  T22() == (dcl x : Sistema := Bajo();
+    dcl e : token := x.AlertaActiva(q);
+    x.RegistrarConfirmacion(admin,q,E(2,s,q,2,100,40,3).id);
+    x.AplicarDescenso(admin,q); x.AvanzarTiempo(101);
+    return x.RecibirLectura(E(3,s,q,3,101,80,4)) = <Aceptada> and
+      x.AlertaActiva(q) <> e and card dom x.VerEpisodios() = 2 and
+      card dom x.VerAvisos() = 4);
+
+  public T23 : () ==> bool
+  T23() == (dcl x : Sistema := Base();
+    dcl anterior : TiposSAT`Evaluacion := x.Ver(q);
+    x.RegistrarQuebrada(admin,q2,cfg,{a}); x.RegistrarSensor(admin,s2,q2);
+    return x.RecibirLectura(E(1,s2,q2,1,100,80,4)) = <Aceptada> and
+      x.Ver(q) = anterior and x.Ver(q2).nivel = <Rojo>);
+
+  public T24 : () ==> bool
+  T24() == (dcl x : Sistema := Bajo();
+    x.RegistrarConfirmacion(admin,q,E(2,s,q,2,100,40,3).id);
+    x.RegistrarSensor(admin,s2,q);
+    return x.Ver(q).activos = {s,s2} and x.Ver(q).confirmacion = nil and
+      x.Ver(q).calidad = <Degradada> and x.Ver(q).nivel = <Rojo>);
+
+  public T25 : () ==> bool
+  T25() == (dcl x : Sistema := Base();
+    return x.RecibirLectura(E(1,s,q,1,100,nil,3)) = <Incompleta> and
+      x.VerHistorial() = []);
+
+  public T26 : () ==> bool
+  T26() == (dcl x : Sistema := Base();
+    dcl r : TiposSAT`Resultado := x.RecibirLectura(E(1,s,q,1,99,0,0));
+    dcl minimo : bool := x.Ver(q).candidato = <Verde>;
+    r := x.RecibirLectura(E(2,s,q,2,100,100,180));
+    return r = <Aceptada> and minimo and x.Ver(q).candidato = <Rojo>);
+
+  public T27 : () ==> bool
+  T27() == (dcl x : Sistema := Base();
+    return x.RecibirLectura(E(1,s,q2,1,100,80,4)) = <Origen> and
+      x.VerHistorial() = [] and x.Ver(q).nivel = <Verde>);
+
+  public T28 : () ==> bool
+  T28() == (dcl x : Sistema := Rojo();
+    x.RegistrarSensor(admin,s2,q);
+    return x.Ver(q).calidad = <Degradada> and x.Ver(q).nivel = <Rojo> and
+      x.Ver(q).candidato = <Rojo>);
+
+  public T29 : () ==> bool
+  T29() == (dcl x : Sistema := Base();
+    dcl r : TiposSAT`Resultado := x.RecibirLectura(E(1,s,q,1,99,101,3));
+    r := x.RecibirLectura(E(2,s,q,1,100,40,3));
+    return r = <Aceptada> and x.Ver(q).calidad = <Vigente> and
+      len x.VerHistorial() = 1 and len x.VerIntentos() = 2);
+
+  public T30 : () ==> bool
+  T30() == (dcl x : Sistema := Bajo();
+    dcl anterior : TiposSAT`Evaluacion;
+    dcl r : TiposSAT`Resultado;
+    x.RegistrarQuebrada(admin,q2,cfg,{a}); x.RegistrarSensor(admin,s2,q2);
+    x.RegistrarConfirmacion(admin,q,E(2,s,q,2,100,40,3).id);
+    anterior := x.Ver(q);
+    r := x.RecibirLectura(E(3,s2,q2,1,100,80,4));
+    return r = <Aceptada> and x.Ver(q) = anterior and
+      x.Ver(q).confirmacion <> nil);
+
+  public T31 : () ==> bool
+  T31() == (dcl x : Sistema := Rojo();
+    dcl e : token := x.AlertaActiva(q);
+    x.RegistrarAcuse(e,a); x.EmitirAviso(e,a,true); x.RegistrarAcuse(e,a);
+    return x.VerAvisos()(mk_(e,a)).estado = <Confirmada> and
+      x.VerAvisos()(mk_(e,a)).intentos = 0);
+
+  public T32 : () ==> bool
+  T32() == (dcl x : Sistema := Base();
+    dcl r : TiposSAT`Resultado := x.RecibirLectura(E(1,s,q,1,100,40,3));
+    x.CambiarConfiguracion(admin,q,mk_TiposSAT`Configuracion(10,30,1,2,30,2));
+    return r = <Aceptada> and x.Ver(q).nivel = <Rojo> and
+      card dom x.VerAvisos() = 2);
+
+  public T33 : () ==> bool
+  T33() == (dcl x : Sistema := Base();
+    return x.RecibirLectura(E(1,s,q,1,69,40,3)) = <Tiempo> and
+      x.VerHistorial() = []);
+
+  public T34 : () ==> bool
+  T34() == (dcl x : Sistema := Base();
+    return x.RecibirLectura(E(1,s,q,0,100,40,3)) = <Orden> and
+      x.RecibirLectura(E(2,s,q,1,-1,40,3)) = <Tiempo>);
+
+  public T35 : () ==> bool
+  T35() == (dcl x : Sistema := Rojo();
+    dcl r : TiposSAT`Resultado := x.RecibirLectura(E(2,s,q,2,99,40,3));
+    return r = <Orden> and len x.VerHistorial() = 1 and
+      x.Ver(q).nivel = <Rojo>);
+
+  public T36 : () ==> bool
+  T36() == (dcl x : Sistema := Base();
+    dcl r : TiposSAT`Resultado := x.RecibirLectura(E(1,s,q,1,100,40,3));
+    dcl es : seq of TiposSAT`Evento := x.VerEventos();
+    return r = <Aceptada> and len es = 4 and
+      forall i in set inds es & es(i).orden = i);
+
+  public T37 : () ==> bool
+  T37() == (dcl x : Sistema := Rojo();
+    dcl e : token := x.AlertaActiva(q);
+    dcl eventos : seq of TiposSAT`Evento;
+    x.EmitirAviso(e,a,true); x.RegistrarAcuse(e,a);
+    eventos := x.VerEventos();
+    return eventos(len eventos-1).alerta = e and
+      eventos(len eventos-1).autoridad = a and
+      eventos(len eventos-1).aviso.estado = <Enviada> and
+      eventos(len eventos).aviso.estado = <Confirmada> and
+      eventos(len eventos).aviso.intentos = 1);
+
+  public T38 : () ==> bool
+  T38() == (dcl x : Sistema := Rojo();
+    dcl r : TiposSAT`Resultado := x.RecibirLectura(E(2,s,q,2,100,60,4));
+    dcl amarilla : bool;
+    x.RegistrarConfirmacion(admin,q,E(2,s,q,2,100,60,4).id);
+    x.AplicarDescenso(admin,q); amarilla := x.Ver(q).nivel = <Amarillo>;
+    x.AvanzarTiempo(101);
+    r := x.RecibirLectura(E(3,s,q,3,101,40,3));
+    x.RegistrarConfirmacion(admin,q,E(3,s,q,3,101,40,3).id);
+    x.AplicarDescenso(admin,q);
+    return r = <Aceptada> and amarilla and x.Ver(q).nivel = <Verde> and
+      card dom x.VerEpisodios() = 1 and card dom x.VerAvisos() = 2);
+
+  public T39 : () ==> bool
+  T39() == (dcl x : Sistema := Rojo();
+    dcl antes : seq of TiposSAT`Evento := x.VerEventos();
+    dcl despues : seq of TiposSAT`Evento;
+    x.CambiarConfiguracion(admin,q,mk_TiposSAT`Configuracion(70,90,7,15,30,2));
+    despues := x.VerEventos();
+    return antes(len antes).estado.configuracion.version = 1 and
+      despues(len antes).estado.configuracion.version = 1 and
+      despues(len despues).estado.configuracion.version = 2 and
+      despues(len antes).estado.candidato = <Rojo>);
+
+  public T40 : () ==> bool
+  T40() == (dcl x : Sistema := Bajo();
+    dcl v : nat := x.Ver(q).version;
+    x.RegistrarConfirmacion(admin,q,E(2,s,q,2,100,40,3).id);
+    x.AvanzarTiempo(100);
+    return x.Ver(q).confirmacion = nil and x.Ver(q).version > v and
+      x.Ver(q).nivel = <Rojo> and x.Ver(q).calidad = <Vigente>);
+
+  public N01 : () ==> ()
+  N01() == (dcl x : Sistema := Base(); x.RegistrarSensor(admin,s,q));
+  public N02 : () ==> ()
+  N02() == (dcl x : Sistema := Base(); x.RegistrarSensor(mk_token("intruso"),s2,q));
+  public N03 : () ==> ()
+  N03() == (dcl x : Sistema := Base(); x.AvanzarTiempo(99));
+  public N04 : () ==> ()
+  N04() == (dcl x : Sistema := Bajo(); x.AplicarDescenso(admin,q));
+  public N05 : () ==> ()
+  N05() == (dcl x : Sistema := Bajo();
+    x.RegistrarConfirmacion(admin,q,E(2,s,q,2,100,40,3).id);
+    x.AplicarDescenso(admin,q); x.AplicarDescenso(admin,q));
+  public N06 : () ==> ()
+  N06() == (dcl x : Sistema := Rojo(); x.RegistrarAcuse(mk_token("inexistente"),a));
+  public N07 : () ==> ()
+  N07() == (dcl x : Sistema := Rojo();
+    x.RegistrarConfirmacion(admin,q,E(1,s,q,1,99,80,4).id));
+  public N08 : () ==> ()
+  N08() == (dcl x : Sistema := Base(); x.CambiarConfiguracion(admin,q,cfg));
+  public N09 : () ==> TiposSAT`Configuracion
+  N09() == return mk_TiposSAT`Configuracion(80,80,5,10,30,1);
+end TestSAT

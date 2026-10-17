@@ -1,0 +1,8 @@
+Parsed 6 classes in 0.248 secs. No syntax errors
+Type checked 6 classes in 0.705 secs. No type errors
+Initialized 6 classes in 0.766 secs. No init errors
+Execution: Error 4079: Type invariant violated by mk_Configuracion arguments in 'TestSAT' (<PROJECT_ROOT>/model/TestSAT.vdmpp) at line 333:19
+	TestSAT`self = TestSAT{#1, s2=mk_token("s2"), s=mk_token("s1"), q...("operador"), q2=mk_token("q2"), a=mk_token("a1")}
+In object context of N09() in 'Alarma' (console) at line 1:1
+In root context of global static scope
+Bye

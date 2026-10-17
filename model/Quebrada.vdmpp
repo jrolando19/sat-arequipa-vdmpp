@@ -1,0 +1,51 @@
+class Quebrada
+instance variables
+  private id : TiposSAT`IdQuebrada;
+  private estado : TiposSAT`Evaluacion;
+operations
+  public Quebrada : TiposSAT`IdQuebrada * (TiposSAT`Configuracion | TiposSAT`Evaluacion) ==> Quebrada
+  Quebrada(q, inicial) == (id := q;
+    estado := if is_TiposSAT`Configuracion(inicial)
+      then mk_TiposSAT`Evaluacion(<Verde>, <SinDatos>, nil, 1, nil, {}, inicial)
+      else inicial);
+
+  public pure GetId : () ==> TiposSAT`IdQuebrada
+  GetId() == return id;
+  public pure Ver : () ==> TiposSAT`Evaluacion
+  Ver() == return estado;
+
+  public Actualizar : TiposSAT`Calidad * [TiposSAT`NivelAlerta] ==> ()
+  Actualizar(cal, cand) == estado := mu(estado,
+    nivel |-> if cand = nil then estado.nivel
+              else TiposSAT`Maximo(estado.nivel, cand),
+    calidad |-> cal, candidato |-> cand, confirmacion |-> nil,
+    version |-> estado.version+1)
+  pre (cal = <SinDatos> <=> cand = nil)
+  post TiposSAT`Prioridad(estado.nivel) >= TiposSAT`Prioridad(estado~.nivel) and
+       estado.confirmacion = nil;
+
+  public Configurar : TiposSAT`Configuracion ==> ()
+  Configurar(c) == estado := mu(estado, configuracion |-> c,
+    version |-> estado.version+1, confirmacion |-> nil)
+  pre c.version = estado.configuracion.version+1
+  post estado.configuracion = c and estado.nivel = estado~.nivel and
+       estado.confirmacion = nil;
+
+  public Confirmar : TiposSAT`IdLectura ==> ()
+  Confirmar(l) == estado := mu(estado, confirmacion |->
+    mk_TiposSAT`Confirmacion(l, estado.candidato, estado.version))
+  pre estado.calidad = <Vigente> and estado.candidato <> nil and
+      TiposSAT`Prioridad(estado.candidato) < TiposSAT`Prioridad(estado.nivel)
+  post estado.nivel = estado~.nivel and estado.confirmacion <> nil;
+
+  public Descender : () ==> ()
+  Descender() == estado := mu(estado, nivel |-> estado.confirmacion.objetivo,
+    confirmacion |-> nil, version |-> estado.version+1)
+  pre estado.confirmacion <> nil and
+      estado.confirmacion.version = estado.version and
+      estado.calidad = <Vigente> and
+      estado.candidato = estado.confirmacion.objetivo and
+      TiposSAT`Prioridad(estado.candidato) < TiposSAT`Prioridad(estado.nivel)
+  post TiposSAT`Prioridad(estado.nivel) < TiposSAT`Prioridad(estado~.nivel) and
+       estado.confirmacion = nil;
+end Quebrada

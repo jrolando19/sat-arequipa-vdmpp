@@ -1,0 +1,50 @@
+[
+  {
+    "file": "Alarma.vdmpp",
+    "native_vdmj_percent": 100.0,
+    "covered_lines": 38,
+    "total_executable_lines": 38,
+    "metric": "VDMJ native executable-source-line coverage, 40 behavioural cases only",
+    "note": ".cov stores hits only; its row count is NOT a coverage denominator"
+  },
+  {
+    "file": "Quebrada.vdmpp",
+    "native_vdmj_percent": 100.0,
+    "covered_lines": 33,
+    "total_executable_lines": 33,
+    "metric": "VDMJ native executable-source-line coverage, 40 behavioural cases only",
+    "note": ".cov stores hits only; its row count is NOT a coverage denominator"
+  },
+  {
+    "file": "Sensor.vdmpp",
+    "native_vdmj_percent": 100.0,
+    "covered_lines": 14,
+    "total_executable_lines": 14,
+    "metric": "VDMJ native executable-source-line coverage, 40 behavioural cases only",
+    "note": ".cov stores hits only; its row count is NOT a coverage denominator"
+  },
+  {
+    "file": "Sistema.vdmpp",
+    "native_vdmj_percent": 99.2,
+    "covered_lines": 127,
+    "total_executable_lines": 128,
+    "metric": "VDMJ native executable-source-line coverage, 40 behavioural cases only",
+    "note": ".cov stores hits only; its row count is NOT a coverage denominator"
+  },
+  {
+    "file": "TestSAT.vdmpp",
+    "native_vdmj_percent": 94.7,
+    "covered_lines": 216,
+    "total_executable_lines": 228,
+    "metric": "VDMJ native executable-source-line coverage, 40 behavioural cases only",
+    "note": ".cov stores hits only; its row count is NOT a coverage denominator"
+  },
+  {
+    "file": "TiposSAT.vdmpp",
+    "native_vdmj_percent": 100.0,
+    "covered_lines": 21,
+    "total_executable_lines": 21,
+    "metric": "VDMJ native executable-source-line coverage, 40 behavioural cases only",
+    "note": ".cov stores hits only; its row count is NOT a coverage denominator"
+  }
+]

@@ -1,0 +1,35 @@
+{
+  "name": "known_mutable_token_payload",
+  "expression": "TokenBoundaryAudit`Ejecutar()",
+  "expected": "Error 4061: No such key value in map",
+  "command": [
+    "C:\\Program Files\\Java\\jdk-18.0.1\\bin\\java.exe",
+    "-jar",
+    "work\\final_project\\model\\tools\\vdmj-suite-4.7.0\\vdmj-4.7.0.jar",
+    "-vdmpp",
+    "-c",
+    "UTF-8",
+    "-e",
+    "TokenBoundaryAudit`Ejecutar()",
+    "<PROJECT_ROOT>/model/TiposSAT.vdmpp",
+    "<PROJECT_ROOT>/model/Sensor.vdmpp",
+    "<PROJECT_ROOT>/model/Quebrada.vdmpp",
+    "<PROJECT_ROOT>/model/Alarma.vdmpp",
+    "<PROJECT_ROOT>/model/Sistema.vdmpp",
+    "<PROJECT_ROOT>/review/TokenBoundaryAudit.vdmpp"
+  ],
+  "exit_code": 1,
+  "pass": true,
+  "source_sha256": {
+    "TiposSAT.vdmpp": "dffc16ce4d89b5077793b048fbc80c52d3a694a36121aa92164b91f3434f3e55",
+    "Sensor.vdmpp": "239701e343aec3e40637d8551deee8767ac8b2a18e1094416ef79784dbd9311e",
+    "Quebrada.vdmpp": "315db85330e67ab66f4edede60d91dfdee3dcd78f07178446f15ffc37abaa28a",
+    "Alarma.vdmpp": "f02a256d8a4f7a3b52f28bf59c20fc9852adece05f20f5b65f6311c0f04ffbd3",
+    "Sistema.vdmpp": "741966836f75989dc203403b21636fac5c7f703e9af33eda0973a7bddc7d63f5",
+    "TokenBoundaryAudit.vdmpp": "57d7dacbaf24cdaa05531c1012afcef9a6f7218fd3be12c08f13b339958db36a"
+  },
+  "checks_disabled": [],
+  "observed_true": [],
+  "observed_false": [],
+  "interpretation": "Expected reproduction of a known interpreter boundary limitation; not one of the 24 positive model checks. Incoming token identities must be stable and built from immutable/materialized payload values."
+}

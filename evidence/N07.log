@@ -1,0 +1,13 @@
+Parsed 6 classes in 0.243 secs. No syntax errors
+Type checked 6 classes in 0.692 secs. No type errors
+Initialized 6 classes in 0.734 secs. No init errors
+Execution: Error 4071: Precondition failure: pre_RegistrarConfirmacion in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 119:24
+	actor = mk_token("operador")
+	lid = mk_token(mk_(<Lectura>, 1))
+	self = Sistema{#2, historial:=[mk_Lectura(mk_token(mk_(<L...1"), degradado:=false, quebrada:=mk_token("q1")}}}
+	q = mk_token("q1")
+In object context of pre_RegistrarConfirmacion(actor, q, lid, Sistema`self) in 'TestSAT' (<PROJECT_ROOT>/model/TestSAT.vdmpp) at line 329:5
+In context of block statement in 'TestSAT' (<PROJECT_ROOT>/model/TestSAT.vdmpp) at line 328:12
+In object context of N07() in 'Alarma' (console) at line 1:1
+In root context of global static scope
+Bye

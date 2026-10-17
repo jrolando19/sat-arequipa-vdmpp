@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2100" height="1280" viewBox="0 0 2100 1280">
+<rect width="100%" height="100%" fill="white"/>
+<text x="50.0" y="79.4" font-family="Times New Roman,serif" font-size="54" font-weight="700" fill="#111111">Evidencia ejecutada del modelo VDM++ 2.0.0</text>
+<text x="50.0" y="139.6" font-family="Times New Roman,serif" font-size="34" font-weight="400" fill="#111111">Datos sintéticos · VDMJ 4.7.0 (build 260414) · Java 18.0.1</text>
+<rect x="50" y="180" width="640" height="170" fill="#f4f4f4" stroke="#777777" stroke-width="2"/>
+<text x="288.0" y="255.5" font-family="Times New Roman,serif" font-size="72" font-weight="700" fill="#111111">40/40</text>
+<text x="172.5" y="313.9" font-family="Times New Roman,serif" font-size="32" font-weight="400" fill="#111111">comportamientos retornan true</text>
+<rect x="730" y="180" width="640" height="170" fill="#f4f4f4" stroke="#777777" stroke-width="2"/>
+<text x="1004.0" y="255.5" font-family="Times New Roman,serif" font-size="72" font-weight="700" fill="#111111">9/9</text>
+<text x="840.0" y="313.9" font-family="Times New Roman,serif" font-size="32" font-weight="400" fill="#111111">rechazos contractuales esperados</text>
+<rect x="1410" y="180" width="640" height="170" fill="#f4f4f4" stroke="#777777" stroke-width="2"/>
+<text x="1648.0" y="255.5" font-family="Times New Roman,serif" font-size="72" font-weight="700" fill="#111111">24/24</text>
+<text x="1541.0" y="313.9" font-family="Times New Roman,serif" font-size="32" font-weight="400" fill="#111111">verificaciones independientes</text>
+<text x="50.0" y="423.6" font-family="Times New Roman,serif" font-size="40" font-weight="700" fill="#111111">Traza observada: retención y descenso autorizado</text>
+<rect x="50" y="465" width="2000" height="519" fill="white" stroke="#222222" stroke-width="2"/>
+<rect x="50" y="465" width="2000" height="74" fill="#e9e9e9" stroke="#222222" stroke-width="2"/>
+<text x="65.0" y="509.9" font-family="Times New Roman,serif" font-size="32" font-weight="700" fill="#111111">Paso</text>
+<text x="185.0" y="509.9" font-family="Times New Roman,serif" font-size="32" font-weight="700" fill="#111111">Entrada o acción</text>
+<text x="1040.0" y="509.9" font-family="Times New Roman,serif" font-size="32" font-weight="700" fill="#111111">Nivel | Calidad | Candidato</text>
+<text x="1890.0" y="509.9" font-family="Times New Roman,serif" font-size="32" font-weight="700" fill="#111111">Versión</text>
+<text x="87.0" y="591.6" font-family="Times New Roman,serif" font-size="34" font-weight="400" fill="#111111">1</text>
+<text x="185.0" y="590.7" font-family="Times New Roman,serif" font-size="33" font-weight="400" fill="#111111">Inventario de 1 sensor; reloj lógico = 100</text>
+<text x="1040.0" y="591.6" font-family="Times New Roman,serif" font-size="34" font-weight="400" fill="#111111">Verde | SinDatos | nil</text>
+<text x="1915.0" y="591.6" font-family="Times New Roman,serif" font-size="34" font-weight="400" fill="#111111">4</text>
+<line x1="50" y1="628" x2="2050" y2="628" stroke="#333333" stroke-width="1"/>
+<text x="87.0" y="680.6" font-family="Times New Roman,serif" font-size="34" font-weight="400" fill="#111111">2</text>
+<text x="185.0" y="679.7" font-family="Times New Roman,serif" font-size="33" font-weight="400" fill="#111111">Lectura 1: h = 80%; i = 4°; t = 99</text>
+<text x="1040.0" y="680.6" font-family="Times New Roman,serif" font-size="34" font-weight="700" fill="#111111">Rojo | Vigente | Rojo</text>
+<text x="1915.0" y="680.6" font-family="Times New Roman,serif" font-size="34" font-weight="400" fill="#111111">5</text>
+<line x1="50" y1="717" x2="2050" y2="717" stroke="#333333" stroke-width="1"/>
+<text x="87.0" y="769.6" font-family="Times New Roman,serif" font-size="34" font-weight="400" fill="#111111">3</text>
+<text x="185.0" y="768.7" font-family="Times New Roman,serif" font-size="33" font-weight="400" fill="#111111">Lectura 2: h = 40%; i = 3°; t = 100</text>
+<text x="1040.0" y="769.6" font-family="Times New Roman,serif" font-size="34" font-weight="700" fill="#111111">Rojo | Vigente | Verde</text>
+<text x="1915.0" y="769.6" font-family="Times New Roman,serif" font-size="34" font-weight="400" fill="#111111">6</text>
+<line x1="50" y1="806" x2="2050" y2="806" stroke="#333333" stroke-width="1"/>
+<text x="87.0" y="858.6" font-family="Times New Roman,serif" font-size="34" font-weight="400" fill="#111111">4</text>
+<text x="185.0" y="857.7" font-family="Times New Roman,serif" font-size="33" font-weight="400" fill="#111111">RegistrarConfirmacion; lectura 2, versión 6</text>
+<text x="1040.0" y="858.6" font-family="Times New Roman,serif" font-size="34" font-weight="400" fill="#111111">Rojo | Vigente | Verde</text>
+<text x="1915.0" y="858.6" font-family="Times New Roman,serif" font-size="34" font-weight="400" fill="#111111">6</text>
+<line x1="50" y1="895" x2="2050" y2="895" stroke="#333333" stroke-width="1"/>
+<text x="87.0" y="947.6" font-family="Times New Roman,serif" font-size="34" font-weight="400" fill="#111111">5</text>
+<text x="185.0" y="946.7" font-family="Times New Roman,serif" font-size="33" font-weight="400" fill="#111111">AplicarDescenso; autorización consumida</text>
+<text x="1040.0" y="947.6" font-family="Times New Roman,serif" font-size="34" font-weight="700" fill="#111111">Verde | Vigente | Verde</text>
+<text x="1915.0" y="947.6" font-family="Times New Roman,serif" font-size="34" font-weight="400" fill="#111111">7</text>
+<line x1="170" y1="465" x2="170" y2="984" stroke="#333333" stroke-width="1"/>
+<line x1="1025" y1="465" x2="1025" y2="984" stroke="#333333" stroke-width="1"/>
+<line x1="1875" y1="465" x2="1875" y2="984" stroke="#333333" stroke-width="1"/>
+<text x="50.0" y="1042.7" font-family="Times New Roman,serif" font-size="33" font-weight="400" fill="#111111">La entrada crítica crea 2 avisos Pendiente; el descenso no los elimina.</text>
+<text x="50.0" y="1092.7" font-family="Times New Roman,serif" font-size="33" font-weight="700" fill="#111111">Precondiciones · postcondiciones · invariantes · tipos dinámicos: ACTIVADOS.</text>
+<text x="50.0" y="1142.7" font-family="Times New Roman,serif" font-size="33" font-weight="400" fill="#111111">80 obligaciones generadas; 0 descargadas: 53 Unchecked y 27 Unproved.</text>
+<text x="50.0" y="1203.0" font-family="Times New Roman,serif" font-size="31" font-weight="400" fill="#111111">Síntesis de logs reales: no es una captura de interfaz ni validación geotécnica.</text>
+</svg>

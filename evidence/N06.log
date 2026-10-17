@@ -1,0 +1,12 @@
+Parsed 6 classes in 0.214 secs. No syntax errors
+Type checked 6 classes in 0.673 secs. No type errors
+Initialized 6 classes in 0.708 secs. No init errors
+Execution: Error 4071: Precondition failure: pre_RegistrarAcuse in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 172:16
+	e = mk_token("inexistente")
+	self = Sistema{#2, historial:=[mk_Lectura(mk_token(mk_(<L...1"), degradado:=false, quebrada:=mk_token("q1")}}}
+	a = mk_token("a1")
+In object context of pre_RegistrarAcuse(e, a, Sistema`self) in 'TestSAT' (<PROJECT_ROOT>/model/TestSAT.vdmpp) at line 326:40
+In context of block statement in 'TestSAT' (<PROJECT_ROOT>/model/TestSAT.vdmpp) at line 326:12
+In object context of N06() in 'Alarma' (console) at line 1:1
+In root context of global static scope
+Bye

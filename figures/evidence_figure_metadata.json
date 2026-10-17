@@ -1,0 +1,45 @@
+{
+  "type": "Data-derived evidence summary table; not UI screenshot",
+  "model_version": "2.0.0",
+  "published": false,
+  "caption_proposed_es": "Síntesis de la validación ejecutada del modelo VDM++ 2.0.0 y traza de retención y descenso autorizado. Se distinguen 40 comportamientos conformes, 9 rechazos contractuales esperados y 24 verificaciones adicionales de auditoría; estas últimas no constituyen escenarios del dominio necesariamente disjuntos. Datos sintéticos. Las 80 obligaciones generadas permanecen sin descargar. Elaboración a partir de logs del intérprete, no captura de una interfaz ni evidencia de campo.",
+  "sources": {
+    "evidence/results.json": "af295c646f7b5b1eb81ac540b7ba51a50ce9cfc553295c42931420e17d2677d8",
+    "evidence/demo.log": "c3878b5ec93ca42dbadd7b46ea7b790ce5832c3734f34d69e0c9056aeea6bb66",
+    "review/execution_final/audit_results.json": "e39dfc7564100f26c8c98da43143107dc00a43deed8d06b8bb550892c35df4a3",
+    "evidence/proof_obligations.log": "0db5ec2ffd2a415d1ad73715b1daf5b725ac4d0217c41ba8195505fe18620257"
+  },
+  "render_method": "Pillow and equivalent SVG from immutable JSON/log observations; verifies all five snapshots before rendering; no generative image editing or fabricated UI.",
+  "observed_trace": [
+    {
+      "nivel": "<Verde>",
+      "calidad": "<SinDatos>",
+      "candidato": "nil",
+      "version": 4
+    },
+    {
+      "nivel": "<Rojo>",
+      "calidad": "<Vigente>",
+      "candidato": "<Rojo>",
+      "version": 5
+    },
+    {
+      "nivel": "<Rojo>",
+      "calidad": "<Vigente>",
+      "candidato": "<Verde>",
+      "version": 6
+    },
+    {
+      "nivel": "<Rojo>",
+      "calidad": "<Vigente>",
+      "candidato": "<Verde>",
+      "version": 6
+    },
+    {
+      "nivel": "<Verde>",
+      "calidad": "<Vigente>",
+      "candidato": "<Verde>",
+      "version": 7
+    }
+  ]
+}

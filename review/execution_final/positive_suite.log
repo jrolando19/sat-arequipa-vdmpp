@@ -1,0 +1,5 @@
+Parsed 6 classes in 0.235 secs. No syntax errors
+Type checked 6 classes in 0.715 secs. No type errors
+Initialized 6 classes in 0.774 secs. No init errors
+{"A25_nuevo_episodio" |-> true, "A01_desconocido" |-> true, "A28_alta_invalida_confirmacion" |-> true, "A14_maximo" |-> true, "A22_config_no_desciende" |-> true, "A09_inicio" |-> true, "A17_confirmacion_nueva_lectura" |-> true, "A27_aislamiento" |-> true, "A20_descenso" |-> true, "A23_acuse_independiente" |-> true, "A04_rango_recuperacion" |-> true, "A02_origen" |-> true, "A07_tiempo" |-> true, "A08_frontera_vigencia" |-> true, "A19_historial_configuracion" |-> true, "A12_grilla36" |-> true, "A18_confirmacion_caducada" |-> true, "A30_confirmacion_aislada" |-> true, "A10_cobertura_parcial" |-> true, "A24_reintentos" |-> true, "A06_duplicados" |-> true, "A03_incompleta" |-> true, "A31_contexto_avisos" |-> true, "A29_snapshot_valor" |-> true}
+Bye

@@ -1,0 +1,11 @@
+Parsed 6 classes in 0.21 secs. No syntax errors
+Type checked 6 classes in 0.634 secs. No type errors
+Initialized 6 classes in 0.719 secs. No init errors
+Execution: Error 4071: Precondition failure: pre_AvanzarTiempo in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 152:13
+	nuevo = 99
+	self = Sistema{#2, historial:=[], autoridades:={mk_token(...1"), degradado:=false, quebrada:=mk_token("q1")}}}
+In object context of pre_AvanzarTiempo(nuevo, Sistema`self) in 'TestSAT' (<PROJECT_ROOT>/model/TestSAT.vdmpp) at line 318:40
+In context of block statement in 'TestSAT' (<PROJECT_ROOT>/model/TestSAT.vdmpp) at line 318:12
+In object context of N03() in 'Alarma' (console) at line 1:1
+In root context of global static scope
+Bye

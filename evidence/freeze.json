@@ -1,0 +1,338 @@
+{
+  "project": "Sistema de Alerta Temprana de Huaicos y Deslizamientos en Quebradas de Arequipa",
+  "author": "Jordy Rolando Tejada Lazo",
+  "model_version": "2.0.0",
+  "client_date": "2026-10-17",
+  "deadline_date": "2026-10-20",
+  "deadline_time": "not specified by user",
+  "production_classes": 5,
+  "test_classes": 1,
+  "behaviour_cases": 40,
+  "expected_negative_cases": 9,
+  "passed": 49,
+  "failed": 0,
+  "dynamic_checks": {
+    "preconditions": true,
+    "postconditions": true,
+    "invariants": true,
+    "dynamic_types": true
+  },
+  "native_line_coverage": [
+    {
+      "file": "Alarma.vdmpp",
+      "native_vdmj_percent": 100.0,
+      "covered_lines": 38,
+      "total_executable_lines": 38,
+      "metric": "VDMJ native executable-source-line coverage, 40 behavioural cases only",
+      "note": ".cov stores hits only; its row count is NOT a coverage denominator"
+    },
+    {
+      "file": "Quebrada.vdmpp",
+      "native_vdmj_percent": 100.0,
+      "covered_lines": 33,
+      "total_executable_lines": 33,
+      "metric": "VDMJ native executable-source-line coverage, 40 behavioural cases only",
+      "note": ".cov stores hits only; its row count is NOT a coverage denominator"
+    },
+    {
+      "file": "Sensor.vdmpp",
+      "native_vdmj_percent": 100.0,
+      "covered_lines": 14,
+      "total_executable_lines": 14,
+      "metric": "VDMJ native executable-source-line coverage, 40 behavioural cases only",
+      "note": ".cov stores hits only; its row count is NOT a coverage denominator"
+    },
+    {
+      "file": "Sistema.vdmpp",
+      "native_vdmj_percent": 99.2,
+      "covered_lines": 127,
+      "total_executable_lines": 128,
+      "metric": "VDMJ native executable-source-line coverage, 40 behavioural cases only",
+      "note": ".cov stores hits only; its row count is NOT a coverage denominator"
+    },
+    {
+      "file": "TestSAT.vdmpp",
+      "native_vdmj_percent": 94.7,
+      "covered_lines": 216,
+      "total_executable_lines": 228,
+      "metric": "VDMJ native executable-source-line coverage, 40 behavioural cases only",
+      "note": ".cov stores hits only; its row count is NOT a coverage denominator"
+    },
+    {
+      "file": "TiposSAT.vdmpp",
+      "native_vdmj_percent": 100.0,
+      "covered_lines": 21,
+      "total_executable_lines": 21,
+      "metric": "VDMJ native executable-source-line coverage, 40 behavioural cases only",
+      "note": ".cov stores hits only; its row count is NOT a coverage denominator"
+    }
+  ],
+  "proof_obligations_generated": 80,
+  "proof_status": {
+    "Unproved": 27,
+    "Unchecked": 53
+  },
+  "proof_obligations_discharged": 0,
+  "source_sha256": [
+    {
+      "file": "Alarma.vdmpp",
+      "Hash": "F02A256D8A4F7A3B52F28BF59C20FC9852ADECE05F20F5B65F6311C0F04FFBD3"
+    },
+    {
+      "file": "Quebrada.vdmpp",
+      "Hash": "315DB85330E67AB66F4EDEDE60D91DFDEE3DCD78F07178446F15FFC37ABAA28A"
+    },
+    {
+      "file": "Sensor.vdmpp",
+      "Hash": "239701E343AEC3E40637D8551DEEE8767AC8B2A18E1094416EF79784DBD9311E"
+    },
+    {
+      "file": "Sistema.vdmpp",
+      "Hash": "741966836F75989DC203403B21636FAC5C7F703E9AF33EDA0973A7BDDC7D63F5"
+    },
+    {
+      "file": "TestSAT.vdmpp",
+      "Hash": "428DE36230ACA17D7BA810B38096A9B338F6E886BBEA6340BB3ABF1B9248DC9F"
+    },
+    {
+      "file": "TiposSAT.vdmpp",
+      "Hash": "DFFC16CE4D89B5077793B048FBC80C52D3A694A36121AA92164B91F3434F3E55"
+    }
+  ],
+  "summary": "Executed finite scenarios with dynamic contracts. Not exhaustive proof or geotechnical validation.",
+  "original_evidence_sha256_before_path_redaction": [
+    {
+      "file": "coverage_execution.log",
+      "Hash": "EDA792738E772394ECC058D07B2DA570EE3632D48DB23E65A21847B78362C476"
+    },
+    {
+      "file": "coverage.json",
+      "Hash": "0BFBC46243B873C3E75EF2158F8F23C45D86F708C7BFAF622A4E10B25C808E6F"
+    },
+    {
+      "file": "demo_commands.txt",
+      "Hash": "95D94CAEA40E3D8F7E6B5B250001103D8BC4E0A92187B161FF0C27C7D3E1943B"
+    },
+    {
+      "file": "demo.log",
+      "Hash": "C3878B5EC93CA42DBADD7B46EA7B790CE5832C3734F34D69E0C9056AEEA6BB66"
+    },
+    {
+      "file": "N01.log",
+      "Hash": "36B651ADDB413323464A99075CD9B1B8BAFC85DEFBCE17DC01858005D2BB77CC"
+    },
+    {
+      "file": "N02.log",
+      "Hash": "6D94D9D556984A60889511E6A8E70D5338DA45310D932D94CF67CD4545CFAF49"
+    },
+    {
+      "file": "N03.log",
+      "Hash": "11C0B1F6AAAC872C61BCA265422746F5A32EFBC57F4EBEEE31E2E497DB251A22"
+    },
+    {
+      "file": "N04.log",
+      "Hash": "84262E52DE1F127739883779C8BE1C05C0690D56CD2D61EBDF7A3263AAE4A6C1"
+    },
+    {
+      "file": "N05.log",
+      "Hash": "38A0EE9DDA1260600021385DE54AF560EDF4A7C3E9DCEE8C6032D603581B89E1"
+    },
+    {
+      "file": "N06.log",
+      "Hash": "0D895FF89696DA13DAAD92280DAF5E4A7101EC482A08F5A318F98C3FB4BE11F1"
+    },
+    {
+      "file": "N07.log",
+      "Hash": "1FBE5F98888A2E48D5131531B801DF077AA41594FB3A0D1C22344DED849C9C5A"
+    },
+    {
+      "file": "N08.log",
+      "Hash": "57111E92462D1BA438956070255F1BD7183FF87C5C3FC0525233574D2DAB2953"
+    },
+    {
+      "file": "N09.log",
+      "Hash": "CE0BC84BF5771294CF102B4194FAF6FCE9EF4B01EECE8E4503E915ECBC2F5593"
+    },
+    {
+      "file": "proof_obligations.log",
+      "Hash": "1C9B3F683BE23A91F9B05A89B2C2C03EAFFB050C0F93F59D685DB851B49A3AFA"
+    },
+    {
+      "file": "proof_preview.log",
+      "Hash": "2AAC4EE37F13FAB1D895C14B6B9078BBC7183EB03CFD3DC34F2339BEED05DA86"
+    },
+    {
+      "file": "results.json",
+      "Hash": "DBF270B9B142687C21217D8EB6D09E77EEA497BDA685A2502A80C256690F9526"
+    },
+    {
+      "file": "T01.log",
+      "Hash": "4852DC93A8BA4A07EACBE182129BA81BDD25EE9054235B5E2F05751EC3F65540"
+    },
+    {
+      "file": "T02.log",
+      "Hash": "31F393D17360CABBA8855A4BBEAF7AA8E3D08F91307387DC41DB2A034A85788B"
+    },
+    {
+      "file": "T03.log",
+      "Hash": "12716D6F1365F225AF3D358FB82101283B7F7EE2F7CA971E6A620C0148CD1DC7"
+    },
+    {
+      "file": "T04.log",
+      "Hash": "6CBAB247107469E6A3C673715BF88B63BF218E1CB4357C8FB8240683AB31652F"
+    },
+    {
+      "file": "T05.log",
+      "Hash": "0B542F1564FB521E053DDD976F82AA309B51982450BF026524808596748BC791"
+    },
+    {
+      "file": "T06.log",
+      "Hash": "BC16551FB5596481CBB05AD65116379CB7EB1AA57E29C9C58AC89C69563B6F8A"
+    },
+    {
+      "file": "T07.log",
+      "Hash": "C29B467B6F5BFD0D495B40EDCB76EBC0E71DEE46382BB8B4F3D8F7278CCD051A"
+    },
+    {
+      "file": "T08.log",
+      "Hash": "FBC2F7B83F9548200A81E16C7054F2EF2616DD8621DCF70F2090347BD735A9EB"
+    },
+    {
+      "file": "T09.log",
+      "Hash": "B2852F5B86D305F548C565C75F4F765D724B78F3A54E29353450F5770EA0F9C7"
+    },
+    {
+      "file": "T10.log",
+      "Hash": "47A3A309A556D7E98634EF027582B8856F60782165F06DC9326C95DC83CD1290"
+    },
+    {
+      "file": "T11.log",
+      "Hash": "6B2F7F912890ABDB794813E2DA4B1D9F483B4EA306CCD9C5EB35891876E67915"
+    },
+    {
+      "file": "T12.log",
+      "Hash": "872CE169AC8089E48F7CDAB3727C8AE889D5ABF58173B7EA8E139748A488CF30"
+    },
+    {
+      "file": "T13.log",
+      "Hash": "512E0F9A78F3EB5A89290C497C5E2627B62150E0B451BB5ADD59167B01DC34F4"
+    },
+    {
+      "file": "T14.log",
+      "Hash": "A30F0CDCF5DD7EDD70CFF38528F653F6A54CC107967EE7B4166A5EBCFCE4AE69"
+    },
+    {
+      "file": "T15.log",
+      "Hash": "5078399F91F9C8C1D236D81917698CA0D9BC55096C99A307D42C5DF5AB4560C3"
+    },
+    {
+      "file": "T16.log",
+      "Hash": "A350FE4F2A724BC6C9C9196F0048DC9E9604AA4F48ADB3BAB47BF9EFA82F1685"
+    },
+    {
+      "file": "T17.log",
+      "Hash": "3D43F5F298702FC3D31F786F419165B93B078E974BDBAAD06B93B38BB4E62194"
+    },
+    {
+      "file": "T18.log",
+      "Hash": "570F7C3E7C4E5A1D1BC0B4F7AD7184708380724C64C99D1EFCD8AF4C8DE71734"
+    },
+    {
+      "file": "T19.log",
+      "Hash": "C92E1BA5FB3DCF6074058EC9990FA741213D74E604DBAE50AAED796E7C45D8D8"
+    },
+    {
+      "file": "T20.log",
+      "Hash": "B752A50C697E2667C37843F2A0E8995F2446C85822320B10B102F5C44A553EE6"
+    },
+    {
+      "file": "T21.log",
+      "Hash": "DA2BCC335DBBFCFADB49199A3A512FF95479551CBDAC81B10D5AF6928F374D6C"
+    },
+    {
+      "file": "T22.log",
+      "Hash": "724D3F41039AC36D27DB2ADAFE6AFA6E2F06D909970303EDB791E4C904AC27BD"
+    },
+    {
+      "file": "T23.log",
+      "Hash": "F6FA4E5EBFE66DC4374B380F71AEEE9AFAA561E1C35C522AED9EE1F7038D8814"
+    },
+    {
+      "file": "T24.log",
+      "Hash": "106463FDBFCFA557BB3905BDD46F6035F529404FA1796D38A741F933EAE8E550"
+    },
+    {
+      "file": "T25.log",
+      "Hash": "57F39C5B9182BD535F5F9B9884E05D5DAED690E5303AB95E8EADEBB5FA5B9965"
+    },
+    {
+      "file": "T26.log",
+      "Hash": "B64956642CC19AFD63370BE728626F3C84988CC1396CAF361055F102008D609D"
+    },
+    {
+      "file": "T27.log",
+      "Hash": "273483AA7FA7DC63962C736F38BD0ECD5EEB616DD3852C3BADB5009D37AFCA4C"
+    },
+    {
+      "file": "T28.log",
+      "Hash": "3D5D7DB2C8E13847E3CE12F364291C4A78408BA3FC07B93BBC0E83F2407F8583"
+    },
+    {
+      "file": "T29.log",
+      "Hash": "1FC2024CA65DB41063BAA491C9EEE95B67D3D054ADF8FB0919E9020005653CDB"
+    },
+    {
+      "file": "T30.log",
+      "Hash": "A0D1D1CFF4452823E3D489B7189EFA7EF9AE68AC34F161760D6DC09E6535DE2B"
+    },
+    {
+      "file": "T31.log",
+      "Hash": "7F02C0F776AF9BD4430990B5E88D15961E869585B1F6CC2136139A24D15662D9"
+    },
+    {
+      "file": "T32.log",
+      "Hash": "5E34FEFEB9AD91C85516AECBC7B3CE41457DED1EA53D5780957852FE82F3F04C"
+    },
+    {
+      "file": "T33.log",
+      "Hash": "C16A4C78B442C9F1A7723917CAE73FAB9FCDDD633F374F530860102D7DD3EAB1"
+    },
+    {
+      "file": "T34.log",
+      "Hash": "F4707CB2807FED374B7CA2255243E74E73EB15BD1A356268CE2EB3D7AD804096"
+    },
+    {
+      "file": "T35.log",
+      "Hash": "7DC21B357973827414BEF7FD141AC95482A522AA8F74727F4CFEA1124EF5767C"
+    },
+    {
+      "file": "T36.log",
+      "Hash": "A3D71A198AFEB1A4D79EE342287B961F2256152FE289741308EFD443EA3BABDA"
+    },
+    {
+      "file": "T37.log",
+      "Hash": "D9560B5B571ECFEAF5CD53FA0FEDA48F78B5593B99497078A5E886F69B118AF0"
+    },
+    {
+      "file": "T38.log",
+      "Hash": "436D16AD1BD811A491D33A2C9F3BB85F9BE81FB1B09B8277FC3D854088101520"
+    },
+    {
+      "file": "T39.log",
+      "Hash": "2B68568A33BBA2D2381A898CDA249FE41CF57F00CEADDF09643E1A00CB57B466"
+    },
+    {
+      "file": "T40.log",
+      "Hash": "EAFE6AFD12ED35BF04B1C1DED6C494CEC3F8A7FE99BC8F60B2A810D30637E3C5"
+    },
+    {
+      "file": "typecheck.log",
+      "Hash": "4699C7F2F464469FB61CC8F816A5EE1E873EA210A680810D4B5BF794A61C9D84"
+    },
+    {
+      "file": "VALIDATION_REPORT.md",
+      "Hash": "561115EBC18D8887065021ED9DF1C39DC8FB1F4563AFE4D7A3DFD5A02D937C4D"
+    }
+  ],
+  "public_copy_note": "Original log hashes describe private originals before path redaction. See publication_manifest.json for public-file hashes; VDM source bytes and source hashes are unchanged."
+}

@@ -1,0 +1,896 @@
+Parsed 6 classes in 0.246 secs. No syntax errors
+Type checked 6 classes in 0.738 secs. No type errors
+Initialized 6 classes in 0.794 secs. No init errors
+Interpreter started
+> > > > > = true
+Executed in 0.057 secs. 
+> = true
+Executed in 0.033 secs. 
+> = true
+Executed in 0.022 secs. 
+> = true
+Executed in 0.016 secs. 
+> = true
+Executed in 0.027 secs. 
+> = true
+Executed in 0.015 secs. 
+> = true
+Executed in 0.016 secs. 
+> = true
+Executed in 0.037 secs. 
+> = true
+Executed in 0.012 secs. 
+> = true
+Executed in 0.033 secs. 
+> = true
+Executed in 0.005 secs. 
+> = true
+Executed in 0.005 secs. 
+> = true
+Executed in 0.037 secs. 
+> = true
+Executed in 0.018 secs. 
+> = true
+Executed in 0.014 secs. 
+> = true
+Executed in 0.039 secs. 
+> = true
+Executed in 0.014 secs. 
+> = true
+Executed in 0.046 secs. 
+> = true
+Executed in 0.02 secs. 
+> = true
+Executed in 0.015 secs. 
+> = true
+Executed in 0.028 secs. 
+> = true
+Executed in 0.02 secs. 
+> = true
+Executed in 0.012 secs. 
+> = true
+Executed in 0.019 secs. 
+> = true
+Executed in 0.007 secs. 
+> = true
+Executed in 0.021 secs. 
+> = true
+Executed in 0.012 secs. 
+> = true
+Executed in 0.009 secs. 
+> = true
+Executed in 0.013 secs. 
+> = true
+Executed in 0.016 secs. 
+> = true
+Executed in 0.01 secs. 
+> = true
+Executed in 0.011 secs. 
+> = true
+Executed in 0.004 secs. 
+> = true
+Executed in 0.005 secs. 
+> = true
+Executed in 0.008 secs. 
+> = true
+Executed in 0.008 secs. 
+> = true
+Executed in 0.009 secs. 
+> = true
+Executed in 0.017 secs. 
+> = true
+Executed in 0.017 secs. 
+> = true
+Executed in 0.024 secs. 
+> Written coverage for <PROJECT_ROOT>/model/Sistema.vdmpp
+Written coverage for <PROJECT_ROOT>/model/TiposSAT.vdmpp
+Written coverage for <PROJECT_ROOT>/model/Sensor.vdmpp
+Written coverage for <PROJECT_ROOT>/model/TestSAT.vdmpp
+Written coverage for <PROJECT_ROOT>/model/Alarma.vdmpp
+Written coverage for <PROJECT_ROOT>/model/Quebrada.vdmpp
+> Test coverage for <PROJECT_ROOT>/model/Alarma.vdmpp:
+
+  class Alarma
+  instance variables
++   private episodios : map TiposSAT`IdAlerta to TiposSAT`Episodio := {|->};
++   private avisos : map (TiposSAT`IdAlerta * TiposSAT`IdAutoridad) to TiposSAT`Aviso := {|->};
++   private siguiente : nat1 := 1;
++   inv dom avisos = dunion {{mk_(e, a) | a in set episodios(e).destinatarios}
++       | e in set dom episodios} and
++     (forall e1, e2 in set dom episodios &
++       episodios(e1).abierto and episodios(e2).abierto and
++       episodios(e1).quebrada = episodios(e2).quebrada => e1 = e2);
+  operations
+    public pure Activa : TiposSAT`IdQuebrada ==> [TiposSAT`IdAlerta]
++   Activa(q) == (for all e in set dom episodios do
++     if episodios(e).quebrada = q and episodios(e).abierto then return e;
++     return nil);
+  
+    public Abrir : TiposSAT`IdQuebrada * set1 of TiposSAT`IdAutoridad ==> ()
+    Abrir(q, ds) == (
+      -- Materialize the counter value before using it inside an immutable token.
++     dcl e : token := mk_token(mk_(<Episodio>, siguiente+0));
++     atomic (
++       episodios := episodios munion {e |-> mk_TiposSAT`Episodio(q, ds, true)};
++       avisos := avisos munion {mk_(e, a) |-> mk_TiposSAT`Aviso(<Pendiente>,0,false)
++                                | a in set ds};
++       siguiente := siguiente+1
+      )
+    )
++   pre Activa(q) = nil
++   post Activa(q) <> nil and
++     dom avisos = dom avisos~ union {mk_(Activa(q),a) | a in set ds};
+  
+    public Cerrar : TiposSAT`IdQuebrada ==> ()
++   Cerrar(q) == (dcl e : token := Activa(q);
++     episodios := episodios ++ {e |-> mu(episodios(e), abierto |-> false)})
++   pre Activa(q) <> nil
++   post Activa(q) = nil and avisos = avisos~;
+  
+    public Intentar : TiposSAT`IdAlerta * TiposSAT`IdAutoridad * bool ==> ()
+    Intentar(e, a, emitida) == (
++     dcl k : token * token := mk_(e,a);
++     dcl v : TiposSAT`Aviso := avisos(k);
++     if v.estado <> <Confirmada> then
++       avisos := avisos ++ {k |-> mk_TiposSAT`Aviso(
++         if emitida then <Enviada> else v.estado,
++         v.intentos+1, v.intentos+1 >= 3)}
+    )
++   pre mk_(e,a) in set dom avisos
++   post dom avisos = dom avisos~ and episodios = episodios~;
+  
+    public Acusar : TiposSAT`IdAlerta * TiposSAT`IdAutoridad ==> ()
++   Acusar(e,a) == (dcl k : token * token := mk_(e,a);
++     avisos := avisos ++ {k |-> mu(avisos(k), estado |-> <Confirmada>)})
++   pre mk_(e,a) in set dom avisos
++   post avisos(mk_(e,a)).estado = <Confirmada> and dom avisos = dom avisos~;
+  
+    public pure VerAvisos : () ==> map (TiposSAT`IdAlerta * TiposSAT`IdAutoridad) to TiposSAT`Aviso
++   VerAvisos() == return avisos;
+    public pure VerEpisodios : () ==> map TiposSAT`IdAlerta to TiposSAT`Episodio
++   VerEpisodios() == return episodios;
+  end Alarma
+
+Coverage = 100.0%
+> Test coverage for <PROJECT_ROOT>/model/Quebrada.vdmpp:
+
+  class Quebrada
+  instance variables
+    private id : TiposSAT`IdQuebrada;
+    private estado : TiposSAT`Evaluacion;
+  operations
+    public Quebrada : TiposSAT`IdQuebrada * (TiposSAT`Configuracion | TiposSAT`Evaluacion) ==> Quebrada
++   Quebrada(q, inicial) == (id := q;
++     estado := if is_TiposSAT`Configuracion(inicial)
++       then mk_TiposSAT`Evaluacion(<Verde>, <SinDatos>, nil, 1, nil, {}, inicial)
++       else inicial);
+  
+    public pure GetId : () ==> TiposSAT`IdQuebrada
++   GetId() == return id;
+    public pure Ver : () ==> TiposSAT`Evaluacion
++   Ver() == return estado;
+  
+    public Actualizar : TiposSAT`Calidad * [TiposSAT`NivelAlerta] ==> ()
++   Actualizar(cal, cand) == estado := mu(estado,
++     nivel |-> if cand = nil then estado.nivel
++               else TiposSAT`Maximo(estado.nivel, cand),
++     calidad |-> cal, candidato |-> cand, confirmacion |-> nil,
++     version |-> estado.version+1)
++   pre (cal = <SinDatos> <=> cand = nil)
++   post TiposSAT`Prioridad(estado.nivel) >= TiposSAT`Prioridad(estado~.nivel) and
++        estado.confirmacion = nil;
+  
+    public Configurar : TiposSAT`Configuracion ==> ()
++   Configurar(c) == estado := mu(estado, configuracion |-> c,
++     version |-> estado.version+1, confirmacion |-> nil)
++   pre c.version = estado.configuracion.version+1
++   post estado.configuracion = c and estado.nivel = estado~.nivel and
++        estado.confirmacion = nil;
+  
+    public Confirmar : TiposSAT`IdLectura ==> ()
++   Confirmar(l) == estado := mu(estado, confirmacion |->
++     mk_TiposSAT`Confirmacion(l, estado.candidato, estado.version))
++   pre estado.calidad = <Vigente> and estado.candidato <> nil and
++       TiposSAT`Prioridad(estado.candidato) < TiposSAT`Prioridad(estado.nivel)
++   post estado.nivel = estado~.nivel and estado.confirmacion <> nil;
+  
+    public Descender : () ==> ()
++   Descender() == estado := mu(estado, nivel |-> estado.confirmacion.objetivo,
++     confirmacion |-> nil, version |-> estado.version+1)
++   pre estado.confirmacion <> nil and
++       estado.confirmacion.version = estado.version and
++       estado.calidad = <Vigente> and
++       estado.candidato = estado.confirmacion.objetivo and
++       TiposSAT`Prioridad(estado.candidato) < TiposSAT`Prioridad(estado.nivel)
++   post TiposSAT`Prioridad(estado.nivel) < TiposSAT`Prioridad(estado~.nivel) and
++        estado.confirmacion = nil;
+  end Quebrada
+
+Coverage = 100.0%
+> Test coverage for <PROJECT_ROOT>/model/Sensor.vdmpp:
+
+  class Sensor
+  instance variables
+    private id : TiposSAT`IdSensor;
+    private quebrada : TiposSAT`IdQuebrada;
++   private ultima : [TiposSAT`Lectura] := nil;
++   private degradado : bool := false;
++   inv ultima <> nil => ultima.sensor = id and ultima.quebrada = quebrada;
+  operations
+    public Sensor : TiposSAT`IdSensor * TiposSAT`IdQuebrada ==> Sensor
++   Sensor(s, q) == (id := s; quebrada := q);
+  
+    public pure GetId : () ==> TiposSAT`IdSensor
++   GetId() == return id;
+    public pure GetQuebrada : () ==> TiposSAT`IdQuebrada
++   GetQuebrada() == return quebrada;
+    public pure GetUltima : () ==> [TiposSAT`Lectura]
++   GetUltima() == return ultima;
+    public pure Degradado : () ==> bool
++   Degradado() == return degradado;
+  
+    public Aceptar : TiposSAT`Lectura ==> ()
++   Aceptar(l) == (ultima := l; degradado := false)
++   pre l.sensor = id and l.quebrada = quebrada and
++     (ultima = nil or (l.numero > ultima.numero and l.instante > ultima.instante))
++   post ultima = l and not degradado;
+  
+    public Degradar : () ==> ()
++   Degradar() == degradado := true
++   post degradado and ultima = ultima~;
+  end Sensor
+
+Coverage = 100.0%
+> Test coverage for <PROJECT_ROOT>/model/Sistema.vdmpp:
+
+  class Sistema
+  instance variables
+    private operador : token;
++   private ahora : nat := 0;
++   private sensores : map TiposSAT`IdSensor to Sensor := {|->};
++   private quebradas : map TiposSAT`IdQuebrada to Quebrada := {|->};
++   private asignacion : map TiposSAT`IdSensor to TiposSAT`IdQuebrada := {|->};
++   private autoridades : map TiposSAT`IdQuebrada to set1 of TiposSAT`IdAutoridad := {|->};
++   private historial : seq of TiposSAT`Lectura := [];
++   private intentos : seq of TiposSAT`Intento := [];
++   private eventos : seq of TiposSAT`Evento := [];
++   private alarma : Alarma := new Alarma();
++   inv dom asignacion = dom sensores and rng asignacion subset dom quebradas and
++       dom autoridades = dom quebradas and
++       (forall s in set dom sensores & sensores(s).GetId() = s and
++         sensores(s).GetQuebrada() = asignacion(s) and
++         s in set quebradas(asignacion(s)).Ver().activos) and
++       (forall q in set dom quebradas & quebradas(q).GetId() = q and
++         quebradas(q).Ver().activos = {s | s in set dom asignacion & asignacion(s)=q}) and
++       (forall i,j in set inds historial & i <> j => historial(i).id <> historial(j).id) and
++       (forall i,j in set inds historial & i < j and historial(i).sensor=historial(j).sensor =>
++         historial(i).numero < historial(j).numero and
++         historial(i).instante < historial(j).instante) and
++       (forall l in seq historial & l.sensor in set dom sensores and
++         l.quebrada = asignacion(l.sensor));
+  operations
+    public Sistema : token ==> Sistema
++   Sistema(admin) == operador := admin;
+  
+    public RegistrarQuebrada : token * TiposSAT`IdQuebrada * TiposSAT`Configuracion *
+      set1 of TiposSAT`IdAutoridad ==> ()
+    RegistrarQuebrada(actor,q,c,ds) == (
++     atomic (quebradas := quebradas munion {q |-> new Quebrada(q,c)};
++             autoridades := autoridades munion {q |-> ds});
++     RegistrarEvento(q,mk_token(<AltaQuebrada>))
+    )
++   pre actor = operador and q not in set dom quebradas;
+  
+    public RegistrarSensor : token * TiposSAT`IdSensor * TiposSAT`IdQuebrada ==> ()
+    RegistrarSensor(actor,s,q) == (
++     dcl previo : TiposSAT`Evaluacion := quebradas(q).Ver();
++     dcl copia : Quebrada := new Quebrada(q,mu(previo,
++       activos |-> previo.activos union {s}, confirmacion |-> nil,
++       version |-> previo.version+1));
++     atomic (sensores := sensores munion {s |-> new Sensor(s,q)};
++             asignacion := asignacion munion {s |-> q};
++             quebradas := quebradas ++ {q |-> copia});
++     EvaluarQuebrada(q); RegistrarEvento(q,mk_token(<AltaSensor>))
+    )
++   pre actor = operador and s not in set dom sensores and q in set dom quebradas;
+  
+    public RecibirLectura : TiposSAT`EntradaLectura ==> TiposSAT`Resultado
+    RecibirLectura(e) == (
++     dcl r : TiposSAT`Resultado := Validar(e);
++     intentos := intentos ^ [mk_TiposSAT`Intento(e,r,ahora)];
++     if r = <Aceptada> then (
++       dcl l : TiposSAT`Lectura := mk_TiposSAT`Lectura(e.id,e.sensor,e.quebrada,
++         e.numero,e.instante,e.humedad,e.inclinacion);
++       sensores(e.sensor).Aceptar(l);
++       historial := historial ^ [l];
++       EvaluarQuebrada(e.quebrada)
++     ) elseif e.sensor in set dom sensores and
++       e.quebrada = asignacion(e.sensor) and
++       r in set {<Rango>,<Incompleta>} and Nuevo(e) then (
++         sensores(e.sensor).Degradar(); EvaluarQuebrada(e.quebrada)
+      );
++     if e.quebrada in set dom quebradas then
++       RegistrarEvento(e.quebrada,mk_token(r));
++     return r
+    )
++   post (RESULT = <Aceptada> => len historial = len historial~+1) and
++        (RESULT <> <Aceptada> => historial = historial~);
+  
+    private pure Nuevo : TiposSAT`EntradaLectura ==> bool
++   Nuevo(e) == (dcl l : [TiposSAT`Lectura] := sensores(e.sensor).GetUltima();
++     return e.numero > 0 and e.instante >= 0 and e.instante <= ahora and
++       (l = nil or (e.numero > l.numero and e.instante > l.instante)))
++   pre e.sensor in set dom sensores;
+  
+    private pure Validar : TiposSAT`EntradaLectura ==> TiposSAT`Resultado
+    Validar(e) == (
++     if e.sensor not in set dom sensores then return <Desconocido>;
++     if e.quebrada <> asignacion(e.sensor) then return <Origen>;
++     if exists l in seq historial & l.id = e.id then return <Duplicada>;
++     if e.numero < 1 then return <Orden>;
++     if e.instante < 0 or e.instante > ahora then return <Tiempo>;
++     if not Nuevo(e) then return <Orden>;
++     if ahora-e.instante > quebradas(e.quebrada).Ver().configuracion.vigencia
++       then return <Tiempo>;
++     if e.humedad = nil or e.inclinacion = nil then return <Incompleta>;
++     if e.humedad < 0 or e.humedad > 100 or
++        e.inclinacion < 0 or e.inclinacion > 180 then return <Rango>;
++     return <Aceptada>
+    );
+  
+    public EvaluarQuebrada : TiposSAT`IdQuebrada ==> ()
+    EvaluarQuebrada(q) == (
++     dcl c : TiposSAT`Configuracion := quebradas(q).Ver().configuracion;
++     dcl activos : set of token := quebradas(q).Ver().activos;
++     dcl utilizables : set of TiposSAT`Lectura := {};
++     dcl anterior : TiposSAT`NivelAlerta := quebradas(q).Ver().nivel;
++     for all s in set activos do (
++       dcl l : [TiposSAT`Lectura] := sensores(s).GetUltima();
++       if l <> nil and not sensores(s).Degradado() and
++          TiposSAT`Vigente(l,ahora,c.vigencia) then utilizables := utilizables union {l}
+      );
++     quebradas(q).Actualizar(
++       if utilizables = {} then <SinDatos>
++       elseif card utilizables = card activos then <Vigente> else <Degradada>,
++       TiposSAT`Agregar({TiposSAT`Clasificar(l,c) | l in set utilizables}));
++     if anterior <> <Rojo> and quebradas(q).Ver().nivel = <Rojo> then
++       alarma.Abrir(q,autoridades(q))
+    )
++   pre q in set dom quebradas;
+  
+    public RegistrarConfirmacion : token * TiposSAT`IdQuebrada * TiposSAT`IdLectura ==> ()
+    RegistrarConfirmacion(actor,q,lid) == (
++     quebradas(q).Confirmar(lid); RegistrarEvento(q,mk_token(<Confirmacion>)))
++   pre actor = operador and q in set dom quebradas and
++     quebradas(q).Ver().calidad = <Vigente> and
++     quebradas(q).Ver().candidato <> nil and
++     TiposSAT`Prioridad(quebradas(q).Ver().candidato) <
++       TiposSAT`Prioridad(quebradas(q).Ver().nivel) and
++     (exists s in set quebradas(q).Ver().activos &
++       sensores(s).GetUltima() <> nil and sensores(s).GetUltima().id = lid);
+  
+    public AplicarDescenso : token * TiposSAT`IdQuebrada ==> ()
+    AplicarDescenso(actor,q) == (
++     dcl anterior : TiposSAT`NivelAlerta := quebradas(q).Ver().nivel;
++     dcl episodio : [token] := alarma.Activa(q);
++     quebradas(q).Descender();
++     if anterior = <Rojo> then alarma.Cerrar(q);
++     RegistrarContexto(q,mk_token(<Descenso>),episodio,nil,nil)
+    )
++   pre actor = operador and q in set dom quebradas and
++       quebradas(q).Ver().confirmacion <> nil;
+  
+    public CambiarConfiguracion : token * TiposSAT`IdQuebrada * TiposSAT`Configuracion ==> ()
+    CambiarConfiguracion(actor,q,c) == (
++     quebradas(q).Configurar(c); EvaluarQuebrada(q);
++     RegistrarEvento(q,mk_token(<Configuracion>))
+    )
++   pre actor = operador and q in set dom quebradas and
++       c.version = quebradas(q).Ver().configuracion.version+1;
+  
+    public AvanzarTiempo : nat ==> ()
+    AvanzarTiempo(nuevo) == (
++     ahora := nuevo;
++     for all q in set dom quebradas do (
++       EvaluarQuebrada(q); RegistrarEvento(q,mk_token(<Tiempo>)))
+    )
++   pre nuevo >= ahora
++   post ahora = nuevo;
+  
+    private RegistrarEvento : TiposSAT`IdQuebrada * token ==> ()
++   RegistrarEvento(q,causa) == RegistrarContexto(q,causa,alarma.Activa(q),nil,nil);
+  
+    private RegistrarContexto : TiposSAT`IdQuebrada * token * [TiposSAT`IdAlerta] *
+      [TiposSAT`IdAutoridad] * [TiposSAT`Aviso] ==> ()
++   RegistrarContexto(q,causa,e,a,av) == eventos := eventos ^ [mk_TiposSAT`Evento(
++     len eventos+1,ahora,q,causa,quebradas(q).Ver().version,quebradas(q).Ver(),e,a,av)];
+  
+    public EmitirAviso : TiposSAT`IdAlerta * TiposSAT`IdAutoridad * bool ==> ()
++   EmitirAviso(e,a,ok) == (alarma.Intentar(e,a,ok);
++     RegistrarContexto(alarma.VerEpisodios()(e).quebrada,mk_token(<IntentoAviso>),
++       e,a,alarma.VerAvisos()(mk_(e,a))))
++   pre mk_(e,a) in set dom alarma.VerAvisos();
+    public RegistrarAcuse : TiposSAT`IdAlerta * TiposSAT`IdAutoridad ==> ()
++   RegistrarAcuse(e,a) == (alarma.Acusar(e,a);
++     RegistrarContexto(alarma.VerEpisodios()(e).quebrada,mk_token(<Acuse>),
++       e,a,alarma.VerAvisos()(mk_(e,a))))
++   pre mk_(e,a) in set dom alarma.VerAvisos();
+  
+    public pure Ver : TiposSAT`IdQuebrada ==> TiposSAT`Evaluacion
++   Ver(q) == return quebradas(q).Ver()
++   pre q in set dom quebradas;
+    public pure VerAvisos : () ==> map (TiposSAT`IdAlerta * TiposSAT`IdAutoridad) to TiposSAT`Aviso
++   VerAvisos() == return alarma.VerAvisos();
+    public pure VerEpisodios : () ==> map TiposSAT`IdAlerta to TiposSAT`Episodio
++   VerEpisodios() == return alarma.VerEpisodios();
+    public pure AlertaActiva : TiposSAT`IdQuebrada ==> [TiposSAT`IdAlerta]
++   AlertaActiva(q) == return alarma.Activa(q);
+    public pure VerHistorial : () ==> seq of TiposSAT`Lectura
++   VerHistorial() == return historial;
+    public pure VerIntentos : () ==> seq of TiposSAT`Intento
++   VerIntentos() == return intentos;
+    public pure VerEventos : () ==> seq of TiposSAT`Evento
++   VerEventos() == return eventos;
+    public pure Ahora : () ==> nat
+-   Ahora() == return ahora;
+  end Sistema
+
+Coverage = 99.2%
+> Test coverage for <PROJECT_ROOT>/model/TestSAT.vdmpp:
+
+  class TestSAT
+  values
++   public admin : token = mk_token("operador");
++   public q : token = mk_token("q1");
++   public q2 : token = mk_token("q2");
++   public s : token = mk_token("s1");
++   public s2 : token = mk_token("s2");
++   public a : token = mk_token("a1");
++   public a2 : token = mk_token("a2");
++   public cfg : TiposSAT`Configuracion = mk_TiposSAT`Configuracion(60,80,5,10,30,1);
+  functions
+    public static E : nat1 * token * token * int * int * [real] * [real] -> TiposSAT`EntradaLectura
++   E(n,si,qu,seqn,t,h,i) == mk_TiposSAT`EntradaLectura(mk_token(mk_(<Lectura>,n)),si,qu,seqn,t,h,i);
+  operations
+    public Base : () ==> Sistema
++   Base() == (dcl x : Sistema := new Sistema(admin);
++     x.RegistrarQuebrada(admin,q,cfg,{a,a2});
++     x.RegistrarSensor(admin,s,q); x.AvanzarTiempo(100); return x);
+  
+    public Rojo : () ==> Sistema
++   Rojo() == (dcl x : Sistema := Base();
++     dcl r : TiposSAT`Resultado := x.RecibirLectura(E(1,s,q,1,99,80,4));
++     if r <> <Aceptada> then exit <SetupError>; return x)
++   post RESULT.Ver(q).nivel = <Rojo>;
+  
+    public Bajo : () ==> Sistema
++   Bajo() == (dcl x : Sistema := Rojo();
++     dcl r : TiposSAT`Resultado := x.RecibirLectura(E(2,s,q,2,100,40,3));
++     if r <> <Aceptada> then exit <SetupError>; return x)
++   post RESULT.Ver(q).nivel = <Rojo> and RESULT.Ver(q).candidato = <Verde>;
+  
+    public T01 : () ==> bool
++   T01() == (dcl x : Sistema := Base();
++     return x.RecibirLectura(E(1,mk_token("desconocido"),q,1,100,40,3)) = <Desconocido>
++       and x.VerHistorial() = [] and x.Ver(q).nivel = <Verde>);
+  
+    public T02 : () ==> bool
++   T02() == (dcl x : Sistema := Base();
++     dcl r : TiposSAT`Resultado := x.RecibirLectura(E(1,s,q,1,98,40,3));
++     r := x.RecibirLectura(E(2,s,q,2,99,-1,3));
++     return r = <Rango> and len x.VerHistorial() = 1 and
++       x.Ver(q).calidad = <SinDatos> and x.Ver(q).candidato = nil);
+  
+    public T03 : () ==> bool
++   T03() == (dcl x : Sistema := Base();
++     return x.RecibirLectura(E(1,s,q,1,100,40,181)) = <Rango>
++       and x.VerHistorial() = []);
+  
+    public T04 : () ==> bool
++   T04() == (dcl x : Sistema := Rojo();
++     dcl n : nat := card dom x.VerAvisos();
++     return x.RecibirLectura(E(1,s,q,1,99,80,4)) = <Duplicada> and
++       len x.VerHistorial() = 1 and card dom x.VerAvisos() = n);
+  
+    public T05 : () ==> bool
++   T05() == (dcl x : Sistema := Base();
++     dcl r1 : TiposSAT`Resultado := x.RecibirLectura(E(1,s,q,1,99,40,3));
++     dcl r2 : TiposSAT`Resultado := x.RecibirLectura(E(2,s,q,2,98,40,3));
++     dcl r3 : TiposSAT`Resultado := x.RecibirLectura(E(3,s,q,2,101,40,3));
++     return r1 = <Aceptada> and r2 = <Orden> and r3 = <Tiempo> and
++       len x.VerHistorial() = 1 and x.Ver(q).calidad = <Vigente>);
+  
+    public T06 : () ==> bool
++   T06() == (dcl x : Sistema := Base();
++     dcl r : TiposSAT`Resultado := x.RecibirLectura(E(1,s,q,1,70,80,4));
++     dcl frontera : bool := x.Ver(q).calidad = <Vigente>;
++     x.AvanzarTiempo(101);
++     return r = <Aceptada> and frontera and x.Ver(q).calidad = <SinDatos> and
++       x.Ver(q).nivel = <Rojo> and x.Ver(q).candidato = nil);
+  
+    public T07 : () ==> bool
++   T07() == (dcl x : Sistema := Base();
++     dcl r : TiposSAT`Resultado := x.RecibirLectura(E(1,s,q,1,100,59,4));
++     return r = <Aceptada> and x.Ver(q).nivel = <Verde> and
++       x.Ver(q).calidad = <Vigente>);
+  
+    public T08 : () ==> bool
++   T08() == (dcl x : Sistema := Base();
++     dcl r : TiposSAT`Resultado := x.RecibirLectura(E(1,s,q,1,99,60,4));
++     dcl primero : bool := x.Ver(q).candidato = <Amarillo>;
++     r := x.RecibirLectura(E(2,s,q,2,100,40,5));
++     return r = <Aceptada> and primero and x.Ver(q).candidato = <Amarillo>);
+  
+    public T09 : () ==> bool
++   T09() == (dcl x : Sistema := Base();
++     dcl r : TiposSAT`Resultado := x.RecibirLectura(E(1,s,q,1,99,80,4));
++     dcl primero : bool := x.Ver(q).candidato = <Rojo>;
++     r := x.RecibirLectura(E(2,s,q,2,100,40,10));
++     return r = <Aceptada> and primero and x.Ver(q).candidato = <Rojo>);
+  
+    public T10 : () ==> bool
++   T10() == (dcl x : Sistema := Rojo();
++     return x.Ver(q).nivel = <Rojo> and card dom x.VerEpisodios() = 1 and
++       card dom x.VerAvisos() = 2 and
++       forall k in set dom x.VerAvisos() & x.VerAvisos()(k).estado = <Pendiente>);
+  
+    public T11 : () ==> bool
++   T11() == return not TiposSAT`ConfiguracionValida(80,80,5,10) and
++     not TiposSAT`ConfiguracionValida(90,80,5,10) and
++     not TiposSAT`ConfiguracionValida(60,80,10,5);
+  
+    public T12 : () ==> bool
++   T12() == (dcl x : Sistema := Base();
++     return x.Ver(q).candidato = nil and x.Ver(q).calidad = <SinDatos>);
+  
+    public T13 : () ==> bool
++   T13() == (dcl x : Sistema := Bajo();
++     return x.Ver(q).nivel = <Rojo> and x.Ver(q).candidato = <Verde> and
++       x.Ver(q).confirmacion = nil and card dom x.VerAvisos() = 2);
+  
+    public T14 : () ==> bool
++   T14() == (dcl x : Sistema := Rojo();
++     x.RegistrarSensor(admin,s2,q);
++     return x.RecibirLectura(E(2,s2,q,1,100,40,3)) = <Aceptada> and
++       x.Ver(q).candidato = <Rojo> and x.Ver(q).calidad = <Vigente>);
+  
+    public T15 : () ==> bool
++   T15() == (dcl x : Sistema := Base();
++     dcl r : TiposSAT`Resultado := x.RecibirLectura(E(1,s,q,1,98,80,4));
++     r := x.RecibirLectura(E(2,s,q,2,99,40,3));
++     x.RegistrarConfirmacion(admin,q,E(2,s,q,2,99,40,3).id);
++     return r = <Aceptada> and x.RecibirLectura(E(3,s,q,3,100,40,3)) = <Aceptada> and
++       x.Ver(q).confirmacion = nil and x.Ver(q).nivel = <Rojo>);
+  
+    public T16 : () ==> bool
++   T16() == (dcl x : Sistema := Bajo();
++     x.RegistrarConfirmacion(admin,q,E(2,s,q,2,100,40,3).id);
++     x.AvanzarTiempo(131);
++     return x.Ver(q).confirmacion = nil and x.Ver(q).calidad = <SinDatos> and
++       x.Ver(q).nivel = <Rojo>);
+  
+    public T17 : () ==> bool
++   T17() == (dcl x : Sistema := Bajo();
++     x.RegistrarConfirmacion(admin,q,E(2,s,q,2,100,40,3).id);
++     x.AplicarDescenso(admin,q);
++     return x.Ver(q).nivel = <Verde> and x.Ver(q).confirmacion = nil and
++       x.AlertaActiva(q) = nil and card dom x.VerAvisos() = 2);
+  
+    public T18 : () ==> bool
++   T18() == (dcl x : Sistema := Bajo();
++     x.RegistrarConfirmacion(admin,q,E(2,s,q,2,100,40,3).id);
++     x.AplicarDescenso(admin,q);
++     return x.Ver(q).confirmacion = nil);
+  
+    public T19 : () ==> bool
++   T19() == (dcl x : Sistema := Bajo();
++     x.RegistrarConfirmacion(admin,q,E(2,s,q,2,100,40,3).id);
++     x.CambiarConfiguracion(admin,q,mk_TiposSAT`Configuracion(70,90,7,15,30,2));
++     return x.Ver(q).nivel = <Rojo> and x.Ver(q).confirmacion = nil and
++       x.Ver(q).configuracion.version = 2);
+  
+    public T20 : () ==> bool
++   T20() == (dcl x : Sistema := Rojo();
++     dcl e : token := x.AlertaActiva(q);
++     x.EmitirAviso(e,a,true); x.RegistrarAcuse(e,a);
++     return x.VerAvisos()(mk_(e,a)).estado = <Confirmada> and
++       x.VerAvisos()(mk_(e,a2)).estado = <Pendiente>);
+  
+    public T21 : () ==> bool
++   T21() == (dcl x : Sistema := Rojo();
++     dcl e : token := x.AlertaActiva(q);
++     x.EmitirAviso(e,a,false); x.EmitirAviso(e,a,false); x.EmitirAviso(e,a,false);
++     return x.AlertaActiva(q) = e and card dom x.VerAvisos() = 2 and
++       x.VerAvisos()(mk_(e,a)).intentos = 3 and
++       x.VerAvisos()(mk_(e,a)).incidencia and
++       x.VerAvisos()(mk_(e,a)).estado = <Pendiente>);
+  
+    public T22 : () ==> bool
++   T22() == (dcl x : Sistema := Bajo();
++     dcl e : token := x.AlertaActiva(q);
++     x.RegistrarConfirmacion(admin,q,E(2,s,q,2,100,40,3).id);
++     x.AplicarDescenso(admin,q); x.AvanzarTiempo(101);
++     return x.RecibirLectura(E(3,s,q,3,101,80,4)) = <Aceptada> and
++       x.AlertaActiva(q) <> e and card dom x.VerEpisodios() = 2 and
++       card dom x.VerAvisos() = 4);
+  
+    public T23 : () ==> bool
++   T23() == (dcl x : Sistema := Base();
++     dcl anterior : TiposSAT`Evaluacion := x.Ver(q);
++     x.RegistrarQuebrada(admin,q2,cfg,{a}); x.RegistrarSensor(admin,s2,q2);
++     return x.RecibirLectura(E(1,s2,q2,1,100,80,4)) = <Aceptada> and
++       x.Ver(q) = anterior and x.Ver(q2).nivel = <Rojo>);
+  
+    public T24 : () ==> bool
++   T24() == (dcl x : Sistema := Bajo();
++     x.RegistrarConfirmacion(admin,q,E(2,s,q,2,100,40,3).id);
++     x.RegistrarSensor(admin,s2,q);
++     return x.Ver(q).activos = {s,s2} and x.Ver(q).confirmacion = nil and
++       x.Ver(q).calidad = <Degradada> and x.Ver(q).nivel = <Rojo>);
+  
+    public T25 : () ==> bool
++   T25() == (dcl x : Sistema := Base();
++     return x.RecibirLectura(E(1,s,q,1,100,nil,3)) = <Incompleta> and
++       x.VerHistorial() = []);
+  
+    public T26 : () ==> bool
++   T26() == (dcl x : Sistema := Base();
++     dcl r : TiposSAT`Resultado := x.RecibirLectura(E(1,s,q,1,99,0,0));
++     dcl minimo : bool := x.Ver(q).candidato = <Verde>;
++     r := x.RecibirLectura(E(2,s,q,2,100,100,180));
++     return r = <Aceptada> and minimo and x.Ver(q).candidato = <Rojo>);
+  
+    public T27 : () ==> bool
++   T27() == (dcl x : Sistema := Base();
++     return x.RecibirLectura(E(1,s,q2,1,100,80,4)) = <Origen> and
++       x.VerHistorial() = [] and x.Ver(q).nivel = <Verde>);
+  
+    public T28 : () ==> bool
++   T28() == (dcl x : Sistema := Rojo();
++     x.RegistrarSensor(admin,s2,q);
++     return x.Ver(q).calidad = <Degradada> and x.Ver(q).nivel = <Rojo> and
++       x.Ver(q).candidato = <Rojo>);
+  
+    public T29 : () ==> bool
++   T29() == (dcl x : Sistema := Base();
++     dcl r : TiposSAT`Resultado := x.RecibirLectura(E(1,s,q,1,99,101,3));
++     r := x.RecibirLectura(E(2,s,q,1,100,40,3));
++     return r = <Aceptada> and x.Ver(q).calidad = <Vigente> and
++       len x.VerHistorial() = 1 and len x.VerIntentos() = 2);
+  
+    public T30 : () ==> bool
++   T30() == (dcl x : Sistema := Bajo();
+      dcl anterior : TiposSAT`Evaluacion;
+      dcl r : TiposSAT`Resultado;
++     x.RegistrarQuebrada(admin,q2,cfg,{a}); x.RegistrarSensor(admin,s2,q2);
++     x.RegistrarConfirmacion(admin,q,E(2,s,q,2,100,40,3).id);
++     anterior := x.Ver(q);
++     r := x.RecibirLectura(E(3,s2,q2,1,100,80,4));
++     return r = <Aceptada> and x.Ver(q) = anterior and
++       x.Ver(q).confirmacion <> nil);
+  
+    public T31 : () ==> bool
++   T31() == (dcl x : Sistema := Rojo();
++     dcl e : token := x.AlertaActiva(q);
++     x.RegistrarAcuse(e,a); x.EmitirAviso(e,a,true); x.RegistrarAcuse(e,a);
++     return x.VerAvisos()(mk_(e,a)).estado = <Confirmada> and
++       x.VerAvisos()(mk_(e,a)).intentos = 0);
+  
+    public T32 : () ==> bool
++   T32() == (dcl x : Sistema := Base();
++     dcl r : TiposSAT`Resultado := x.RecibirLectura(E(1,s,q,1,100,40,3));
++     x.CambiarConfiguracion(admin,q,mk_TiposSAT`Configuracion(10,30,1,2,30,2));
++     return r = <Aceptada> and x.Ver(q).nivel = <Rojo> and
++       card dom x.VerAvisos() = 2);
+  
+    public T33 : () ==> bool
++   T33() == (dcl x : Sistema := Base();
++     return x.RecibirLectura(E(1,s,q,1,69,40,3)) = <Tiempo> and
++       x.VerHistorial() = []);
+  
+    public T34 : () ==> bool
++   T34() == (dcl x : Sistema := Base();
++     return x.RecibirLectura(E(1,s,q,0,100,40,3)) = <Orden> and
++       x.RecibirLectura(E(2,s,q,1,-1,40,3)) = <Tiempo>);
+  
+    public T35 : () ==> bool
++   T35() == (dcl x : Sistema := Rojo();
++     dcl r : TiposSAT`Resultado := x.RecibirLectura(E(2,s,q,2,99,40,3));
++     return r = <Orden> and len x.VerHistorial() = 1 and
++       x.Ver(q).nivel = <Rojo>);
+  
+    public T36 : () ==> bool
++   T36() == (dcl x : Sistema := Base();
++     dcl r : TiposSAT`Resultado := x.RecibirLectura(E(1,s,q,1,100,40,3));
++     dcl es : seq of TiposSAT`Evento := x.VerEventos();
++     return r = <Aceptada> and len es = 4 and
++       forall i in set inds es & es(i).orden = i);
+  
+    public T37 : () ==> bool
++   T37() == (dcl x : Sistema := Rojo();
++     dcl e : token := x.AlertaActiva(q);
+      dcl eventos : seq of TiposSAT`Evento;
++     x.EmitirAviso(e,a,true); x.RegistrarAcuse(e,a);
++     eventos := x.VerEventos();
++     return eventos(len eventos-1).alerta = e and
++       eventos(len eventos-1).autoridad = a and
++       eventos(len eventos-1).aviso.estado = <Enviada> and
++       eventos(len eventos).aviso.estado = <Confirmada> and
++       eventos(len eventos).aviso.intentos = 1);
+  
+    public T38 : () ==> bool
++   T38() == (dcl x : Sistema := Rojo();
++     dcl r : TiposSAT`Resultado := x.RecibirLectura(E(2,s,q,2,100,60,4));
+      dcl amarilla : bool;
++     x.RegistrarConfirmacion(admin,q,E(2,s,q,2,100,60,4).id);
++     x.AplicarDescenso(admin,q); amarilla := x.Ver(q).nivel = <Amarillo>;
++     x.AvanzarTiempo(101);
++     r := x.RecibirLectura(E(3,s,q,3,101,40,3));
++     x.RegistrarConfirmacion(admin,q,E(3,s,q,3,101,40,3).id);
++     x.AplicarDescenso(admin,q);
++     return r = <Aceptada> and amarilla and x.Ver(q).nivel = <Verde> and
++       card dom x.VerEpisodios() = 1 and card dom x.VerAvisos() = 2);
+  
+    public T39 : () ==> bool
++   T39() == (dcl x : Sistema := Rojo();
++     dcl antes : seq of TiposSAT`Evento := x.VerEventos();
+      dcl despues : seq of TiposSAT`Evento;
++     x.CambiarConfiguracion(admin,q,mk_TiposSAT`Configuracion(70,90,7,15,30,2));
++     despues := x.VerEventos();
++     return antes(len antes).estado.configuracion.version = 1 and
++       despues(len antes).estado.configuracion.version = 1 and
++       despues(len despues).estado.configuracion.version = 2 and
++       despues(len antes).estado.candidato = <Rojo>);
+  
+    public T40 : () ==> bool
++   T40() == (dcl x : Sistema := Bajo();
++     dcl v : nat := x.Ver(q).version;
++     x.RegistrarConfirmacion(admin,q,E(2,s,q,2,100,40,3).id);
++     x.AvanzarTiempo(100);
++     return x.Ver(q).confirmacion = nil and x.Ver(q).version > v and
++       x.Ver(q).nivel = <Rojo> and x.Ver(q).calidad = <Vigente>);
+  
+    public N01 : () ==> ()
+-   N01() == (dcl x : Sistema := Base(); x.RegistrarSensor(admin,s,q));
+    public N02 : () ==> ()
+-   N02() == (dcl x : Sistema := Base(); x.RegistrarSensor(mk_token("intruso"),s2,q));
+    public N03 : () ==> ()
+-   N03() == (dcl x : Sistema := Base(); x.AvanzarTiempo(99));
+    public N04 : () ==> ()
+-   N04() == (dcl x : Sistema := Bajo(); x.AplicarDescenso(admin,q));
+    public N05 : () ==> ()
+-   N05() == (dcl x : Sistema := Bajo();
+-     x.RegistrarConfirmacion(admin,q,E(2,s,q,2,100,40,3).id);
+-     x.AplicarDescenso(admin,q); x.AplicarDescenso(admin,q));
+    public N06 : () ==> ()
+-   N06() == (dcl x : Sistema := Rojo(); x.RegistrarAcuse(mk_token("inexistente"),a));
+    public N07 : () ==> ()
+-   N07() == (dcl x : Sistema := Rojo();
+-     x.RegistrarConfirmacion(admin,q,E(1,s,q,1,99,80,4).id));
+    public N08 : () ==> ()
+-   N08() == (dcl x : Sistema := Base(); x.CambiarConfiguracion(admin,q,cfg));
+    public N09 : () ==> TiposSAT`Configuracion
+-   N09() == return mk_TiposSAT`Configuracion(80,80,5,10,30,1);
+  end TestSAT
+
+Coverage = 94.7%
+> Test coverage for <PROJECT_ROOT>/model/TiposSAT.vdmpp:
+
+  class TiposSAT
+  types
+    public IdSensor = token;
+    public IdQuebrada = token;
+    public IdLectura = token;
+    public IdAlerta = token;
+    public IdAutoridad = token;
+    public NivelAlerta = <Verde> | <Amarillo> | <Rojo>;
+    public Calidad = <SinDatos> | <Vigente> | <Degradada>;
+    public EstadoAviso = <Pendiente> | <Enviada> | <Confirmada>;
+    public Resultado = <Aceptada> | <Desconocido> | <Origen> |
+      <Duplicada> | <Orden> | <Tiempo> | <Incompleta> | <Rango>;
+  
+    public EntradaLectura ::
+      id : IdLectura
+      sensor : IdSensor
+      quebrada : IdQuebrada
+      numero : int
+      instante : int
+      humedad : [real]
+      inclinacion : [real];
+  
+    public Lectura ::
+      id : IdLectura
+      sensor : IdSensor
+      quebrada : IdQuebrada
+      numero : nat1
+      instante : nat
+      humedad : real
+      inclinacion : real
++   inv l == 0 <= l.humedad and l.humedad <= 100 and
++            0 <= l.inclinacion and l.inclinacion <= 180;
+  
+    public Configuracion ::
+      hAviso : real
+      hCrit : real
+      iAviso : real
+      iCrit : real
+      vigencia : nat1
+      version : nat1
++   inv c == ConfiguracionValida(c.hAviso,c.hCrit,c.iAviso,c.iCrit);
+  
+    public Confirmacion ::
+      lectura : IdLectura
+      objetivo : NivelAlerta
+      version : nat1;
+  
+    public Evaluacion ::
+      nivel : NivelAlerta
+      calidad : Calidad
+      candidato : [NivelAlerta]
+      version : nat1
+      confirmacion : [Confirmacion]
+      activos : set of IdSensor
+      configuracion : Configuracion
++   inv e == (e.calidad = <SinDatos> <=> e.candidato = nil) and
++     (e.confirmacion <> nil =>
++       e.confirmacion.version = e.version and e.calidad = <Vigente> and
++       e.candidato = e.confirmacion.objetivo and
++       Prioridad(e.confirmacion.objetivo) < Prioridad(e.nivel));
+  
+    public Evento ::
+      orden : nat1
+      instante : nat
+      quebrada : [IdQuebrada]
+      causa : token
+      version : nat
+      estado : Evaluacion
+      alerta : [IdAlerta]
+      autoridad : [IdAutoridad]
+      aviso : [Aviso]
++   inv e == (e.autoridad = nil <=> e.aviso = nil) and
++            (e.aviso <> nil => e.alerta <> nil);
+  
+    public Intento ::
+      entrada : EntradaLectura
+      resultado : Resultado
+      ahora : nat;
+  
+    public Episodio ::
+      quebrada : IdQuebrada
+      destinatarios : set1 of IdAutoridad
+      abierto : bool;
+  
+    public Aviso ::
+      estado : EstadoAviso
+      intentos : nat
+      incidencia : bool
++   inv a == (a.estado = <Enviada> => a.intentos > 0) and
++            (a.incidencia => a.intentos >= 3);
+  
+  functions
+    public static ConfiguracionValida : real * real * real * real -> bool
+    ConfiguracionValida(ha,hc,ia,ic) ==
++     0 <= ha and ha < hc and hc <= 100 and 0 <= ia and ia < ic and ic <= 180;
+  
+    public static Prioridad : NivelAlerta -> nat
++   Prioridad(n) == if n = <Verde> then 0 elseif n = <Amarillo> then 1 else 2;
+  
+    public static Maximo : NivelAlerta * NivelAlerta -> NivelAlerta
++   Maximo(a, b) == if Prioridad(a) >= Prioridad(b) then a else b;
+  
+    public static Clasificar : Lectura * Configuracion -> NivelAlerta
+    Clasificar(l, c) ==
++     if l.humedad >= c.hCrit or l.inclinacion >= c.iCrit then <Rojo>
++     elseif l.humedad >= c.hAviso or l.inclinacion >= c.iAviso then <Amarillo>
++     else <Verde>;
+  
+    public static Vigente : Lectura * nat * nat1 -> bool
++   Vigente(l, ahora, ttl) == l.instante <= ahora and ahora-l.instante <= ttl;
+  
+    public static Agregar : set of NivelAlerta -> [NivelAlerta]
++   Agregar(ns) == if ns = {} then nil elseif <Rojo> in set ns then <Rojo>
++     elseif <Amarillo> in set ns then <Amarillo> else <Verde>;
+  end TiposSAT
+
+Coverage = 100.0%
+> Bye

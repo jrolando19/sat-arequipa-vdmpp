@@ -1,0 +1,11 @@
+Parsed 6 classes in 0.205 secs. No syntax errors
+Type checked 6 classes in 0.596 secs. No type errors
+Initialized 6 classes in 0.743 secs. No init errors
+Execution: Error 4061: No such key value in map: mk_token(mk_(<IdExterno>, 2)) in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 175:20
+	Sistema`self = Sistema{#1, historial:=[], autoridades:={mk_token(...->}, episodios:={|->}}, ahora:=0, sensores:={|->}}
+	q = mk_token(mk_(<IdExterno>, 2))
+In object context of Ver(q) in 'TokenBoundaryAudit' (<PROJECT_ROOT>/review/TokenBoundaryAudit.vdmpp) at line 12:12
+In context of block statement in 'TokenBoundaryAudit' (<PROJECT_ROOT>/review/TokenBoundaryAudit.vdmpp) at line 4:17
+In class context of Ejecutar() in 'TiposSAT' (console) at line 1:1
+In root context of global static scope
+Bye

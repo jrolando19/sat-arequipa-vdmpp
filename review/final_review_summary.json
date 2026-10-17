@@ -1,0 +1,510 @@
+{
+  "scope": "Independent review of frozen v2.0.0 sequential abstract VDM++ model",
+  "primary_cases": {
+    "behavioural": 40,
+    "expected_contract_rejections": 9,
+    "verified_logs": 49,
+    "total": 49,
+    "cases": [
+      {
+        "id": "T01",
+        "kind": "behaviour",
+        "log": "evidence/T01.log",
+        "verified": true,
+        "log_sha256": "4852dc93a8ba4a07eacbe182129ba81bdd25ee9054235b5e2f05751ec3f65540"
+      },
+      {
+        "id": "T02",
+        "kind": "behaviour",
+        "log": "evidence/T02.log",
+        "verified": true,
+        "log_sha256": "31f393d17360cabba8855a4bbeaf7aa8e3d08f91307387dc41db2a034a85788b"
+      },
+      {
+        "id": "T03",
+        "kind": "behaviour",
+        "log": "evidence/T03.log",
+        "verified": true,
+        "log_sha256": "12716d6f1365f225af3d358fb82101283b7f7ee2f7ca971e6a620c0148cd1dc7"
+      },
+      {
+        "id": "T04",
+        "kind": "behaviour",
+        "log": "evidence/T04.log",
+        "verified": true,
+        "log_sha256": "6cbab247107469e6a3c673715bf88b63bf218e1cb4357c8fb8240683ab31652f"
+      },
+      {
+        "id": "T05",
+        "kind": "behaviour",
+        "log": "evidence/T05.log",
+        "verified": true,
+        "log_sha256": "0b542f1564fb521e053ddd976f82aa309b51982450bf026524808596748bc791"
+      },
+      {
+        "id": "T06",
+        "kind": "behaviour",
+        "log": "evidence/T06.log",
+        "verified": true,
+        "log_sha256": "bc16551fb5596481cbb05ad65116379cb7eb1aa57e29c9c58ac89c69563b6f8a"
+      },
+      {
+        "id": "T07",
+        "kind": "behaviour",
+        "log": "evidence/T07.log",
+        "verified": true,
+        "log_sha256": "c29b467b6f5bfd0d495b40edcb76ebc0e71dee46382bb8b4f3d8f7278ccd051a"
+      },
+      {
+        "id": "T08",
+        "kind": "behaviour",
+        "log": "evidence/T08.log",
+        "verified": true,
+        "log_sha256": "fbc2f7b83f9548200a81e16c7054f2ef2616dd8621dcf70f2090347bd735a9eb"
+      },
+      {
+        "id": "T09",
+        "kind": "behaviour",
+        "log": "evidence/T09.log",
+        "verified": true,
+        "log_sha256": "b2852f5b86d305f548c565c75f4f765d724b78f3a54e29353450f5770ea0f9c7"
+      },
+      {
+        "id": "T10",
+        "kind": "behaviour",
+        "log": "evidence/T10.log",
+        "verified": true,
+        "log_sha256": "47a3a309a556d7e98634ef027582b8856f60782165f06dc9326c95dc83cd1290"
+      },
+      {
+        "id": "T11",
+        "kind": "behaviour",
+        "log": "evidence/T11.log",
+        "verified": true,
+        "log_sha256": "6b2f7f912890abdb794813e2da4b1d9f483b4ea306ccd9c5eb35891876e67915"
+      },
+      {
+        "id": "T12",
+        "kind": "behaviour",
+        "log": "evidence/T12.log",
+        "verified": true,
+        "log_sha256": "872ce169ac8089e48f7cdab3727c8ae889d5abf58173b7ea8e139748a488cf30"
+      },
+      {
+        "id": "T13",
+        "kind": "behaviour",
+        "log": "evidence/T13.log",
+        "verified": true,
+        "log_sha256": "512e0f9a78f3eb5a89290c497c5e2627b62150e0b451bb5add59167b01dc34f4"
+      },
+      {
+        "id": "T14",
+        "kind": "behaviour",
+        "log": "evidence/T14.log",
+        "verified": true,
+        "log_sha256": "a30f0cdcf5dd7edd70cff38528f653f6a54cc107967ee7b4166a5ebcfce4ae69"
+      },
+      {
+        "id": "T15",
+        "kind": "behaviour",
+        "log": "evidence/T15.log",
+        "verified": true,
+        "log_sha256": "5078399f91f9c8c1d236d81917698ca0d9bc55096c99a307d42c5df5ab4560c3"
+      },
+      {
+        "id": "T16",
+        "kind": "behaviour",
+        "log": "evidence/T16.log",
+        "verified": true,
+        "log_sha256": "a350fe4f2a724bc6c9c9196f0048dc9e9604aa4f48adb3bab47bf9efa82f1685"
+      },
+      {
+        "id": "T17",
+        "kind": "behaviour",
+        "log": "evidence/T17.log",
+        "verified": true,
+        "log_sha256": "3d43f5f298702fc3d31f786f419165b93b078e974bdbaad06b93b38bb4e62194"
+      },
+      {
+        "id": "T18",
+        "kind": "behaviour",
+        "log": "evidence/T18.log",
+        "verified": true,
+        "log_sha256": "570f7c3e7c4e5a1d1bc0b4f7ad7184708380724c64c99d1efcd8af4c8de71734"
+      },
+      {
+        "id": "T19",
+        "kind": "behaviour",
+        "log": "evidence/T19.log",
+        "verified": true,
+        "log_sha256": "c92e1ba5fb3dcf6074058ec9990fa741213d74e604dbae50aaed796e7c45d8d8"
+      },
+      {
+        "id": "T20",
+        "kind": "behaviour",
+        "log": "evidence/T20.log",
+        "verified": true,
+        "log_sha256": "b752a50c697e2667c37843f2a0e8995f2446c85822320b10b102f5c44a553ee6"
+      },
+      {
+        "id": "T21",
+        "kind": "behaviour",
+        "log": "evidence/T21.log",
+        "verified": true,
+        "log_sha256": "da2bcc335dbbfcfadb49199a3a512ff95479551cbdac81b10d5af6928f374d6c"
+      },
+      {
+        "id": "T22",
+        "kind": "behaviour",
+        "log": "evidence/T22.log",
+        "verified": true,
+        "log_sha256": "724d3f41039ac36d27db2adafe6afa6e2f06d909970303edb791e4c904ac27bd"
+      },
+      {
+        "id": "T23",
+        "kind": "behaviour",
+        "log": "evidence/T23.log",
+        "verified": true,
+        "log_sha256": "f6fa4e5ebfe66dc4374b380f71aeee9afaa561e1c35c522aed9ee1f7038d8814"
+      },
+      {
+        "id": "T24",
+        "kind": "behaviour",
+        "log": "evidence/T24.log",
+        "verified": true,
+        "log_sha256": "106463fdbfcfa557bb3905bdd46f6035f529404fa1796d38a741f933eae8e550"
+      },
+      {
+        "id": "T25",
+        "kind": "behaviour",
+        "log": "evidence/T25.log",
+        "verified": true,
+        "log_sha256": "57f39c5b9182bd535f5f9b9884e05d5daed690e5303ab95e8eadebb5fa5b9965"
+      },
+      {
+        "id": "T26",
+        "kind": "behaviour",
+        "log": "evidence/T26.log",
+        "verified": true,
+        "log_sha256": "b64956642cc19afd63370be728626f3c84988cc1396caf361055f102008d609d"
+      },
+      {
+        "id": "T27",
+        "kind": "behaviour",
+        "log": "evidence/T27.log",
+        "verified": true,
+        "log_sha256": "273483aa7fa7dc63962c736f38bd0ecd5eeb616dd3852c3badb5009d37afca4c"
+      },
+      {
+        "id": "T28",
+        "kind": "behaviour",
+        "log": "evidence/T28.log",
+        "verified": true,
+        "log_sha256": "3d5d7db2c8e13847e3ce12f364291c4a78408ba3fc07b93bbc0e83f2407f8583"
+      },
+      {
+        "id": "T29",
+        "kind": "behaviour",
+        "log": "evidence/T29.log",
+        "verified": true,
+        "log_sha256": "1fc2024ca65db41063baa491c9eee95b67d3d054adf8fb0919e9020005653cdb"
+      },
+      {
+        "id": "T30",
+        "kind": "behaviour",
+        "log": "evidence/T30.log",
+        "verified": true,
+        "log_sha256": "a0d1d1cff4452823e3d489b7189efa7ef9ae68ac34f161760d6dc09e6535de2b"
+      },
+      {
+        "id": "T31",
+        "kind": "behaviour",
+        "log": "evidence/T31.log",
+        "verified": true,
+        "log_sha256": "7f02c0f776af9bd4430990b5e88d15961e869585b1f6cc2136139a24d15662d9"
+      },
+      {
+        "id": "T32",
+        "kind": "behaviour",
+        "log": "evidence/T32.log",
+        "verified": true,
+        "log_sha256": "5e34fefeb9ad91c85516aecbc7b3ce41457ded1ea53d5780957852fe82f3f04c"
+      },
+      {
+        "id": "T33",
+        "kind": "behaviour",
+        "log": "evidence/T33.log",
+        "verified": true,
+        "log_sha256": "c16a4c78b442c9f1a7723917cae73fab9fcddd633f374f530860102d7dd3eab1"
+      },
+      {
+        "id": "T34",
+        "kind": "behaviour",
+        "log": "evidence/T34.log",
+        "verified": true,
+        "log_sha256": "f4707cb2807fed374b7ca2255243e74e73eb15bd1a356268ce2eb3d7ad804096"
+      },
+      {
+        "id": "T35",
+        "kind": "behaviour",
+        "log": "evidence/T35.log",
+        "verified": true,
+        "log_sha256": "7dc21b357973827414bef7fd141ac95482a522aa8f74727f4cfea1124ef5767c"
+      },
+      {
+        "id": "T36",
+        "kind": "behaviour",
+        "log": "evidence/T36.log",
+        "verified": true,
+        "log_sha256": "a3d71a198afeb1a4d79ee342287b961f2256152fe289741308efd443ea3babda"
+      },
+      {
+        "id": "T37",
+        "kind": "behaviour",
+        "log": "evidence/T37.log",
+        "verified": true,
+        "log_sha256": "d9560b5b571ecfeaf5cd53fa0feda48f78b5593b99497078a5e886f69b118af0"
+      },
+      {
+        "id": "T38",
+        "kind": "behaviour",
+        "log": "evidence/T38.log",
+        "verified": true,
+        "log_sha256": "436d16ad1bd811a491d33a2c9f3bb85f9be81fb1b09b8277fc3d854088101520"
+      },
+      {
+        "id": "T39",
+        "kind": "behaviour",
+        "log": "evidence/T39.log",
+        "verified": true,
+        "log_sha256": "2b68568a33bba2d2381a898cda249fe41cf57f00ceaddf09643e1a00cb57b466"
+      },
+      {
+        "id": "T40",
+        "kind": "behaviour",
+        "log": "evidence/T40.log",
+        "verified": true,
+        "log_sha256": "eafe6afd12ed35bf04b1c1ded6c494cec3f8a7fe99bc8f60b2a810d30637e3c5"
+      },
+      {
+        "id": "N01",
+        "kind": "expected-contract-rejection",
+        "log": "evidence/N01.log",
+        "verified": true,
+        "log_sha256": "9864617d39cc5cbbd7a2700826df97b39f404fd811975852b02ecdb894b641f2"
+      },
+      {
+        "id": "N02",
+        "kind": "expected-contract-rejection",
+        "log": "evidence/N02.log",
+        "verified": true,
+        "log_sha256": "1a14c8e65f27178b5a5f2b424864ce076b9b147ae965ef6fcbffacb8e49bb0c2"
+      },
+      {
+        "id": "N03",
+        "kind": "expected-contract-rejection",
+        "log": "evidence/N03.log",
+        "verified": true,
+        "log_sha256": "3b339ac79f4f4b423e2457e2af35e7e667644b61182ad0875cc12916dbc89ce7"
+      },
+      {
+        "id": "N04",
+        "kind": "expected-contract-rejection",
+        "log": "evidence/N04.log",
+        "verified": true,
+        "log_sha256": "450e58cf1ac266f04ac37c19744c8ec0ae2ca69527356167e04f0902e50c2294"
+      },
+      {
+        "id": "N05",
+        "kind": "expected-contract-rejection",
+        "log": "evidence/N05.log",
+        "verified": true,
+        "log_sha256": "59af294486112be8fe06e05ec10c6d4c878ff115213d0cb24da40b8fadf62b96"
+      },
+      {
+        "id": "N06",
+        "kind": "expected-contract-rejection",
+        "log": "evidence/N06.log",
+        "verified": true,
+        "log_sha256": "2442d7d5797e179647ddbce4a506f817497ce7691432ac2db20357a525137540"
+      },
+      {
+        "id": "N07",
+        "kind": "expected-contract-rejection",
+        "log": "evidence/N07.log",
+        "verified": true,
+        "log_sha256": "5b6b99fe4a1ad81b9b7271e33990edca7cb42f2e58e81d5c67c78591c4d5bb41"
+      },
+      {
+        "id": "N08",
+        "kind": "expected-contract-rejection",
+        "log": "evidence/N08.log",
+        "verified": true,
+        "log_sha256": "8a34b9d668b9157f528f602f80a852d3dea7e77a64b794aa596c7d778fbf5446"
+      },
+      {
+        "id": "N09",
+        "kind": "expected-contract-rejection",
+        "log": "evidence/N09.log",
+        "verified": true,
+        "log_sha256": "700477a50ebc6075572730c6881f289ffe953fff4c6bedcbcef705f1b4d50b35"
+      }
+    ]
+  },
+  "independent_checks": {
+    "count": 24,
+    "keys": [
+      "A25_nuevo_episodio",
+      "A01_desconocido",
+      "A28_alta_invalida_confirmacion",
+      "A14_maximo",
+      "A22_config_no_desciende",
+      "A09_inicio",
+      "A17_confirmacion_nueva_lectura",
+      "A27_aislamiento",
+      "A20_descenso",
+      "A23_acuse_independiente",
+      "A04_rango_recuperacion",
+      "A02_origen",
+      "A07_tiempo",
+      "A08_frontera_vigencia",
+      "A19_historial_configuracion",
+      "A12_grilla36",
+      "A18_confirmacion_caducada",
+      "A30_confirmacion_aislada",
+      "A10_cobertura_parcial",
+      "A24_reintentos",
+      "A06_duplicados",
+      "A03_incompleta",
+      "A31_contexto_avisos",
+      "A29_snapshot_valor"
+    ],
+    "all_true": true,
+    "log": "review/execution_final/positive_suite.log",
+    "details": "review/execution_final/audit_results.json"
+  },
+  "source_agreement": [
+    {
+      "file": "Alarma.vdmpp",
+      "current_sha256": "f02a256d8a4f7a3b52f28bf59c20fc9852adece05f20f5b65f6311c0f04ffbd3",
+      "primary_agrees": true,
+      "audit_agrees": true
+    },
+    {
+      "file": "Quebrada.vdmpp",
+      "current_sha256": "315db85330e67ab66f4edede60d91dfdee3dcd78f07178446f15ffc37abaa28a",
+      "primary_agrees": true,
+      "audit_agrees": true
+    },
+    {
+      "file": "Sensor.vdmpp",
+      "current_sha256": "239701e343aec3e40637d8551deee8767ac8b2a18e1094416ef79784dbd9311e",
+      "primary_agrees": true,
+      "audit_agrees": true
+    },
+    {
+      "file": "Sistema.vdmpp",
+      "current_sha256": "741966836f75989dc203403b21636fac5c7f703e9af33eda0973a7bddc7d63f5",
+      "primary_agrees": true,
+      "audit_agrees": true
+    },
+    {
+      "file": "TestSAT.vdmpp",
+      "current_sha256": "428de36230aca17d7ba810b38096a9b338f6e886bbea6340bb3abf1b9248dc9f",
+      "primary_agrees": true,
+      "audit_agrees": true
+    },
+    {
+      "file": "TiposSAT.vdmpp",
+      "current_sha256": "dffc16ce4d89b5077793b048fbc80c52d3a694a36121aa92164b91f3434f3e55",
+      "primary_agrees": true,
+      "audit_agrees": true
+    }
+  ],
+  "coverage": {
+    "metric": "Native VDMJ executable SOURCE LINES, not expressions/branches/states",
+    "cases": "40 behavioural cases only; negative cases excluded",
+    "warning": ".cov default export omits unhit locations; do not use row count as denominator",
+    "log": "evidence/coverage_execution.log",
+    "files": [
+      {
+        "file": "Alarma.vdmpp",
+        "hit_lines": 38,
+        "miss_lines": 0,
+        "native_percent": 100.0,
+        "total_executable_lines": 38,
+        "calculated_truncated_percent": 100.0,
+        "native_agrees": true
+      },
+      {
+        "file": "Quebrada.vdmpp",
+        "hit_lines": 33,
+        "miss_lines": 0,
+        "native_percent": 100.0,
+        "total_executable_lines": 33,
+        "calculated_truncated_percent": 100.0,
+        "native_agrees": true
+      },
+      {
+        "file": "Sensor.vdmpp",
+        "hit_lines": 14,
+        "miss_lines": 0,
+        "native_percent": 100.0,
+        "total_executable_lines": 14,
+        "calculated_truncated_percent": 100.0,
+        "native_agrees": true
+      },
+      {
+        "file": "Sistema.vdmpp",
+        "hit_lines": 127,
+        "miss_lines": 1,
+        "native_percent": 99.2,
+        "total_executable_lines": 128,
+        "calculated_truncated_percent": 99.2,
+        "native_agrees": true
+      },
+      {
+        "file": "TestSAT.vdmpp",
+        "hit_lines": 216,
+        "miss_lines": 12,
+        "native_percent": 94.7,
+        "total_executable_lines": 228,
+        "calculated_truncated_percent": 94.7,
+        "native_agrees": true
+      },
+      {
+        "file": "TiposSAT.vdmpp",
+        "hit_lines": 21,
+        "miss_lines": 0,
+        "native_percent": 100.0,
+        "total_executable_lines": 21,
+        "calculated_truncated_percent": 100.0,
+        "native_agrees": true
+      }
+    ]
+  },
+  "proof_obligations": {
+    "total": 80,
+    "statuses": {
+      "Unchecked": 53,
+      "Unproved": 27
+    },
+    "discharged_by_this_project": 0,
+    "log": "evidence/proof_obligations.log"
+  },
+  "separate_known_boundary_diagnostic": {
+    "included_in_24_positive_checks": false,
+    "log": "review/execution_final/token_boundary_diagnostic.log",
+    "details": "review/execution_final/token_boundary_diagnostic.json",
+    "required_assumption": "Incoming token identities are stable and built from immutable/materialized values"
+  },
+  "limits": [
+    "Synthetic data; no field or geotechnical validation",
+    "No real communication or authenticated physical receipt",
+    "No distributed concurrency, restart persistence or workload benchmark",
+    "Additive inventory; no sensor retirement/relocation",
+    "Manual retries; fixed incidence threshold three, no scheduler",
+    "Finite tests and undischarged proof obligations are not universal correctness"
+  ],
+  "verified_for_reported_scope": true
+}

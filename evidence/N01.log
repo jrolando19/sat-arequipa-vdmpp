@@ -1,0 +1,13 @@
+Parsed 6 classes in 0.233 secs. No syntax errors
+Type checked 6 classes in 0.708 secs. No type errors
+Initialized 6 classes in 0.701 secs. No init errors
+Execution: Error 4071: Precondition failure: pre_RegistrarSensor in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 50:24
+	actor = mk_token("operador")
+	s = mk_token("s1")
+	self = Sistema{#2, historial:=[], autoridades:={mk_token(...1"), degradado:=false, quebrada:=mk_token("q1")}}}
+	q = mk_token("q1")
+In object context of pre_RegistrarSensor(actor, s, q, Sistema`self) in 'TestSAT' (<PROJECT_ROOT>/model/TestSAT.vdmpp) at line 314:40
+In context of block statement in 'TestSAT' (<PROJECT_ROOT>/model/TestSAT.vdmpp) at line 314:12
+In object context of N01() in 'Alarma' (console) at line 1:1
+In root context of global static scope
+Bye

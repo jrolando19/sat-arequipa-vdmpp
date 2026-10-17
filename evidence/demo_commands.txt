@@ -1,0 +1,17 @@
+set pre on
+set post on
+set inv on
+set dtc on
+create demo := new TestSAT().Base()
+print demo.Ver(TestSAT`q)
+print demo.RecibirLectura(TestSAT`E(1,TestSAT`s,TestSAT`q,1,99,80,4))
+print demo.Ver(TestSAT`q)
+print demo.VerAvisos()
+print demo.RecibirLectura(TestSAT`E(2,TestSAT`s,TestSAT`q,2,100,40,3))
+print demo.Ver(TestSAT`q)
+print demo.RegistrarConfirmacion(TestSAT`admin,TestSAT`q,TestSAT`E(2,TestSAT`s,TestSAT`q,2,100,40,3).id)
+print demo.Ver(TestSAT`q)
+print demo.AplicarDescenso(TestSAT`admin,TestSAT`q)
+print demo.Ver(TestSAT`q)
+print demo.VerAvisos()
+quit

@@ -1,0 +1,115 @@
+class TiposSAT
+types
+  public IdSensor = token;
+  public IdQuebrada = token;
+  public IdLectura = token;
+  public IdAlerta = token;
+  public IdAutoridad = token;
+  public NivelAlerta = <Verde> | <Amarillo> | <Rojo>;
+  public Calidad = <SinDatos> | <Vigente> | <Degradada>;
+  public EstadoAviso = <Pendiente> | <Enviada> | <Confirmada>;
+  public Resultado = <Aceptada> | <Desconocido> | <Origen> |
+    <Duplicada> | <Orden> | <Tiempo> | <Incompleta> | <Rango>;
+
+  public EntradaLectura ::
+    id : IdLectura
+    sensor : IdSensor
+    quebrada : IdQuebrada
+    numero : int
+    instante : int
+    humedad : [real]
+    inclinacion : [real];
+
+  public Lectura ::
+    id : IdLectura
+    sensor : IdSensor
+    quebrada : IdQuebrada
+    numero : nat1
+    instante : nat
+    humedad : real
+    inclinacion : real
+  inv l == 0 <= l.humedad and l.humedad <= 100 and
+           0 <= l.inclinacion and l.inclinacion <= 180;
+
+  public Configuracion ::
+    hAviso : real
+    hCrit : real
+    iAviso : real
+    iCrit : real
+    vigencia : nat1
+    version : nat1
+  inv c == ConfiguracionValida(c.hAviso,c.hCrit,c.iAviso,c.iCrit);
+
+  public Confirmacion ::
+    lectura : IdLectura
+    objetivo : NivelAlerta
+    version : nat1;
+
+  public Evaluacion ::
+    nivel : NivelAlerta
+    calidad : Calidad
+    candidato : [NivelAlerta]
+    version : nat1
+    confirmacion : [Confirmacion]
+    activos : set of IdSensor
+    configuracion : Configuracion
+  inv e == (e.calidad = <SinDatos> <=> e.candidato = nil) and
+    (e.confirmacion <> nil =>
+      e.confirmacion.version = e.version and e.calidad = <Vigente> and
+      e.candidato = e.confirmacion.objetivo and
+      Prioridad(e.confirmacion.objetivo) < Prioridad(e.nivel));
+
+  public Evento ::
+    orden : nat1
+    instante : nat
+    quebrada : [IdQuebrada]
+    causa : token
+    version : nat
+    estado : Evaluacion
+    alerta : [IdAlerta]
+    autoridad : [IdAutoridad]
+    aviso : [Aviso]
+  inv e == (e.autoridad = nil <=> e.aviso = nil) and
+           (e.aviso <> nil => e.alerta <> nil);
+
+  public Intento ::
+    entrada : EntradaLectura
+    resultado : Resultado
+    ahora : nat;
+
+  public Episodio ::
+    quebrada : IdQuebrada
+    destinatarios : set1 of IdAutoridad
+    abierto : bool;
+
+  public Aviso ::
+    estado : EstadoAviso
+    intentos : nat
+    incidencia : bool
+  inv a == (a.estado = <Enviada> => a.intentos > 0) and
+           (a.incidencia => a.intentos >= 3);
+
+functions
+  public static ConfiguracionValida : real * real * real * real -> bool
+  ConfiguracionValida(ha,hc,ia,ic) ==
+    0 <= ha and ha < hc and hc <= 100 and 0 <= ia and ia < ic and ic <= 180;
+
+  public static Prioridad : NivelAlerta -> nat
+  Prioridad(n) == if n = <Verde> then 0 elseif n = <Amarillo> then 1 else 2;
+
+  public static Maximo : NivelAlerta * NivelAlerta -> NivelAlerta
+  Maximo(a, b) == if Prioridad(a) >= Prioridad(b) then a else b;
+
+  public static Clasificar : Lectura * Configuracion -> NivelAlerta
+  Clasificar(l, c) ==
+    if l.humedad >= c.hCrit or l.inclinacion >= c.iCrit then <Rojo>
+    elseif l.humedad >= c.hAviso or l.inclinacion >= c.iAviso then <Amarillo>
+    else <Verde>;
+
+  public static Vigente : Lectura * nat * nat1 -> bool
+  Vigente(l, ahora, ttl) == l.instante <= ahora and ahora-l.instante <= ttl;
+
+  public static Agregar : set of NivelAlerta -> [NivelAlerta]
+  Agregar(ns) == if ns = {} then nil elseif <Rojo> in set ns then <Rojo>
+    elseif <Amarillo> in set ns then <Amarillo> else <Verde>;
+end TiposSAT

@@ -1,0 +1,69 @@
+{
+  "purpose": "Independent bounded scenario validation, not exhaustive formal proof",
+  "java_version_expected": "18.0.1",
+  "vdmj_version_expected": "4.7.0",
+  "jar_sha256": "f57eb06f0116e76916b789f683345398b0c95a1bd860fdc176cd119f2b89b19d",
+  "results": [
+    {
+      "name": "positive_suite",
+      "expression": "AuditSAT`Ejecutar()",
+      "expected": "true_map",
+      "command": [
+        "C:\\Program Files\\Java\\jdk-18.0.1\\bin\\java.exe",
+        "-jar",
+        "work\\final_project\\model\\tools\\vdmj-suite-4.7.0\\vdmj-4.7.0.jar",
+        "-vdmpp",
+        "-c",
+        "UTF-8",
+        "-e",
+        "AuditSAT`Ejecutar()",
+        "<PROJECT_ROOT>/model/TiposSAT.vdmpp",
+        "<PROJECT_ROOT>/model/Sensor.vdmpp",
+        "<PROJECT_ROOT>/model/Quebrada.vdmpp",
+        "<PROJECT_ROOT>/model/Alarma.vdmpp",
+        "<PROJECT_ROOT>/model/Sistema.vdmpp",
+        "<PROJECT_ROOT>/review/AuditSAT.vdmpp"
+      ],
+      "exit_code": 0,
+      "pass": true,
+      "source_sha256": {
+        "TiposSAT.vdmpp": "dffc16ce4d89b5077793b048fbc80c52d3a694a36121aa92164b91f3434f3e55",
+        "Sensor.vdmpp": "239701e343aec3e40637d8551deee8767ac8b2a18e1094416ef79784dbd9311e",
+        "Quebrada.vdmpp": "315db85330e67ab66f4edede60d91dfdee3dcd78f07178446f15ffc37abaa28a",
+        "Alarma.vdmpp": "f02a256d8a4f7a3b52f28bf59c20fc9852adece05f20f5b65f6311c0f04ffbd3",
+        "Sistema.vdmpp": "741966836f75989dc203403b21636fac5c7f703e9af33eda0973a7bddc7d63f5",
+        "AuditSAT.vdmpp": "4dc5c92d108e2ed77e2cb84d00229da1a777a027e4c372b9a3deea77c73fa84b"
+      },
+      "checks_disabled": [],
+      "observed_true": [
+        "A25_nuevo_episodio",
+        "A01_desconocido",
+        "A28_alta_invalida_confirmacion",
+        "A14_maximo",
+        "A22_config_no_desciende",
+        "A09_inicio",
+        "A17_confirmacion_nueva_lectura",
+        "A27_aislamiento",
+        "A20_descenso",
+        "A23_acuse_independiente",
+        "A04_rango_recuperacion",
+        "A02_origen",
+        "A07_tiempo",
+        "A08_frontera_vigencia",
+        "A19_historial_configuracion",
+        "A12_grilla36",
+        "A18_confirmacion_caducada",
+        "A30_confirmacion_aislada",
+        "A10_cobertura_parcial",
+        "A24_reintentos",
+        "A06_duplicados",
+        "A03_incompleta",
+        "A31_contexto_avisos",
+        "A29_snapshot_valor"
+      ],
+      "observed_false": []
+    }
+  ],
+  "all_passed": true,
+  "separate_known_diagnostic_reproduced": true
+}

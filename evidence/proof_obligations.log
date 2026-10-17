@@ -1,0 +1,836 @@
+Parsed 5 classes in 0.216 secs. No syntax errors
+Type checked 5 classes in 0.544 secs. No type errors
+Generated 80 proof obligations:
+
+Proof Obligation 1: (Unchecked)
+Unchecked in VDM++/RT
+inv_Alarma: state invariant obligation in 'Alarma' (<PROJECT_ROOT>/model/Alarma.vdmpp) at line 6:3
+After instance variable initializers (((dom avisos) = (dunion {{mk_(e, a) | a in set (episodios(e).destinatarios)} | e in set (dom episodios)})) and (forall e1, e2 in set (dom episodios) & (((episodios(e1).abierto) and ((episodios(e2).abierto) and ((episodios(e1).quebrada) = (episodios(e2).quebrada)))) => (e1 = e2))))
+
+Proof Obligation 2: (Unproved)
+check invariant before for-loop
+Activa(IdQuebrada): loop invariant obligation in 'Alarma' (<PROJECT_ROOT>/model/Alarma.vdmpp) at line 13:17
+(forall q:TiposSAT`IdQuebrada, obj_Alarma(episodios |-> episodios, avisos |-> avisos, siguiente |-> siguiente):Alarma &
+  (-- Missing @LoopInvariant, assuming true at 13:17
+    (let $LoopInvariant : bool = true in
+      (let DONE_13$ : set of TiposSAT`IdAlerta = {} in
+        $LoopInvariant))))
+
+Proof Obligation 3: (Unproved)
+Activa(IdQuebrada): map apply obligation in 'Alarma' (<PROJECT_ROOT>/model/Alarma.vdmpp) at line 14:8
+(forall q:TiposSAT`IdQuebrada, obj_Alarma(episodios |-> episodios, avisos |-> avisos, siguiente |-> siguiente):Alarma &
+  (-- Missing @LoopInvariant, assuming true at 13:17
+    (let $LoopInvariant : bool = true in
+      (((dom episodios) <> {}) =>
+        (forall DONE_13$:set of TiposSAT`IdAlerta, e:TiposSAT`IdAlerta &
+          (((DONE_13$ psubset (dom episodios)) and (e in set ((dom episodios) \ DONE_13$))) and $LoopInvariant =>
+            e in set dom episodios))))))
+
+Proof Obligation 4: (Unproved)
+Activa(IdQuebrada): map apply obligation in 'Alarma' (<PROJECT_ROOT>/model/Alarma.vdmpp) at line 14:38
+(forall q:TiposSAT`IdQuebrada, obj_Alarma(episodios |-> episodios, avisos |-> avisos, siguiente |-> siguiente):Alarma &
+  (-- Missing @LoopInvariant, assuming true at 13:17
+    (let $LoopInvariant : bool = true in
+      (((dom episodios) <> {}) =>
+        (forall DONE_13$:set of TiposSAT`IdAlerta, e:TiposSAT`IdAlerta &
+          (((DONE_13$ psubset (dom episodios)) and (e in set ((dom episodios) \ DONE_13$))) and $LoopInvariant =>
+            (((episodios(e).quebrada) = q) =>
+              e in set dom episodios)))))))
+
+Proof Obligation 5: (Unproved)
+invariant preservation for next for-loop
+Activa(IdQuebrada): loop invariant obligation in 'Alarma' (<PROJECT_ROOT>/model/Alarma.vdmpp) at line 14:5
+(forall q:TiposSAT`IdQuebrada, obj_Alarma(episodios |-> episodios, avisos |-> avisos, siguiente |-> siguiente):Alarma &
+  (-- Missing @LoopInvariant, assuming true at 13:17
+    (let $LoopInvariant : bool = true in
+      (((dom episodios) <> {}) =>
+        (forall DONE_13$:set of TiposSAT`IdAlerta, e:TiposSAT`IdAlerta &
+          (((DONE_13$ psubset (dom episodios)) and (e in set ((dom episodios) \ DONE_13$))) and $LoopInvariant =>
+            (not (((episodios(e).quebrada) = q) and (episodios(e).abierto)) =>
+              (let DONE_13$ : set of TiposSAT`IdAlerta = (DONE_13$ union {e}) in
+                $LoopInvariant))))))))
+
+Proof Obligation 6: (Unchecked)
+Unchecked in VDM++/RT
+Abrir(IdQuebrada, set1 of (IdAutoridad)): map compatible obligation in 'Alarma' (<PROJECT_ROOT>/model/Alarma.vdmpp) at line 22:20
+(forall q:TiposSAT`IdQuebrada, ds:set1 of TiposSAT`IdAutoridad, obj_Alarma(episodios |-> episodios, avisos |-> avisos, siguiente |-> siguiente):Alarma & pre_Abrir(q, ds) =>
+  (let e : token = mk_token(mk_(<Episodio>, (siguiente + 0))) in
+    forall ldom1 in set dom episodios, rdom2 in set dom {e |-> mk_TiposSAT`Episodio(q, ds, true)} & ldom1 = rdom2 => episodios(ldom1) = {e |-> mk_TiposSAT`Episodio(q, ds, true)}(rdom2)))
+
+Proof Obligation 7: (Unchecked)
+Unchecked in VDM++/RT
+Abrir(IdQuebrada, set1 of (IdAutoridad)): subtype obligation in 'Alarma' (<PROJECT_ROOT>/model/Alarma.vdmpp) at line 23:46
+(forall q:TiposSAT`IdQuebrada, ds:set1 of TiposSAT`IdAutoridad, obj_Alarma(episodios |-> episodios, avisos |-> avisos, siguiente |-> siguiente):Alarma & pre_Abrir(q, ds) =>
+  (let e : token = mk_token(mk_(<Episodio>, (siguiente + 0))) in
+    (let $atomic1 : map TiposSAT`IdAlerta to TiposSAT`Episodio = (episodios munion {e |-> mk_TiposSAT`Episodio(q, ds, true)}) in
+      (forall a in set ds &
+        TiposSAT`inv_Aviso(mk_TiposSAT`Aviso(<Pendiente>, 0, false))))))
+
+Proof Obligation 8: (Unchecked)
+Unchecked in VDM++/RT
+Abrir(IdQuebrada, set1 of (IdAutoridad)): map compatible obligation in 'Alarma' (<PROJECT_ROOT>/model/Alarma.vdmpp) at line 23:17
+(forall q:TiposSAT`IdQuebrada, ds:set1 of TiposSAT`IdAutoridad, obj_Alarma(episodios |-> episodios, avisos |-> avisos, siguiente |-> siguiente):Alarma & pre_Abrir(q, ds) =>
+  (let e : token = mk_token(mk_(<Episodio>, (siguiente + 0))) in
+    (let $atomic1 : map TiposSAT`IdAlerta to TiposSAT`Episodio = (episodios munion {e |-> mk_TiposSAT`Episodio(q, ds, true)}) in
+      forall ldom1 in set dom avisos, rdom2 in set dom {mk_(e, a) |-> mk_TiposSAT`Aviso(<Pendiente>, 0, false) | a in set ds} & ldom1 = rdom2 => avisos(ldom1) = {mk_(e, a) |-> mk_TiposSAT`Aviso(<Pendiente>, 0, false) | a in set ds}(rdom2))))
+
+Proof Obligation 9: (Unchecked)
+Unchecked in VDM++/RT
+Abrir(IdQuebrada, set1 of (IdAutoridad)): state invariant obligation in 'Alarma' (<PROJECT_ROOT>/model/Alarma.vdmpp) at line 22:7
+(forall q:TiposSAT`IdQuebrada, ds:set1 of TiposSAT`IdAutoridad, obj_Alarma(episodios |-> episodios, avisos |-> avisos, siguiente |-> siguiente):Alarma & pre_Abrir(q, ds) =>
+  (let e : token = mk_token(mk_(<Episodio>, (siguiente + 0))) in
+    (let $atomic1 : map TiposSAT`IdAlerta to TiposSAT`Episodio = (episodios munion {e |-> mk_TiposSAT`Episodio(q, ds, true)}) in
+      (let $atomic2 : map ((TiposSAT`IdAlerta) * (TiposSAT`IdAutoridad)) to TiposSAT`Aviso = (avisos munion {mk_(e, a) |-> mk_TiposSAT`Aviso(<Pendiente>, 0, false) | a in set ds}) in
+        (let $atomic3 : nat1 = (siguiente + 1) in
+          (let episodios : map TiposSAT`IdAlerta to TiposSAT`Episodio = $atomic1 in
+            (let avisos : map ((TiposSAT`IdAlerta) * (TiposSAT`IdAutoridad)) to TiposSAT`Aviso = $atomic2 in
+              (let siguiente : nat1 = $atomic3 in
+                (((dom avisos) = (dunion {{mk_(e, a) | a in set (episodios(e).destinatarios)} | e in set (dom episodios)})) and (forall e1, e2 in set (dom episodios) & (((episodios(e1).abierto) and ((episodios(e2).abierto) and ((episodios(e1).quebrada) = (episodios(e2).quebrada)))) => (e1 = e2))))))))))))
+
+Proof Obligation 10: (Unchecked)
+Unchecked in VDM++/RT
+Cerrar(IdQuebrada): map apply obligation in 'Alarma' (<PROJECT_ROOT>/model/Alarma.vdmpp) at line 34:41
+(forall q:TiposSAT`IdQuebrada, obj_Alarma(episodios |-> episodios, avisos |-> avisos, siguiente |-> siguiente):Alarma & pre_Cerrar(q) =>
+  (forall $Activa:[TiposSAT`IdAlerta] & -- Call to Activa
+    (let e : token = $Activa in
+      e in set dom episodios)))
+
+Proof Obligation 11: (Unchecked)
+Unchecked in VDM++/RT
+Cerrar(IdQuebrada): state invariant obligation in 'Alarma' (<PROJECT_ROOT>/model/Alarma.vdmpp) at line 34:5
+(forall q:TiposSAT`IdQuebrada, obj_Alarma(episodios |-> episodios, avisos |-> avisos, siguiente |-> siguiente):Alarma & pre_Cerrar(q) =>
+  (forall $Activa:[TiposSAT`IdAlerta] & -- Call to Activa
+    (let e : token = $Activa in
+      (let episodios : map TiposSAT`IdAlerta to TiposSAT`Episodio = (episodios ++ {e |-> mu(episodios(e), abierto |-> false)}) in
+        (((dom avisos) = (dunion {{mk_(e, a) | a in set (episodios(e).destinatarios)} | e in set (dom episodios)})) and (forall e1, e2 in set (dom episodios) & (((episodios(e1).abierto) and ((episodios(e2).abierto) and ((episodios(e1).quebrada) = (episodios(e2).quebrada)))) => (e1 = e2))))))))
+
+Proof Obligation 12: (Unchecked)
+Unchecked in VDM++/RT
+Intentar(IdAlerta, IdAutoridad, bool): subtype obligation in 'Alarma' (<PROJECT_ROOT>/model/Alarma.vdmpp) at line 43:34
+(forall e:TiposSAT`IdAlerta, a:TiposSAT`IdAutoridad, emitida:bool, obj_Alarma(episodios |-> episodios, avisos |-> avisos, siguiente |-> siguiente):Alarma & pre_Intentar(e, a, emitida) =>
+  (let k : (token) * (token) = mk_(e, a), v : TiposSAT`Aviso = avisos(k) in
+    (((v.estado) <> <Confirmada>) =>
+      TiposSAT`inv_Aviso(mk_TiposSAT`Aviso((if emitida then <Enviada> else (v.estado)), ((v.intentos) + 1), (((v.intentos) + 1) >= 3))))))
+
+Proof Obligation 13: (Unchecked)
+Unchecked in VDM++/RT
+Intentar(IdAlerta, IdAutoridad, bool): state invariant obligation in 'Alarma' (<PROJECT_ROOT>/model/Alarma.vdmpp) at line 43:7
+(forall e:TiposSAT`IdAlerta, a:TiposSAT`IdAutoridad, emitida:bool, obj_Alarma(episodios |-> episodios, avisos |-> avisos, siguiente |-> siguiente):Alarma & pre_Intentar(e, a, emitida) =>
+  (let k : (token) * (token) = mk_(e, a), v : TiposSAT`Aviso = avisos(k) in
+    (((v.estado) <> <Confirmada>) =>
+      (let avisos : map ((TiposSAT`IdAlerta) * (TiposSAT`IdAutoridad)) to TiposSAT`Aviso = (avisos ++ {k |-> mk_TiposSAT`Aviso((if emitida then <Enviada> else (v.estado)), ((v.intentos) + 1), (((v.intentos) + 1) >= 3))}) in
+        (((dom avisos) = (dunion {{mk_(e, a) | a in set (episodios(e).destinatarios)} | e in set (dom episodios)})) and (forall e1, e2 in set (dom episodios) & (((episodios(e1).abierto) and ((episodios(e2).abierto) and ((episodios(e1).quebrada) = (episodios(e2).quebrada)))) => (e1 = e2))))))))
+
+Proof Obligation 14: (Unchecked)
+Unchecked in VDM++/RT
+Acusar(IdAlerta, IdAutoridad): map apply obligation in 'Alarma' (<PROJECT_ROOT>/model/Alarma.vdmpp) at line 52:35
+(forall e:TiposSAT`IdAlerta, a:TiposSAT`IdAutoridad, obj_Alarma(episodios |-> episodios, avisos |-> avisos, siguiente |-> siguiente):Alarma & pre_Acusar(e, a) =>
+  (let k : (token) * (token) = mk_(e, a) in
+    k in set dom avisos))
+
+Proof Obligation 15: (Unchecked)
+Unchecked in VDM++/RT
+Acusar(IdAlerta, IdAutoridad): state invariant obligation in 'Alarma' (<PROJECT_ROOT>/model/Alarma.vdmpp) at line 52:5
+(forall e:TiposSAT`IdAlerta, a:TiposSAT`IdAutoridad, obj_Alarma(episodios |-> episodios, avisos |-> avisos, siguiente |-> siguiente):Alarma & pre_Acusar(e, a) =>
+  (let k : (token) * (token) = mk_(e, a) in
+    (let avisos : map ((TiposSAT`IdAlerta) * (TiposSAT`IdAutoridad)) to TiposSAT`Aviso = (avisos ++ {k |-> mu(avisos(k), estado |-> <Confirmada>)}) in
+      (((dom avisos) = (dunion {{mk_(e, a) | a in set (episodios(e).destinatarios)} | e in set (dom episodios)})) and (forall e1, e2 in set (dom episodios) & (((episodios(e1).abierto) and ((episodios(e2).abierto) and ((episodios(e1).quebrada) = (episodios(e2).quebrada)))) => (e1 = e2)))))))
+
+Proof Obligation 16: (Unproved)
+Quebrada(IdQuebrada, (Configuracion | Evaluacion)): subtype obligation in 'Quebrada' (<PROJECT_ROOT>/model/Quebrada.vdmpp) at line 9:12
+(forall q:TiposSAT`IdQuebrada, inicial:TiposSAT`Configuracion | TiposSAT`Evaluacion, obj_Quebrada(id |-> id, estado |-> estado):Quebrada &
+  (let id : TiposSAT`IdQuebrada = q in
+    (is_(inicial, TiposSAT`Configuracion) =>
+      TiposSAT`inv_Evaluacion(mk_TiposSAT`Evaluacion(<Verde>, <SinDatos>, nil, 1, nil, {}, inicial)))))
+
+Proof Obligation 17: (Unproved)
+Quebrada(IdQuebrada, (Configuracion | Evaluacion)): subtype obligation in 'Quebrada' (<PROJECT_ROOT>/model/Quebrada.vdmpp) at line 8:15
+(forall q:TiposSAT`IdQuebrada, inicial:TiposSAT`Configuracion | TiposSAT`Evaluacion, obj_Quebrada(id |-> id, estado |-> estado):Quebrada &
+  (let id : TiposSAT`IdQuebrada = q in
+    TiposSAT`inv_Evaluacion((if is_(inicial, TiposSAT`Configuracion) then mk_TiposSAT`Evaluacion(<Verde>, <SinDatos>, nil, 1, nil, {}, inicial) else inicial))))
+
+Proof Obligation 18: (Unchecked)
+Unchecked in VDM++/RT
+Actualizar(Calidad, [NivelAlerta]): subtype obligation in 'Quebrada' (<PROJECT_ROOT>/model/Quebrada.vdmpp) at line 20:50
+(forall cal:TiposSAT`Calidad, cand:[TiposSAT`NivelAlerta], obj_Quebrada(id |-> id, estado |-> estado):Quebrada & pre_Actualizar(cal, cand) =>
+  (not (cand = nil) =>
+    ((is_(cand, <Amarillo>)) or (is_(cand, <Rojo>)) or (is_(cand, <Verde>)))))
+
+Proof Obligation 19: (Unchecked)
+Unchecked in VDM++/RT
+Confirmar(IdLectura): subtype obligation in 'Quebrada' (<PROJECT_ROOT>/model/Quebrada.vdmpp) at line 36:33
+(forall l:TiposSAT`IdLectura, obj_Quebrada(id |-> id, estado |-> estado):Quebrada & pre_Confirmar(l) =>
+  ((is_((estado.candidato), <Amarillo>)) or (is_((estado.candidato), <Rojo>)) or (is_((estado.candidato), <Verde>))))
+
+Proof Obligation 20: (Unchecked)
+Unchecked in VDM++/RT
+Sensor(IdSensor, IdQuebrada): state invariant obligation in 'Sensor' (<PROJECT_ROOT>/model/Sensor.vdmpp) at line 9:10
+After Sensor(IdSensor, IdQuebrada) constructor body ((ultima <> nil) => (((ultima.sensor) = id) and ((ultima.quebrada) = quebrada)))
+
+Proof Obligation 21: (Unchecked)
+Unchecked in VDM++/RT
+Aceptar(Lectura): state invariant obligation in 'Sensor' (<PROJECT_ROOT>/model/Sensor.vdmpp) at line 22:18
+(forall l:TiposSAT`Lectura, obj_Sensor(id |-> id, quebrada |-> quebrada, ultima |-> ultima, degradado |-> degradado):Sensor & pre_Aceptar(l) =>
+  (let ultima : [TiposSAT`Lectura] = l in
+    ((ultima <> nil) => (((ultima.sensor) = id) and ((ultima.quebrada) = quebrada)))))
+
+Proof Obligation 22: (Unchecked)
+Unchecked in VDM++/RT
+Aceptar(Lectura): state invariant obligation in 'Sensor' (<PROJECT_ROOT>/model/Sensor.vdmpp) at line 22:31
+(forall l:TiposSAT`Lectura, obj_Sensor(id |-> id, quebrada |-> quebrada, ultima |-> ultima, degradado |-> degradado):Sensor & pre_Aceptar(l) =>
+  (let ultima : [TiposSAT`Lectura] = l in
+    (let degradado : bool = false in
+      ((ultima <> nil) => (((ultima.sensor) = id) and ((ultima.quebrada) = quebrada))))))
+
+Proof Obligation 23: (Unproved)
+Degradar(): state invariant obligation in 'Sensor' (<PROJECT_ROOT>/model/Sensor.vdmpp) at line 28:17
+(forall obj_Sensor(id |-> id, quebrada |-> quebrada, ultima |-> ultima, degradado |-> degradado):Sensor &
+  (let degradado : bool = true in
+    ((ultima <> nil) => (((ultima.sensor) = id) and ((ultima.quebrada) = quebrada)))))
+
+Proof Obligation 24: (Unchecked)
+Unchecked in VDM++/RT
+Sistema(token): state invariant obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 27:10
+After Sistema(token) constructor body (((dom asignacion) = (dom sensores)) and (((rng asignacion) subset (dom quebradas)) and (((dom autoridades) = (dom quebradas)) and ((forall s in set (dom sensores) & (((sensores(s).GetId)() = s) and (((sensores(s).GetQuebrada)() = asignacion(s)) and (s in set ((quebradas(asignacion(s)).Ver)().activos))))) and ((forall q in set (dom quebradas) & (((quebradas(q).GetId)() = q) and (((quebradas(q).Ver)().activos) = {s | s in set (dom asignacion) & (asignacion(s) = q)}))) and ((forall i, j in set (inds historial) & ((i <> j) => ((historial(i).id) <> (historial(j).id)))) and ((forall i, j in set (inds historial) & (((i < j) and ((historial(i).sensor) = (historial(j).sensor))) => (((historial(i).numero) < (historial(j).numero)) and ((historial(i).instante) < (historial(j).instante))))) and (forall l in seq historial & (((l.sensor) in set (dom sensores)) and ((l.quebrada) = asignacion((l.sensor))))))))))))
+
+Proof Obligation 25: (Unchecked)
+Unchecked in VDM++/RT
+RegistrarQuebrada(token, IdQuebrada, Configuracion, set1 of (IdAutoridad)): map compatible obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 33:26
+(forall actor:token, q:TiposSAT`IdQuebrada, c:TiposSAT`Configuracion, ds:set1 of TiposSAT`IdAutoridad, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_RegistrarQuebrada(actor, q, c, ds) =>
+  (-- Ambiguous call to new Quebrada(q, c), affects (operador, alarma, eventos, historial, quebradas, intentos, asignacion, ahora, sensores, autoridades)? at 33:50
+    forall ldom1 in set dom quebradas, rdom2 in set dom {q |-> new Quebrada(q, c)} & ldom1 = rdom2 => quebradas(ldom1) = {q |-> new Quebrada(q, c)}(rdom2)))
+
+Proof Obligation 26: (Unchecked)
+Unchecked in VDM++/RT
+RegistrarQuebrada(token, IdQuebrada, Configuracion, set1 of (IdAutoridad)): map compatible obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 34:28
+(forall actor:token, q:TiposSAT`IdQuebrada, c:TiposSAT`Configuracion, ds:set1 of TiposSAT`IdAutoridad, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_RegistrarQuebrada(actor, q, c, ds) =>
+  (-- Ambiguous call to new Quebrada(q, c), affects (operador, alarma, eventos, historial, quebradas, intentos, asignacion, ahora, sensores, autoridades)? at 33:50
+    (let $atomic1 : map TiposSAT`IdQuebrada to (Quebrada) = (quebradas munion {q |-> new Quebrada(q, c)}) in
+      (-- Ambiguous assignment, affects (quebradas)? at 33:36
+        forall ldom1 in set dom autoridades, rdom2 in set dom {q |-> ds} & ldom1 = rdom2 => autoridades(ldom1) = {q |-> ds}(rdom2)))))
+
+Proof Obligation 27: (Unchecked)
+Unchecked in VDM++/RT
+RegistrarQuebrada(token, IdQuebrada, Configuracion, set1 of (IdAutoridad)): state invariant obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 33:13
+(forall actor:token, q:TiposSAT`IdQuebrada, c:TiposSAT`Configuracion, ds:set1 of TiposSAT`IdAutoridad, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_RegistrarQuebrada(actor, q, c, ds) =>
+  (-- Ambiguous call to new Quebrada(q, c), affects (operador, alarma, eventos, historial, quebradas, intentos, asignacion, ahora, sensores, autoridades)? at 33:50
+    (let $atomic1 : map TiposSAT`IdQuebrada to (Quebrada) = (quebradas munion {q |-> new Quebrada(q, c)}) in
+      (-- Ambiguous assignment, affects (quebradas)? at 33:36
+        (let $atomic2 : map TiposSAT`IdQuebrada to (set1 of TiposSAT`IdAutoridad) = (autoridades munion {q |-> ds}) in
+          (-- Ambiguous assignment, affects (autoridades)? at 34:40
+            (let quebradas : map TiposSAT`IdQuebrada to (Quebrada) = $atomic1 in
+              (let autoridades : map TiposSAT`IdQuebrada to (set1 of TiposSAT`IdAutoridad) = $atomic2 in
+                (((dom asignacion) = (dom sensores)) and (((rng asignacion) subset (dom quebradas)) and (((dom autoridades) = (dom quebradas)) and ((forall s in set (dom sensores) & (((sensores(s).GetId)() = s) and (((sensores(s).GetQuebrada)() = asignacion(s)) and (s in set ((quebradas(asignacion(s)).Ver)().activos))))) and ((forall q in set (dom quebradas) & (((quebradas(q).GetId)() = q) and (((quebradas(q).Ver)().activos) = {s | s in set (dom asignacion) & (asignacion(s) = q)}))) and ((forall i, j in set (inds historial) & ((i <> j) => ((historial(i).id) <> (historial(j).id)))) and ((forall i, j in set (inds historial) & (((i < j) and ((historial(i).sensor) = (historial(j).sensor))) => (((historial(i).numero) < (historial(j).numero)) and ((historial(i).instante) < (historial(j).instante))))) and (forall l in seq historial & (((l.sensor) in set (dom sensores)) and ((l.quebrada) = asignacion((l.sensor))))))))))))))))))))
+
+Proof Obligation 28: (Unchecked)
+Unchecked in VDM++/RT
+RegistrarSensor(token, IdSensor, IdQuebrada): map compatible obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 45:25
+(forall actor:token, s:TiposSAT`IdSensor, q:TiposSAT`IdQuebrada, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_RegistrarSensor(actor, s, q) =>
+  (-- Ambiguous call to new Quebrada(q, mu(previo, activos |-> ((previo.activos) union {s}), confirmacion |-> nil, version |-> ((previo.version) + 1))), affects (operador, alarma, eventos, historial, quebradas, intentos, asignacion, ahora, sensores, autoridades)? at 42:29
+    (-- Ambiguous definition, affects (previo)? at 41:9
+      (let previo : TiposSAT`Evaluacion = (quebradas(q).Ver)(), copia : Quebrada = new Quebrada(q, mu(previo, activos |-> ((previo.activos) union {s}), confirmacion |-> nil, version |-> ((previo.version) + 1))) in
+        (-- Ambiguous call to new Sensor(s, q), affects (operador, alarma, eventos, historial, quebradas, intentos, asignacion, ahora, sensores, autoridades)? at 45:48
+          forall ldom1 in set dom sensores, rdom2 in set dom {s |-> new Sensor(s, q)} & ldom1 = rdom2 => sensores(ldom1) = {s |-> new Sensor(s, q)}(rdom2))))))
+
+Proof Obligation 29: (Unchecked)
+Unchecked in VDM++/RT
+RegistrarSensor(token, IdSensor, IdQuebrada): map compatible obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 46:27
+(forall actor:token, s:TiposSAT`IdSensor, q:TiposSAT`IdQuebrada, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_RegistrarSensor(actor, s, q) =>
+  (-- Ambiguous call to new Quebrada(q, mu(previo, activos |-> ((previo.activos) union {s}), confirmacion |-> nil, version |-> ((previo.version) + 1))), affects (operador, alarma, eventos, historial, quebradas, intentos, asignacion, ahora, sensores, autoridades)? at 42:29
+    (-- Ambiguous definition, affects (previo)? at 41:9
+      (let previo : TiposSAT`Evaluacion = (quebradas(q).Ver)(), copia : Quebrada = new Quebrada(q, mu(previo, activos |-> ((previo.activos) union {s}), confirmacion |-> nil, version |-> ((previo.version) + 1))) in
+        (-- Ambiguous call to new Sensor(s, q), affects (operador, alarma, eventos, historial, quebradas, intentos, asignacion, ahora, sensores, autoridades)? at 45:48
+          (let $atomic1 : map TiposSAT`IdSensor to (Sensor) = (sensores munion {s |-> new Sensor(s, q)}) in
+            (-- Ambiguous assignment, affects (sensores)? at 45:34
+              forall ldom1 in set dom asignacion, rdom2 in set dom {s |-> q} & ldom1 = rdom2 => asignacion(ldom1) = {s |-> q}(rdom2))))))))
+
+Proof Obligation 30: (Unchecked)
+Unchecked in VDM++/RT
+RegistrarSensor(token, IdSensor, IdQuebrada): state invariant obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 45:13
+(forall actor:token, s:TiposSAT`IdSensor, q:TiposSAT`IdQuebrada, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_RegistrarSensor(actor, s, q) =>
+  (-- Ambiguous call to new Quebrada(q, mu(previo, activos |-> ((previo.activos) union {s}), confirmacion |-> nil, version |-> ((previo.version) + 1))), affects (operador, alarma, eventos, historial, quebradas, intentos, asignacion, ahora, sensores, autoridades)? at 42:29
+    (-- Ambiguous definition, affects (previo)? at 41:9
+      (let previo : TiposSAT`Evaluacion = (quebradas(q).Ver)(), copia : Quebrada = new Quebrada(q, mu(previo, activos |-> ((previo.activos) union {s}), confirmacion |-> nil, version |-> ((previo.version) + 1))) in
+        (-- Ambiguous call to new Sensor(s, q), affects (operador, alarma, eventos, historial, quebradas, intentos, asignacion, ahora, sensores, autoridades)? at 45:48
+          (let $atomic1 : map TiposSAT`IdSensor to (Sensor) = (sensores munion {s |-> new Sensor(s, q)}) in
+            (-- Ambiguous assignment, affects (sensores)? at 45:34
+              (let $atomic2 : map TiposSAT`IdSensor to TiposSAT`IdQuebrada = (asignacion munion {s |-> q}) in
+                (-- Ambiguous assignment, affects (asignacion)? at 46:38
+                  (let $atomic3 : map TiposSAT`IdQuebrada to (Quebrada) = (quebradas ++ {q |-> copia}) in
+                    (-- Ambiguous assignment, affects (quebradas)? at 47:36
+                      (let sensores : map TiposSAT`IdSensor to (Sensor) = $atomic1 in
+                        (let asignacion : map TiposSAT`IdSensor to TiposSAT`IdQuebrada = $atomic2 in
+                          (let quebradas : map TiposSAT`IdQuebrada to (Quebrada) = $atomic3 in
+                            (((dom asignacion) = (dom sensores)) and (((rng asignacion) subset (dom quebradas)) and (((dom autoridades) = (dom quebradas)) and ((forall s in set (dom sensores) & (((sensores(s).GetId)() = s) and (((sensores(s).GetQuebrada)() = asignacion(s)) and (s in set ((quebradas(asignacion(s)).Ver)().activos))))) and ((forall q in set (dom quebradas) & (((quebradas(q).GetId)() = q) and (((quebradas(q).Ver)().activos) = {s | s in set (dom asignacion) & (asignacion(s) = q)}))) and ((forall i, j in set (inds historial) & ((i <> j) => ((historial(i).id) <> (historial(j).id)))) and ((forall i, j in set (inds historial) & (((i < j) and ((historial(i).sensor) = (historial(j).sensor))) => (((historial(i).numero) < (historial(j).numero)) and ((historial(i).instante) < (historial(j).instante))))) and (forall l in seq historial & (((l.sensor) in set (dom sensores)) and ((l.quebrada) = asignacion((l.sensor))))))))))))))))))))))))))
+
+Proof Obligation 31: (Unchecked)
+Unchecked in VDM++/RT
+RegistrarSensor(token, IdSensor, IdQuebrada): operation precondition obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 48:5
+(forall actor:token, s:TiposSAT`IdSensor, q:TiposSAT`IdQuebrada, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_RegistrarSensor(actor, s, q) =>
+  (-- Ambiguous call to new Quebrada(q, mu(previo, activos |-> ((previo.activos) union {s}), confirmacion |-> nil, version |-> ((previo.version) + 1))), affects (operador, alarma, eventos, historial, quebradas, intentos, asignacion, ahora, sensores, autoridades)? at 42:29
+    (-- Ambiguous definition, affects (previo)? at 41:9
+      (let previo : TiposSAT`Evaluacion = (quebradas(q).Ver)(), copia : Quebrada = new Quebrada(q, mu(previo, activos |-> ((previo.activos) union {s}), confirmacion |-> nil, version |-> ((previo.version) + 1))) in
+        (-- Ambiguous call to new Sensor(s, q), affects (operador, alarma, eventos, historial, quebradas, intentos, asignacion, ahora, sensores, autoridades)? at 45:48
+          (let $atomic1 : map TiposSAT`IdSensor to (Sensor) = (sensores munion {s |-> new Sensor(s, q)}) in
+            (-- Ambiguous assignment, affects (sensores)? at 45:34
+              (let $atomic2 : map TiposSAT`IdSensor to TiposSAT`IdQuebrada = (asignacion munion {s |-> q}) in
+                (-- Ambiguous assignment, affects (asignacion)? at 46:38
+                  (let $atomic3 : map TiposSAT`IdQuebrada to (Quebrada) = (quebradas ++ {q |-> copia}) in
+                    (-- Ambiguous assignment, affects (quebradas)? at 47:36
+                      (let sensores : map TiposSAT`IdSensor to (Sensor) = $atomic1 in
+                        (let asignacion : map TiposSAT`IdSensor to TiposSAT`IdQuebrada = $atomic2 in
+                          (let quebradas : map TiposSAT`IdQuebrada to (Quebrada) = $atomic3 in
+                            pre_(EvaluarQuebrada, q)))))))))))))))
+
+Proof Obligation 32: (Unproved)
+RecibirLectura(EntradaLectura): state invariant obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 55:5
+(forall e:TiposSAT`EntradaLectura, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema &
+  (forall $Validar:TiposSAT`Resultado & -- Call to Validar
+    (let r : TiposSAT`Resultado = $Validar in
+      (let intentos : seq of TiposSAT`Intento = (intentos ^ [mk_TiposSAT`Intento(e, r, ahora)]) in
+        (((dom asignacion) = (dom sensores)) and (((rng asignacion) subset (dom quebradas)) and (((dom autoridades) = (dom quebradas)) and ((forall s in set (dom sensores) & (((sensores(s).GetId)() = s) and (((sensores(s).GetQuebrada)() = asignacion(s)) and (s in set ((quebradas(asignacion(s)).Ver)().activos))))) and ((forall q in set (dom quebradas) & (((quebradas(q).GetId)() = q) and (((quebradas(q).Ver)().activos) = {s | s in set (dom asignacion) & (asignacion(s) = q)}))) and ((forall i, j in set (inds historial) & ((i <> j) => ((historial(i).id) <> (historial(j).id)))) and ((forall i, j in set (inds historial) & (((i < j) and ((historial(i).sensor) = (historial(j).sensor))) => (((historial(i).numero) < (historial(j).numero)) and ((historial(i).instante) < (historial(j).instante))))) and (forall l in seq historial & (((l.sensor) in set (dom sensores)) and ((l.quebrada) = asignacion((l.sensor))))))))))))))))
+
+Proof Obligation 33: (Unchecked)
+Unchecked in VDM++/RT
+RecibirLectura(EntradaLectura): operation precondition obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 59:7
+(forall e:TiposSAT`EntradaLectura, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema &
+  (forall $Validar:TiposSAT`Resultado & -- Call to Validar
+    (let r : TiposSAT`Resultado = $Validar in
+      (let intentos : seq of TiposSAT`Intento = (intentos ^ [mk_TiposSAT`Intento(e, r, ahora)]) in
+        ((r = <Aceptada>) =>
+          (let l : TiposSAT`Lectura = mk_TiposSAT`Lectura((e.id), (e.sensor), (e.quebrada), (e.numero), (e.instante), (e.humedad), (e.inclinacion)) in
+            pre_((sensores((e.sensor)).Aceptar), l)))))))
+
+Proof Obligation 34: (Unproved)
+RecibirLectura(EntradaLectura): state invariant obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 60:7
+(forall e:TiposSAT`EntradaLectura, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema &
+  (forall $Validar:TiposSAT`Resultado & -- Call to Validar
+    (let r : TiposSAT`Resultado = $Validar in
+      (let intentos : seq of TiposSAT`Intento = (intentos ^ [mk_TiposSAT`Intento(e, r, ahora)]) in
+        ((r = <Aceptada>) =>
+          (let l : TiposSAT`Lectura = mk_TiposSAT`Lectura((e.id), (e.sensor), (e.quebrada), (e.numero), (e.instante), (e.humedad), (e.inclinacion)) in
+            (forall $oldState:Sensor, $newState:Sensor &
+              (/* Undefined PP/RT Sensor`pre_Aceptar, Sensor`post_Aceptar */ true => -- Call to Sensor`Aceptar
+                (let historial : seq of TiposSAT`Lectura = (historial ^ [l]) in
+                  (((dom asignacion) = (dom sensores)) and (((rng asignacion) subset (dom quebradas)) and (((dom autoridades) = (dom quebradas)) and ((forall s in set (dom sensores) & (((sensores(s).GetId)() = s) and (((sensores(s).GetQuebrada)() = asignacion(s)) and (s in set ((quebradas(asignacion(s)).Ver)().activos))))) and ((forall q in set (dom quebradas) & (((quebradas(q).GetId)() = q) and (((quebradas(q).Ver)().activos) = {s | s in set (dom asignacion) & (asignacion(s) = q)}))) and ((forall i, j in set (inds historial) & ((i <> j) => ((historial(i).id) <> (historial(j).id)))) and ((forall i, j in set (inds historial) & (((i < j) and ((historial(i).sensor) = (historial(j).sensor))) => (((historial(i).numero) < (historial(j).numero)) and ((historial(i).instante) < (historial(j).instante))))) and (forall l in seq historial & (((l.sensor) in set (dom sensores)) and ((l.quebrada) = asignacion((l.sensor)))))))))))))))))))))
+
+Proof Obligation 35: (Unchecked)
+Unchecked in VDM++/RT
+RecibirLectura(EntradaLectura): operation precondition obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 61:7
+(forall e:TiposSAT`EntradaLectura, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema &
+  (forall $Validar:TiposSAT`Resultado & -- Call to Validar
+    (let r : TiposSAT`Resultado = $Validar in
+      (let intentos : seq of TiposSAT`Intento = (intentos ^ [mk_TiposSAT`Intento(e, r, ahora)]) in
+        ((r = <Aceptada>) =>
+          (let l : TiposSAT`Lectura = mk_TiposSAT`Lectura((e.id), (e.sensor), (e.quebrada), (e.numero), (e.instante), (e.humedad), (e.inclinacion)) in
+            (forall $oldState:Sensor, $newState:Sensor &
+              (/* Undefined PP/RT Sensor`pre_Aceptar, Sensor`post_Aceptar */ true => -- Call to Sensor`Aceptar
+                (let historial : seq of TiposSAT`Lectura = (historial ^ [l]) in
+                  pre_(EvaluarQuebrada, (e.quebrada)))))))))))
+
+Proof Obligation 36: (Unproved)
+RecibirLectura(EntradaLectura): map apply obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 63:20
+(forall e:TiposSAT`EntradaLectura, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema &
+  (forall $Validar:TiposSAT`Resultado & -- Call to Validar
+    (let r : TiposSAT`Resultado = $Validar in
+      (let intentos : seq of TiposSAT`Intento = (intentos ^ [mk_TiposSAT`Intento(e, r, ahora)]) in
+        (not (r = <Aceptada>) =>
+          (let $oldState1 = undefined in
+            (forall $Nuevo:bool & /* Undefined PP/RT pre_Nuevo */ true => -- Call to Nuevo
+              (((e.sensor) in set (dom sensores)) =>
+                (e.sensor) in set dom asignacion))))))))
+
+Proof Obligation 37: (Unchecked)
+Unchecked in VDM++/RT
+RecibirLectura(EntradaLectura): operation precondition obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 65:40
+(forall e:TiposSAT`EntradaLectura, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema &
+  (forall $Validar:TiposSAT`Resultado & -- Call to Validar
+    (let r : TiposSAT`Resultado = $Validar in
+      (let intentos : seq of TiposSAT`Intento = (intentos ^ [mk_TiposSAT`Intento(e, r, ahora)]) in
+        (not (r = <Aceptada>) =>
+          (let $oldState1 = undefined in
+            (forall $Nuevo:bool & /* Undefined PP/RT pre_Nuevo */ true => -- Call to Nuevo
+              ((((e.sensor) in set (dom sensores)) and (((e.quebrada) = asignacion((e.sensor))) and ((r in set {<Rango>, <Incompleta>}) and $Nuevo))) =>
+                (forall $oldState:Sensor, $newState:Sensor &
+                  (/* Undefined PP/RT Sensor`post_Degradar */ true => -- Call to Sensor`Degradar
+                    pre_(EvaluarQuebrada, (e.quebrada))))))))))))
+
+Proof Obligation 38: (Unproved)
+Validar(EntradaLectura): map apply obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 83:22
+(forall e:TiposSAT`EntradaLectura, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema &
+  (not ((e.sensor) not in set (dom sensores)) =>
+    (e.sensor) in set dom asignacion))
+
+Proof Obligation 39: (Unproved)
+Validar(EntradaLectura): subtype obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 91:8
+(forall e:TiposSAT`EntradaLectura, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema &
+  (not ((e.sensor) not in set (dom sensores)) =>
+    (not ((e.quebrada) <> asignacion((e.sensor))) =>
+      (not (exists l in seq historial & ((l.id) = (e.id))) =>
+        (not ((e.numero) < 1) =>
+          (not (((e.instante) < 0) or ((e.instante) > ahora)) =>
+            (let $oldState = undefined in
+              (forall $Nuevo:bool & /* Undefined PP/RT pre_Nuevo */ true => -- Call to Nuevo
+                (not (not $Nuevo) =>
+                  (forall $Ver:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+                    (not ((ahora - (e.instante)) > (($Ver.configuracion).vigencia)) =>
+                      (not (((e.humedad) = nil) or ((e.inclinacion) = nil)) =>
+                        is_real((e.humedad))))))))))))))
+
+Proof Obligation 40: (Unproved)
+Validar(EntradaLectura): subtype obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 91:25
+(forall e:TiposSAT`EntradaLectura, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema &
+  (not ((e.sensor) not in set (dom sensores)) =>
+    (not ((e.quebrada) <> asignacion((e.sensor))) =>
+      (not (exists l in seq historial & ((l.id) = (e.id))) =>
+        (not ((e.numero) < 1) =>
+          (not (((e.instante) < 0) or ((e.instante) > ahora)) =>
+            (let $oldState = undefined in
+              (forall $Nuevo:bool & /* Undefined PP/RT pre_Nuevo */ true => -- Call to Nuevo
+                (not (not $Nuevo) =>
+                  (forall $Ver:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+                    (not ((ahora - (e.instante)) > (($Ver.configuracion).vigencia)) =>
+                      (not (((e.humedad) = nil) or ((e.inclinacion) = nil)) =>
+                        (not ((e.humedad) < 0) =>
+                          is_real((e.humedad)))))))))))))))
+
+Proof Obligation 41: (Unproved)
+Validar(EntradaLectura): subtype obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 92:8
+(forall e:TiposSAT`EntradaLectura, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema &
+  (not ((e.sensor) not in set (dom sensores)) =>
+    (not ((e.quebrada) <> asignacion((e.sensor))) =>
+      (not (exists l in seq historial & ((l.id) = (e.id))) =>
+        (not ((e.numero) < 1) =>
+          (not (((e.instante) < 0) or ((e.instante) > ahora)) =>
+            (let $oldState = undefined in
+              (forall $Nuevo:bool & /* Undefined PP/RT pre_Nuevo */ true => -- Call to Nuevo
+                (not (not $Nuevo) =>
+                  (forall $Ver:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+                    (not ((ahora - (e.instante)) > (($Ver.configuracion).vigencia)) =>
+                      (not (((e.humedad) = nil) or ((e.inclinacion) = nil)) =>
+                        (not ((e.humedad) < 0) =>
+                          (not ((e.humedad) > 100) =>
+                            is_real((e.inclinacion))))))))))))))))
+
+Proof Obligation 42: (Unproved)
+Validar(EntradaLectura): subtype obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 92:29
+(forall e:TiposSAT`EntradaLectura, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema &
+  (not ((e.sensor) not in set (dom sensores)) =>
+    (not ((e.quebrada) <> asignacion((e.sensor))) =>
+      (not (exists l in seq historial & ((l.id) = (e.id))) =>
+        (not ((e.numero) < 1) =>
+          (not (((e.instante) < 0) or ((e.instante) > ahora)) =>
+            (let $oldState = undefined in
+              (forall $Nuevo:bool & /* Undefined PP/RT pre_Nuevo */ true => -- Call to Nuevo
+                (not (not $Nuevo) =>
+                  (forall $Ver:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+                    (not ((ahora - (e.instante)) > (($Ver.configuracion).vigencia)) =>
+                      (not (((e.humedad) = nil) or ((e.inclinacion) = nil)) =>
+                        (not ((e.humedad) < 0) =>
+                          (not ((e.humedad) > 100) =>
+                            (not ((e.inclinacion) < 0) =>
+                              is_real((e.inclinacion)))))))))))))))))
+
+Proof Obligation 43: (Unchecked)
+Unchecked in VDM++/RT
+EvaluarQuebrada(IdQuebrada): loop invariant obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 102:5
+(forall q:TiposSAT`IdQuebrada, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_EvaluarQuebrada(q) =>
+  (forall $Ver:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+    (forall $Ver$1:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+      (forall $Ver$2:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+        (let c : TiposSAT`Configuracion = ($Ver.configuracion), activos : set of token = ($Ver$1.activos), utilizables : set of TiposSAT`Lectura = {}, anterior : TiposSAT`NivelAlerta = ($Ver$2.nivel) in
+          (-- Missing @LoopInvariant, assuming true at 102:5
+            (let $LoopInvariant : bool = true in
+              (let DONE_102$ : set of token = {} in
+                $LoopInvariant))))))))
+
+Proof Obligation 44: (Unchecked)
+Unchecked in VDM++/RT
+EvaluarQuebrada(IdQuebrada): subtype obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 105:27
+(forall q:TiposSAT`IdQuebrada, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_EvaluarQuebrada(q) =>
+  (forall $Ver:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+    (forall $Ver$1:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+      (forall $Ver$2:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+        (let c : TiposSAT`Configuracion = ($Ver.configuracion), activos : set of token = ($Ver$1.activos), utilizables : set of TiposSAT`Lectura = {}, anterior : TiposSAT`NivelAlerta = ($Ver$2.nivel) in
+          (-- Missing @LoopInvariant, assuming true at 102:5
+            (let $LoopInvariant : bool = true in
+              ((activos <> {}) =>
+                (forall utilizables:set of TiposSAT`Lectura, s:token, DONE_102$:set of token &
+                  (((DONE_102$ psubset activos) and (s in set (activos \ DONE_102$))) and $LoopInvariant =>
+                    (forall $GetUltima:[TiposSAT`Lectura] & -- Call to Sensor`GetUltima
+                      (let l : [TiposSAT`Lectura] = $GetUltima in
+                        (forall $Degradado:bool & -- Call to Sensor`Degradado
+                          ((l <> nil) =>
+                            ((not $Degradado) =>
+                              TiposSAT`inv_Lectura(l))))))))))))))))
+
+Proof Obligation 45: (Unchecked)
+Unchecked in VDM++/RT
+EvaluarQuebrada(IdQuebrada): subtype obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 105:79
+(forall q:TiposSAT`IdQuebrada, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_EvaluarQuebrada(q) =>
+  (forall $Ver:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+    (forall $Ver$1:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+      (forall $Ver$2:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+        (let c : TiposSAT`Configuracion = ($Ver.configuracion), activos : set of token = ($Ver$1.activos), utilizables : set of TiposSAT`Lectura = {}, anterior : TiposSAT`NivelAlerta = ($Ver$2.nivel) in
+          (-- Missing @LoopInvariant, assuming true at 102:5
+            (let $LoopInvariant : bool = true in
+              ((activos <> {}) =>
+                (forall utilizables:set of TiposSAT`Lectura, s:token, DONE_102$:set of token &
+                  (((DONE_102$ psubset activos) and (s in set (activos \ DONE_102$))) and $LoopInvariant =>
+                    (forall $GetUltima:[TiposSAT`Lectura] & -- Call to Sensor`GetUltima
+                      (let l : [TiposSAT`Lectura] = $GetUltima in
+                        (forall $Degradado:bool & -- Call to Sensor`Degradado
+                          (((l <> nil) and ((not $Degradado) and TiposSAT`Vigente(l, ahora, (c.vigencia)))) =>
+                            is_((utilizables union {l}), set of TiposSAT`Lectura)))))))))))))))
+
+Proof Obligation 46: (Unchecked)
+Unchecked in VDM++/RT
+EvaluarQuebrada(IdQuebrada): loop invariant obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 102:33
+(forall q:TiposSAT`IdQuebrada, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_EvaluarQuebrada(q) =>
+  (forall $Ver:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+    (forall $Ver$1:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+      (forall $Ver$2:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+        (let c : TiposSAT`Configuracion = ($Ver.configuracion), activos : set of token = ($Ver$1.activos), utilizables : set of TiposSAT`Lectura = {}, anterior : TiposSAT`NivelAlerta = ($Ver$2.nivel) in
+          (-- Missing @LoopInvariant, assuming true at 102:5
+            (let $LoopInvariant : bool = true in
+              ((activos <> {}) =>
+                (forall utilizables:set of TiposSAT`Lectura, s:token, DONE_102$:set of token &
+                  (((DONE_102$ psubset activos) and (s in set (activos \ DONE_102$))) and $LoopInvariant =>
+                    (forall $GetUltima:[TiposSAT`Lectura] & -- Call to Sensor`GetUltima
+                      (let l : [TiposSAT`Lectura] = $GetUltima in
+                        (forall $Degradado:bool & -- Call to Sensor`Degradado
+                          (((l <> nil) and ((not $Degradado) and TiposSAT`Vigente(l, ahora, (c.vigencia)))) =>
+                            (let utilizables : set of TiposSAT`Lectura = (utilizables union {l}) in
+                              (let DONE_102$ : set of token = (DONE_102$ union {s}) in
+                                $LoopInvariant))))))))))))))))
+
+Proof Obligation 47: (Unchecked)
+Unchecked in VDM++/RT
+EvaluarQuebrada(IdQuebrada): loop invariant obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 102:33
+(forall q:TiposSAT`IdQuebrada, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_EvaluarQuebrada(q) =>
+  (forall $Ver:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+    (forall $Ver$1:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+      (forall $Ver$2:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+        (let c : TiposSAT`Configuracion = ($Ver.configuracion), activos : set of token = ($Ver$1.activos), utilizables : set of TiposSAT`Lectura = {}, anterior : TiposSAT`NivelAlerta = ($Ver$2.nivel) in
+          (-- Missing @LoopInvariant, assuming true at 102:5
+            (let $LoopInvariant : bool = true in
+              ((activos <> {}) =>
+                (forall utilizables:set of TiposSAT`Lectura, s:token, DONE_102$:set of token &
+                  (((DONE_102$ psubset activos) and (s in set (activos \ DONE_102$))) and $LoopInvariant =>
+                    (forall $GetUltima:[TiposSAT`Lectura] & -- Call to Sensor`GetUltima
+                      (let l : [TiposSAT`Lectura] = $GetUltima in
+                        (forall $Degradado:bool & -- Call to Sensor`Degradado
+                          (not ((l <> nil) and ((not $Degradado) and TiposSAT`Vigente(l, ahora, (c.vigencia)))) =>
+                            (let DONE_102$ : set of token = (DONE_102$ union {s}) in
+                              $LoopInvariant)))))))))))))))
+
+Proof Obligation 48: (Unchecked)
+Unchecked in VDM++/RT
+EvaluarQuebrada(IdQuebrada): operation precondition obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 107:5
+(forall q:TiposSAT`IdQuebrada, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_EvaluarQuebrada(q) =>
+  (forall $Ver:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+    (forall $Ver$1:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+      (forall $Ver$2:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+        (let c : TiposSAT`Configuracion = ($Ver.configuracion), activos : set of token = ($Ver$1.activos), utilizables : set of TiposSAT`Lectura = {}, anterior : TiposSAT`NivelAlerta = ($Ver$2.nivel) in
+          (-- Missing @LoopInvariant, assuming true at 102:5
+            (let $LoopInvariant : bool = true in
+              ((activos <> {}) =>
+                (let DONE_102$ : set of token = activos in
+                  (forall utilizables:set of TiposSAT`Lectura &
+                    ($LoopInvariant =>
+                      pre_((quebradas(q).Actualizar), (if (utilizables = {}) then <SinDatos> elseif ((card utilizables) = (card activos)) then <Vigente> else <Degradada>), TiposSAT`Agregar({TiposSAT`Clasificar(l, c) | l in set utilizables})))))))))))))
+
+Proof Obligation 49: (Unchecked)
+Unchecked in VDM++/RT
+EvaluarQuebrada(IdQuebrada): operation precondition obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 107:5
+(forall q:TiposSAT`IdQuebrada, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_EvaluarQuebrada(q) =>
+  (forall $Ver:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+    (forall $Ver$1:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+      (forall $Ver$2:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+        (let c : TiposSAT`Configuracion = ($Ver.configuracion), activos : set of token = ($Ver$1.activos), utilizables : set of TiposSAT`Lectura = {}, anterior : TiposSAT`NivelAlerta = ($Ver$2.nivel) in
+          (-- Missing @LoopInvariant, assuming true at 102:5
+            (let $LoopInvariant : bool = true in
+              ((activos = {}) =>
+                (-- Did not enter loop at 102:5
+                  (let DONE_102$ : set of token = {} in
+                    ($LoopInvariant =>
+                      pre_((quebradas(q).Actualizar), (if (utilizables = {}) then <SinDatos> elseif ((card utilizables) = (card activos)) then <Vigente> else <Degradada>), TiposSAT`Agregar({TiposSAT`Clasificar(l, c) | l in set utilizables})))))))))))))
+
+Proof Obligation 50: (Unchecked)
+Unchecked in VDM++/RT
+EvaluarQuebrada(IdQuebrada): map apply obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 112:22
+(forall q:TiposSAT`IdQuebrada, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_EvaluarQuebrada(q) =>
+  (forall $Ver:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+    (forall $Ver$1:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+      (forall $Ver$2:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+        (let c : TiposSAT`Configuracion = ($Ver.configuracion), activos : set of token = ($Ver$1.activos), utilizables : set of TiposSAT`Lectura = {}, anterior : TiposSAT`NivelAlerta = ($Ver$2.nivel) in
+          (-- Missing @LoopInvariant, assuming true at 102:5
+            (let $LoopInvariant : bool = true in
+              ((activos <> {}) =>
+                (let DONE_102$ : set of token = activos in
+                  (forall utilizables:set of TiposSAT`Lectura &
+                    ($LoopInvariant =>
+                      (forall $oldState:Quebrada, $newState:Quebrada &
+                        (/* Undefined PP/RT Quebrada`pre_Actualizar, Quebrada`post_Actualizar */ true => -- Call to Quebrada`Actualizar
+                          (forall $Ver:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+                            (((anterior <> <Rojo>) and (($Ver.nivel) = <Rojo>)) =>
+                              q in set dom autoridades)))))))))))))))
+
+Proof Obligation 51: (Unchecked)
+Unchecked in VDM++/RT
+EvaluarQuebrada(IdQuebrada): map apply obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 112:22
+(forall q:TiposSAT`IdQuebrada, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_EvaluarQuebrada(q) =>
+  (forall $Ver:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+    (forall $Ver$1:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+      (forall $Ver$2:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+        (let c : TiposSAT`Configuracion = ($Ver.configuracion), activos : set of token = ($Ver$1.activos), utilizables : set of TiposSAT`Lectura = {}, anterior : TiposSAT`NivelAlerta = ($Ver$2.nivel) in
+          (-- Missing @LoopInvariant, assuming true at 102:5
+            (let $LoopInvariant : bool = true in
+              ((activos = {}) =>
+                (-- Did not enter loop at 102:5
+                  (let DONE_102$ : set of token = {} in
+                    ($LoopInvariant =>
+                      (forall $oldState:Quebrada, $newState:Quebrada &
+                        (/* Undefined PP/RT Quebrada`pre_Actualizar, Quebrada`post_Actualizar */ true => -- Call to Quebrada`Actualizar
+                          (forall $Ver:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+                            (((anterior <> <Rojo>) and (($Ver.nivel) = <Rojo>)) =>
+                              q in set dom autoridades)))))))))))))))
+
+Proof Obligation 52: (Unchecked)
+Unchecked in VDM++/RT
+EvaluarQuebrada(IdQuebrada): operation precondition obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 112:7
+(forall q:TiposSAT`IdQuebrada, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_EvaluarQuebrada(q) =>
+  (forall $Ver:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+    (forall $Ver$1:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+      (forall $Ver$2:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+        (let c : TiposSAT`Configuracion = ($Ver.configuracion), activos : set of token = ($Ver$1.activos), utilizables : set of TiposSAT`Lectura = {}, anterior : TiposSAT`NivelAlerta = ($Ver$2.nivel) in
+          (-- Missing @LoopInvariant, assuming true at 102:5
+            (let $LoopInvariant : bool = true in
+              ((activos <> {}) =>
+                (let DONE_102$ : set of token = activos in
+                  (forall utilizables:set of TiposSAT`Lectura &
+                    ($LoopInvariant =>
+                      (forall $oldState:Quebrada, $newState:Quebrada &
+                        (/* Undefined PP/RT Quebrada`pre_Actualizar, Quebrada`post_Actualizar */ true => -- Call to Quebrada`Actualizar
+                          (forall $Ver:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+                            (((anterior <> <Rojo>) and (($Ver.nivel) = <Rojo>)) =>
+                              pre_((alarma.Abrir), q, autoridades(q)))))))))))))))))
+
+Proof Obligation 53: (Unchecked)
+Unchecked in VDM++/RT
+EvaluarQuebrada(IdQuebrada): operation precondition obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 112:7
+(forall q:TiposSAT`IdQuebrada, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_EvaluarQuebrada(q) =>
+  (forall $Ver:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+    (forall $Ver$1:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+      (forall $Ver$2:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+        (let c : TiposSAT`Configuracion = ($Ver.configuracion), activos : set of token = ($Ver$1.activos), utilizables : set of TiposSAT`Lectura = {}, anterior : TiposSAT`NivelAlerta = ($Ver$2.nivel) in
+          (-- Missing @LoopInvariant, assuming true at 102:5
+            (let $LoopInvariant : bool = true in
+              ((activos = {}) =>
+                (-- Did not enter loop at 102:5
+                  (let DONE_102$ : set of token = {} in
+                    ($LoopInvariant =>
+                      (forall $oldState:Quebrada, $newState:Quebrada &
+                        (/* Undefined PP/RT Quebrada`pre_Actualizar, Quebrada`post_Actualizar */ true => -- Call to Quebrada`Actualizar
+                          (forall $Ver:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+                            (((anterior <> <Rojo>) and (($Ver.nivel) = <Rojo>)) =>
+                              pre_((alarma.Abrir), q, autoridades(q)))))))))))))))))
+
+Proof Obligation 54: (Unchecked)
+Unchecked in VDM++/RT
+RegistrarConfirmacion(token, IdQuebrada, IdLectura): operation precondition obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 118:5
+(forall actor:token, q:TiposSAT`IdQuebrada, lid:TiposSAT`IdLectura, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_RegistrarConfirmacion(actor, q, lid) =>
+  pre_((quebradas(q).Confirmar), lid))
+
+Proof Obligation 55: (Unchecked)
+Unchecked in VDM++/RT
+AplicarDescenso(token, IdQuebrada): operation precondition obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 131:5
+(forall actor:token, q:TiposSAT`IdQuebrada, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_AplicarDescenso(actor, q) =>
+  (forall $Ver:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+    (forall $Activa:[TiposSAT`IdAlerta] & -- Call to Alarma`Activa
+      (let anterior : TiposSAT`NivelAlerta = ($Ver.nivel), episodio : [token] = $Activa in
+        pre_((quebradas(q).Descender))))))
+
+Proof Obligation 56: (Unchecked)
+Unchecked in VDM++/RT
+AplicarDescenso(token, IdQuebrada): operation precondition obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 132:31
+(forall actor:token, q:TiposSAT`IdQuebrada, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_AplicarDescenso(actor, q) =>
+  (forall $Ver:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+    (forall $Activa:[TiposSAT`IdAlerta] & -- Call to Alarma`Activa
+      (let anterior : TiposSAT`NivelAlerta = ($Ver.nivel), episodio : [token] = $Activa in
+        (forall $oldState:Quebrada, $newState:Quebrada &
+          (/* Undefined PP/RT Quebrada`pre_Descender, Quebrada`post_Descender */ true => -- Call to Quebrada`Descender
+            ((anterior = <Rojo>) =>
+              pre_((alarma.Cerrar), q))))))))
+
+Proof Obligation 57: (Unchecked)
+Unchecked in VDM++/RT
+CambiarConfiguracion(token, IdQuebrada, Configuracion): operation precondition obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 140:5
+(forall actor:token, q:TiposSAT`IdQuebrada, c:TiposSAT`Configuracion, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_CambiarConfiguracion(actor, q, c) =>
+  pre_((quebradas(q).Configurar), c))
+
+Proof Obligation 58: (Unchecked)
+Unchecked in VDM++/RT
+CambiarConfiguracion(token, IdQuebrada, Configuracion): operation precondition obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 140:33
+(forall actor:token, q:TiposSAT`IdQuebrada, c:TiposSAT`Configuracion, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_CambiarConfiguracion(actor, q, c) =>
+  (forall $oldState:Quebrada, $newState:Quebrada &
+    (/* Undefined PP/RT Quebrada`pre_Configurar, Quebrada`post_Configurar */ true => -- Call to Quebrada`Configurar
+      pre_(EvaluarQuebrada, q))))
+
+Proof Obligation 59: (Unchecked)
+Unchecked in VDM++/RT
+AvanzarTiempo(nat): state invariant obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 148:5
+(forall nuevo:nat, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_AvanzarTiempo(nuevo) =>
+  (let ahora : nat = nuevo in
+    (((dom asignacion) = (dom sensores)) and (((rng asignacion) subset (dom quebradas)) and (((dom autoridades) = (dom quebradas)) and ((forall s in set (dom sensores) & (((sensores(s).GetId)() = s) and (((sensores(s).GetQuebrada)() = asignacion(s)) and (s in set ((quebradas(asignacion(s)).Ver)().activos))))) and ((forall q in set (dom quebradas) & (((quebradas(q).GetId)() = q) and (((quebradas(q).Ver)().activos) = {s | s in set (dom asignacion) & (asignacion(s) = q)}))) and ((forall i, j in set (inds historial) & ((i <> j) => ((historial(i).id) <> (historial(j).id)))) and ((forall i, j in set (inds historial) & (((i < j) and ((historial(i).sensor) = (historial(j).sensor))) => (((historial(i).numero) < (historial(j).numero)) and ((historial(i).instante) < (historial(j).instante))))) and (forall l in seq historial & (((l.sensor) in set (dom sensores)) and ((l.quebrada) = asignacion((l.sensor))))))))))))))
+
+Proof Obligation 60: (Unchecked)
+Unchecked in VDM++/RT
+AvanzarTiempo(nat): loop invariant obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 149:5
+(forall nuevo:nat, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_AvanzarTiempo(nuevo) =>
+  (let ahora : nat = nuevo in
+    (-- Missing @LoopInvariant, assuming true at 149:5
+      (let $LoopInvariant : bool = true in
+        (let DONE_149$ : set of TiposSAT`IdQuebrada = {} in
+          $LoopInvariant)))))
+
+Proof Obligation 61: (Unchecked)
+Unchecked in VDM++/RT
+AvanzarTiempo(nat): operation precondition obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 150:7
+(forall nuevo:nat, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_AvanzarTiempo(nuevo) =>
+  (let ahora : nat = nuevo in
+    (-- Missing @LoopInvariant, assuming true at 149:5
+      (let $LoopInvariant : bool = true in
+        (((dom quebradas) <> {}) =>
+          (forall DONE_149$:set of TiposSAT`IdQuebrada, eventos:seq of TiposSAT`Evento, q:TiposSAT`IdQuebrada &
+            (((DONE_149$ psubset (dom quebradas)) and (q in set ((dom quebradas) \ DONE_149$))) and $LoopInvariant =>
+              pre_(EvaluarQuebrada, q))))))))
+
+Proof Obligation 62: (Unchecked)
+Unchecked in VDM++/RT
+AvanzarTiempo(nat): loop invariant obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 149:39
+(forall nuevo:nat, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_AvanzarTiempo(nuevo) =>
+  (let ahora : nat = nuevo in
+    (-- Missing @LoopInvariant, assuming true at 149:5
+      (let $LoopInvariant : bool = true in
+        (((dom quebradas) <> {}) =>
+          (forall DONE_149$:set of TiposSAT`IdQuebrada, eventos:seq of TiposSAT`Evento, q:TiposSAT`IdQuebrada &
+            (((DONE_149$ psubset (dom quebradas)) and (q in set ((dom quebradas) \ DONE_149$))) and $LoopInvariant =>
+              (let $oldState = undefined in
+                (/* Undefined PP/RT pre_EvaluarQuebrada */ true => -- Call to EvaluarQuebrada
+                  (forall eventos:seq of TiposSAT`Evento & -- Call to RegistrarEvento
+                    (let DONE_149$ : set of TiposSAT`IdQuebrada = (DONE_149$ union {q}) in
+                      $LoopInvariant)))))))))))
+
+Proof Obligation 63: (Unproved)
+RegistrarContexto(IdQuebrada, token, [IdAlerta], [IdAutoridad], [Aviso]): subtype obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 160:62
+(forall q:TiposSAT`IdQuebrada, causa:token, e:[TiposSAT`IdAlerta], a:[TiposSAT`IdAutoridad], av:[TiposSAT`Aviso], obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema &
+  (forall $Ver:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+    (forall $Ver$1:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+      TiposSAT`inv_Evento(mk_TiposSAT`Evento(((len eventos) + 1), ahora, q, causa, ($Ver.version), $Ver$1, e, a, av)))))
+
+Proof Obligation 64: (Unproved)
+RegistrarContexto(IdQuebrada, token, [IdAlerta], [IdAutoridad], [Aviso]): state invariant obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 160:40
+(forall q:TiposSAT`IdQuebrada, causa:token, e:[TiposSAT`IdAlerta], a:[TiposSAT`IdAutoridad], av:[TiposSAT`Aviso], obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema &
+  (forall $Ver:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+    (forall $Ver$1:TiposSAT`Evaluacion & -- Call to Quebrada`Ver
+      (let eventos : seq of TiposSAT`Evento = (eventos ^ [mk_TiposSAT`Evento(((len eventos) + 1), ahora, q, causa, ($Ver.version), $Ver$1, e, a, av)]) in
+        (((dom asignacion) = (dom sensores)) and (((rng asignacion) subset (dom quebradas)) and (((dom autoridades) = (dom quebradas)) and ((forall s in set (dom sensores) & (((sensores(s).GetId)() = s) and (((sensores(s).GetQuebrada)() = asignacion(s)) and (s in set ((quebradas(asignacion(s)).Ver)().activos))))) and ((forall q in set (dom quebradas) & (((quebradas(q).GetId)() = q) and (((quebradas(q).Ver)().activos) = {s | s in set (dom asignacion) & (asignacion(s) = q)}))) and ((forall i, j in set (inds historial) & ((i <> j) => ((historial(i).id) <> (historial(j).id)))) and ((forall i, j in set (inds historial) & (((i < j) and ((historial(i).sensor) = (historial(j).sensor))) => (((historial(i).numero) < (historial(j).numero)) and ((historial(i).instante) < (historial(j).instante))))) and (forall l in seq historial & (((l.sensor) in set (dom sensores)) and ((l.quebrada) = asignacion((l.sensor))))))))))))))))
+
+Proof Obligation 65: (Unchecked)
+Unchecked in VDM++/RT
+EmitirAviso(IdAlerta, IdAutoridad, bool): operation precondition obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 164:27
+(forall e:TiposSAT`IdAlerta, a:TiposSAT`IdAutoridad, ok:bool, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_EmitirAviso(e, a, ok) =>
+  pre_((alarma.Intentar), e, a, ok))
+
+Proof Obligation 66: (Unchecked)
+Unchecked in VDM++/RT
+EmitirAviso(IdAlerta, IdAutoridad, bool): map apply obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 165:23
+(forall e:TiposSAT`IdAlerta, a:TiposSAT`IdAutoridad, ok:bool, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_EmitirAviso(e, a, ok) =>
+  (forall $oldState:Alarma, $newState:Alarma &
+    (/* Undefined PP/RT Alarma`pre_Intentar, Alarma`post_Intentar */ true => -- Call to Alarma`Intentar
+      (forall $VerEpisodios:map TiposSAT`IdAlerta to TiposSAT`Episodio & -- Call to Alarma`VerEpisodios
+        e in set dom $VerEpisodios))))
+
+Proof Obligation 67: (Unchecked)
+Unchecked in VDM++/RT
+EmitirAviso(IdAlerta, IdAutoridad, bool): map apply obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 166:11
+(forall e:TiposSAT`IdAlerta, a:TiposSAT`IdAutoridad, ok:bool, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_EmitirAviso(e, a, ok) =>
+  (forall $oldState:Alarma, $newState:Alarma &
+    (/* Undefined PP/RT Alarma`pre_Intentar, Alarma`post_Intentar */ true => -- Call to Alarma`Intentar
+      (forall $VerEpisodios:map TiposSAT`IdAlerta to TiposSAT`Episodio & -- Call to Alarma`VerEpisodios
+        (forall $VerAvisos:map ((TiposSAT`IdAlerta) * (TiposSAT`IdAutoridad)) to TiposSAT`Aviso & -- Call to Alarma`VerAvisos
+          mk_(e, a) in set dom $VerAvisos)))))
+
+Proof Obligation 68: (Unchecked)
+Unchecked in VDM++/RT
+RegistrarAcuse(IdAlerta, IdAutoridad): operation precondition obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 169:27
+(forall e:TiposSAT`IdAlerta, a:TiposSAT`IdAutoridad, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_RegistrarAcuse(e, a) =>
+  pre_((alarma.Acusar), e, a))
+
+Proof Obligation 69: (Unchecked)
+Unchecked in VDM++/RT
+RegistrarAcuse(IdAlerta, IdAutoridad): map apply obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 170:23
+(forall e:TiposSAT`IdAlerta, a:TiposSAT`IdAutoridad, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_RegistrarAcuse(e, a) =>
+  (forall $oldState:Alarma, $newState:Alarma &
+    (/* Undefined PP/RT Alarma`pre_Acusar, Alarma`post_Acusar */ true => -- Call to Alarma`Acusar
+      (forall $VerEpisodios:map TiposSAT`IdAlerta to TiposSAT`Episodio & -- Call to Alarma`VerEpisodios
+        e in set dom $VerEpisodios))))
+
+Proof Obligation 70: (Unchecked)
+Unchecked in VDM++/RT
+RegistrarAcuse(IdAlerta, IdAutoridad): map apply obligation in 'Sistema' (<PROJECT_ROOT>/model/Sistema.vdmpp) at line 171:11
+(forall e:TiposSAT`IdAlerta, a:TiposSAT`IdAutoridad, obj_Sistema(operador |-> operador, ahora |-> ahora, sensores |-> sensores, quebradas |-> quebradas, asignacion |-> asignacion, autoridades |-> autoridades, historial |-> historial, intentos |-> intentos, eventos |-> eventos, alarma |-> alarma):Sistema & pre_RegistrarAcuse(e, a) =>
+  (forall $oldState:Alarma, $newState:Alarma &
+    (/* Undefined PP/RT Alarma`pre_Acusar, Alarma`post_Acusar */ true => -- Call to Alarma`Acusar
+      (forall $VerEpisodios:map TiposSAT`IdAlerta to TiposSAT`Episodio & -- Call to Alarma`VerEpisodios
+        (forall $VerAvisos:map ((TiposSAT`IdAlerta) * (TiposSAT`IdAutoridad)) to TiposSAT`Aviso & -- Call to Alarma`VerAvisos
+          mk_(e, a) in set dom $VerAvisos)))))
+
+Proof Obligation 71: (Unproved)
+Lectura: total function obligation in 'TiposSAT' (<PROJECT_ROOT>/model/TiposSAT.vdmpp) at line 31:7
+(forall l:Lectura! &
+  is_(inv_Lectura(l), bool))
+
+Proof Obligation 72: (Unproved)
+Lectura: invariant satisfiability obligation in 'TiposSAT' (<PROJECT_ROOT>/model/TiposSAT.vdmpp) at line 31:7
+exists l : Lectura & ((0 <= (l.humedad)) and (((l.humedad) <= 100) and ((0 <= (l.inclinacion)) and ((l.inclinacion) <= 180))))
+
+Proof Obligation 73: (Unproved)
+Configuracion: total function obligation in 'TiposSAT' (<PROJECT_ROOT>/model/TiposSAT.vdmpp) at line 41:7
+(forall c:Configuracion! &
+  is_(inv_Configuracion(c), bool))
+
+Proof Obligation 74: (Unproved)
+Configuracion: invariant satisfiability obligation in 'TiposSAT' (<PROJECT_ROOT>/model/TiposSAT.vdmpp) at line 41:7
+exists c : Configuracion & ConfiguracionValida((c.hAviso), (c.hCrit), (c.iAviso), (c.iCrit))
+
+Proof Obligation 75: (Unproved)
+Evaluacion: total function obligation in 'TiposSAT' (<PROJECT_ROOT>/model/TiposSAT.vdmpp) at line 56:7
+(forall e:Evaluacion! &
+  is_(inv_Evaluacion(e), bool))
+
+Proof Obligation 76: (Unproved)
+Evaluacion: invariant satisfiability obligation in 'TiposSAT' (<PROJECT_ROOT>/model/TiposSAT.vdmpp) at line 56:7
+exists e : Evaluacion & ((((e.calidad) = <SinDatos>) <=> ((e.candidato) = nil)) and (((e.confirmacion) <> nil) => ((((e.confirmacion).version) = (e.version)) and (((e.calidad) = <Vigente>) and (((e.candidato) = ((e.confirmacion).objetivo)) and (Prioridad(((e.confirmacion).objetivo)) < Prioridad((e.nivel))))))))
+
+Proof Obligation 77: (Unproved)
+Evento: total function obligation in 'TiposSAT' (<PROJECT_ROOT>/model/TiposSAT.vdmpp) at line 72:7
+(forall e:Evento! &
+  is_(inv_Evento(e), bool))
+
+Proof Obligation 78: (Unproved)
+Evento: invariant satisfiability obligation in 'TiposSAT' (<PROJECT_ROOT>/model/TiposSAT.vdmpp) at line 72:7
+exists e : Evento & ((((e.autoridad) = nil) <=> ((e.aviso) = nil)) and (((e.aviso) <> nil) => ((e.alerta) <> nil)))
+
+Proof Obligation 79: (Unproved)
+Aviso: total function obligation in 'TiposSAT' (<PROJECT_ROOT>/model/TiposSAT.vdmpp) at line 89:7
+(forall a:Aviso! &
+  is_(inv_Aviso(a), bool))
+
+Proof Obligation 80: (Unproved)
+Aviso: invariant satisfiability obligation in 'TiposSAT' (<PROJECT_ROOT>/model/TiposSAT.vdmpp) at line 89:7
+exists a : Aviso & ((((a.estado) = <Enviada>) => ((a.intentos) > 0)) and ((a.incidencia) => ((a.intentos) >= 3)))
+
+Analysed 5 classes in 0.652 secs. No POG errors
+Bye
